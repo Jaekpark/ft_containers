@@ -12,13 +12,15 @@ Summary:
 
 ## Contents
 
-1. 과제의 목표 (Objectives) 
-2. General rules
-3. Mandatory part
-   1. Requirements
-   2. Testing 
-4. Bonus part
-5. Submission and peer-evaluation
+- [ft_containers](#ft_containers)
+	- [Contents](#contents)
+	- [1. Objectives](#1-objectives)
+	- [2. 기본 규칙 (Geneal rules)](#2-기본-규칙-geneal-rules)
+	- [3. 필수 구현 파트 (Mandatory part)](#3-필수-구현-파트-mandatory-part)
+		- [3.1 요구 사항 (Requirements)](#31-요구-사항-requirements)
+		- [3.2 테스트 (Testing)](#32-테스트-testing)
+	- [4. 보너스 파트 (Bonus part)](#4-보너스-파트-bonus-part)
+	- [5. 제출 및 동료 평가 (Submission and peer-evaluation)](#5-제출-및-동료-평가-submission-and-peer-evaluation)
 
 ## 1. Objectives
 
@@ -202,3 +204,11 @@ You will get extra points if you implement one last container:
 > The bonus part will only be assessed if the mandatory part is PERFECT. Perfect means the mandatory part has been integrally done and works without malfunctioning. If you have not passed ALL the mandatory requirements, your bonus part will not be evaluated at all.
 
 > 보너스 파트는 기본 파트의 구현이 완벽한 경우에만 평가를 진행 할 수 있습니다. 완벽의 의미는 필수 구현 파트의 모든 부분 (stack을 포함한)이 제출 되었고, 오작동 없이 잘 동작한 경우를 말합니다. 만약 필수 구현 파트에서 요구하는 부분에서 통과하지 못한 경우, 보너스 파트는 평가를 진행 할 수 없습니다.
+
+## 5. 제출 및 동료 평가 (Submission and peer-evaluation)
+
+Turn in your assignment in your Git repository as usual. Only the work inside your
+repository will be evaluated during the defense. Don’t hesitate to double check the
+names of your files to ensure they are correct.
+
+항상 그랬듯이 프로젝트 깃 리포지토리에 과제를 제출합시다. 평가는 해당 깃 리포지토리 안에서만 진행됩니다. 올바른 파일이름으로 제출했는지 꼭 다시 한번 확인 해야합니다.
