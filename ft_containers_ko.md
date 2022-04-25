@@ -54,11 +54,11 @@ You are not coding in C anymore. Time to C++! Therefore:
 
 + You are allowed to use everything from the `standard library`. Thus, instead of sticking to what you already know, it would be smart to use as much as possible the `C -ish versions` of the C functions you are used to.
 
-+ However, you can’t use any other external library. It means `C++11` (and derived forms) and Boost libraries are forbidden. The following functions are forbidden too: *printf(), *alloc() and free(). If you use them, your grade will be 0 and that’s it.
++ However, you can’t use any other external library. It means `C++11` (and derived forms) and Boost libraries are **forbidden**. The following functions are forbidden too: *printf(), *alloc() and free(). If you use them, your grade will be 0 and that’s it.
 
 **허용/금지**
 + C++ `표준 라이브러리`에 포함되어있는 함수는 모두 사용 할 수 있습니다. 따라서 우리가 기존 `C`에서 사용했던 함수들을 사용하기 보다는 같은 기능을 하는 `C++ 버전`의 함수를 사용하는 것이 좋습니다.
-+ 그러나 `C++11` 에서 새롭게 제공하는 함수들이나 `Boost 라이브러리`와 같은 외부 라이브러리는 사용할 수 없습니다. 또한 `C`에서 사용되는 `*printf()`, `*alloc()`, `free()` 함수도 사용을 금지합니다. 만약 이 규칙을 어길 경우 평가 점수는 0점입니다.
++ 그러나 `C++11` 에서 새롭게 제공하는 함수들이나 `Boost 라이브러리`와 같은 외부 라이브러리는 **사용할 수 없습니다**. 또한 `C`에서 사용되는 `*printf()`, `*alloc()`, `free()` 함수도 사용을 금지합니다. 만약 이 규칙을 어길 경우 평가 점수는 0점입니다.
 
 
 **A few design requirements**
@@ -146,7 +146,7 @@ You also have to implement:
 ### 3.1 요구 사항 (Requirements)
 + The namespace must be `ft`.
 + Each inner data structure used in your containers must be logical and justified (this means using a `simple array` for `map` is not ok).
-+ You cannot implement `more public functions` than the ones offered in the standard containers. Everything else must be `private` or `protected`. Each public function or variable must be justified.
++ You **cannot** implement `more public functions` than the ones offered in the standard containers. Everything else must be `private` or `protected`. Each public function or variable must be justified.
 + All the member functions, non-member functions and `overloads` of the standard
 containers are expected.
 + You must follow the `original naming`. Take care of details.
