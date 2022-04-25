@@ -18,3 +18,15 @@ Re-implement
 + `std::pair`
 + `std::make_pair`
 
+## What is STL?
+
+The `Standard Template Library (STL)` is a set of `C++ template classes` to privde common programming data structures and fuctions such as `list`, `stack`, `vector`, etc [^STL]
+
+`STL` has four componets
+
++ Algorithms
++ Containers
++ Functions(Functor)
++ Iterators
+
+### Algorithms
