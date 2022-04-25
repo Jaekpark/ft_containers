@@ -20,7 +20,7 @@ Re-implement
 
 ## What is STL?
 
-The `Standard Template Library (STL)` is a set of `C++ template classes` to privde common programming data structures and fuctions such as `list`, `stack`, `vector`, etc [^STL]
+The `Standard Template Library (STL)` is a set of `C++ template classes` to privde common programming data structures and fuctions such as `list`, `stack`, `vector`, etc <sup>[1]
 
 `STL` has four componets
 
@@ -30,3 +30,5 @@ The `Standard Template Library (STL)` is a set of `C++ template classes` to priv
 + Iterators
 
 ### Algorithms
+
+<a nmae="what-is-stl">1</a>: ["The C++ Standard Template Library (STL)", GeeksforGeeks, last modified Nov 19, 2021, accessed Apr 25, 2022, "https://www.geeksforgeeks.org/the-c-standard-template-library-stl/?ref=lbp"](https://www.geeksforgeeks.org/the-c-standard-template-library-stl/?ref=lbp)
