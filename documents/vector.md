@@ -44,7 +44,7 @@ class Vector;
 
 	메모리 할당을 수행하는 객체입니다. 기본적으로 `std::allocator<T>` 객체가 정의되어 있고, 벡터 클래스 내부에서 `allocator_type`으로 `재정의(typedef)` 됩니다.
 
-## 멤버 타입(Member types)
+## 멤버 타입(Member types) <sup>[1][2]
 
 ```c++
 // Vector Synopsis
@@ -104,3 +104,5 @@ public:
 ## Reference
 
 <a name="vector">[1]</a>: ["std::vector", cppreference, last modified 21 Mar, 2022, accessed Apr 26, 2022, "https://en.cppreference.com/w/cpp/container/vector"](https://en.cppreference.com/w/cpp/container/vector)
+
+<a name="vector">[2]</a>: ["Vector class", Microsoft Docs, last modified 08 Apr, 2021, accessed Apr 26, 2022, "https://docs.microsoft.com/en-us/cpp/standard-library/vector-class?view=msvc-170"](https://docs.microsoft.com/en-us/cpp/standard-library/vector-class?view=msvc-170)
