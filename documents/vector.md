@@ -1,16 +1,37 @@
 # Vector
 
 > `std::vector` is a `sequence` container that encapsulates `dynamic size` arrays <sup>[1]
+### `std::vector`, 벡터 컨테이너란?
 
-[cppreference](https:://cppreference.com) 에서 벡터를 정의한 구문을 그대로 인용하자면
+[cppreference](https:://cppreference.com)에서 벡터를 정의한 구문을 그대로 인용하자면
 **벡터**란 `캡슐화(encapsulate)`된 `가변 길이(dynamic size)` 배열 형태의 `시퀀스 컨테이너` 입니다.
 
-벡터는 일반 배열처럼 원소를 순차적으로 보관한다는 점에서 `시퀀스 컨테이너`로 분류됩니다. 다만 일반 배열과 다른 점은 `가변 길이 배열(dynamic size array)`의 특성을갖는다는 점입니다. 
+벡터는 일반 배열처럼 원소를 순차적으로 보관한다는 점에서 `시퀀스 컨테이너`로 분류됩니다. 다만 일반 배열과 다른 것은 `가변 길이 배열(dynamic size array)`이라는 것입니다. 
 
+```c++
+#define SIZE 5
 
+int array[SIZE];
 
+int *array_ptr = malloc(sizeof(int) * SIZE);
+int *array_ptr = new int[SIZE];
+```
 
-	정의
+위와 같이 선언된 일반 배열은 처음 할당된 `SIZE` 만큼의 원소들만 가질 수 있습니다. 하지만 `벡터 컨테이너`는 원소가 추가 혹은 삭제됨에 따라 자동으로 메모리를 `재할당`해 크기를 `동적(dynamic)`으로 변경 해줍니다.
+
++ 벡터 컨테이너의 속성
+
+	속성|내용
+	--|--
+	sequence | 벡터의 원소들은 선형적인 순서로 정렬됩니다. 각 원소들은 이 순서상 자신의 위치에 따라 접근 될 수 있습니다.
+	dynamic | 원소가 추가 혹은 삭제됨에 따라 동적으로 메모리가 관리되고, 포인터, 반복자를 통해 각 원소에 접근할 수 있습니다. 또한 컨테이너의 마지막 위치에서 원소를 빠르게 추가, 제거 할 수 있습니다.
+	Allocator | 벡터는 `std::allocator` 객체를 사용해 필요한 메모리를 동적으로 관리합니다.
+### 정의
+
+```c++
+template < class T, class Allocator = std::allocator<T> >
+class Vector;
+```
 
 	개념
 
