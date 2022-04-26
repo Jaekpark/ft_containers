@@ -49,14 +49,14 @@ class Vector;
 | --------------- | ----------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
 | value_type      | `템플릿 파라미터 T`, 벡터에 저장된 데이터 형식을 나타내는 멤버 변수 입니다.                     | -                                                                      |
 | allocator_type  | `템플릿 파라미터 Allocator`, 벡터 클래스에 메모리를 관리하는 클래스를 나타내는 멤버 변수입니다. | 기본은 표준 라이브러리의 `std::allocator` 클래스로 설정 되어 있습니다. |
-| reference       | 벡터에 저장된 원소의 참조를 제공하기 위한 멤버 변수입니다.                                      | `std::allocator::value_type&`                                          |
-| const_reference | 벡터에 저장된 원소의 참조자를 `const`로 제공하기 위한 멤버 변수 입니다.                         | `std::allocator::const value_type&`                                    |
-| pointer         | 벡터의 원소에 대한 포인터를 제공하기 위한 멤버 변수 입니다.                                     | `std::allocator::value_type*`                                          |
-| const_pointer   | 벡터의 원소에 대한 `const` 포인터를 제공하기 위한 멤버 변수 입니다.                             | `std::allocator::const value_type*`                                    |
+| reference       | 벡터에 저장된 원소의 `참조`를 제공하기 위한 멤버 변수입니다.                                      | `std::allocator::value_type&`                                          |
+| const_reference | 벡터에 저장된 원소의 `참조자`를 `const`로 제공하기 위한 멤버 변수 입니다.                         | `std::allocator::const value_type&`                                    |
+| pointer         | 벡터의 원소에 대한 `포인터`를 제공하기 위한 멤버 변수 입니다.                                     | `std::allocator::value_type*`                                          |
+| const_pointer   | 벡터의 원소에 대한 `const 포인터`를 제공하기 위한 멤버 변수 입니다.                             | `std::allocator::const value_type*`                                    |
 | const_iterator  | `value_type`의 원소에 접근하기 위한 `임의 접근 반복자(Ramdom Access Iterator)` 입니다           | -                                                                      |
 | const_iterator  | `const value_type`의 원소에 접근하기 위한 `임의 접근 반복자(Ramdom Access Iterator)`입니다.     | -                                                                      |
-| difference_type | 벡터 내의 두 원소간 주소 차이를 제공하기 위한 멤버 변수입니다.                                  | 보통 `ptrdiff_t`와 같습니다.                                           |
-| size_type       | 벡터 원소의 수를 표현하는 형식입니다.                                                           | 보통 `size_t`와 같습니다.                                              |
+| difference_type | 벡터 내의 두 원소간 `주소 차이`를 제공하기 위한 멤버 변수입니다.                                  | 보통 `ptrdiff_t`와 같습니다.                                           |
+| size_type       | 벡터 `원소의 수`를 표현하는 형식입니다.                                                           | 보통 `size_t`와 같습니다.                                              |
 
 
 	개념
