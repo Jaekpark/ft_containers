@@ -6,7 +6,7 @@
 [cppreference](https:://cppreference.com)에서 벡터를 정의한 구문을 그대로 인용하자면
 **벡터**란 `캡슐화(encapsulate)`된 `가변 길이(dynamic size)` 배열 형태의 `시퀀스 컨테이너` 입니다.
 
-벡터는 일반 배열처럼 원소를 순차적으로 보관한다는 점에서 `시퀀스 컨테이너`로 분류됩니다. 다만 일반 배열과 다른 것은 `가변 길이 배열(dynamic size array)`이라는 것입니다. 
+벡터는 일반 배열처럼 원소를 순차적으로 보관한다는 점에서 `시퀀스 컨테이너`로 분류됩니다. 다만 일반 배열과 다른 것은 `가변 길이 배열(dynamic size array)`이라는 점입니다. 
 
 ```c++
 #define SIZE 5
@@ -33,6 +33,16 @@ template < class T, class Allocator = std::allocator<T> >
 class Vector;
 ```
 
++ `T`
+
+	벡터 컨테이너 원소의 타입으로 사용되는 `템플릿 파라미터`입니다.
+	벡터 클래스 내부에서 `value_type`으로 `재정의(typedef)` 됩니다.
+
++ `Allocator`
+
+	메모리 할당을 수행하는 객체입니다. 기본적으로 `std::allocator<T>` 객체가 정의되어 있고, 벡터 클래스 내부에서 `allocator_type`으로 `재정의(typedef)` 됩니다.
+
+	
 	개념
 
 	컨테이너 속성
