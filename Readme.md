@@ -20,7 +20,7 @@ Re-implement
 
 # What is STL? <sup>[1]
 
-> The `Standard Template Library (STL)` is a set of `C++ template classes` to privde common programming data structures and fuctions such as `list`, `stack`, `vector`, etc <sup>[1]
+> The `Standard Template Library (STL)` is a set of `C++ template classes` to provide common programming data structures and fuctions such as `list`, `stack`, `vector`, etc <sup>[1]
 
 > `STL` has four components
 > + [Algorithms](#algorithms)
@@ -32,9 +32,9 @@ This project is designed to implement a few containers, functions, and iterators
 
 ## Algorithms
 
-> The header algorithm defines a collection of functions especially designed to be used on ranges of elements. They act on containers and privide means for various operations for the contents of the containers. <sup>[1]
+> The header algorithm defines a collection of functions especially designed to be used on ranges of elements. They act on containers and provide means for various operations for the contents of the containers. <sup>[1]
 
-> Algorithims
+> Algorithms
 >	+ Sorting
 > 	+ Searching
 > 	+ partition
@@ -46,11 +46,11 @@ This project is designed to implement a few containers, functions, and iterators
 
 | sequence containers                                                     | container adaptors                                       | associative containers                                                               | unordered associative containers`(c++11)`                        |
 | ----------------------------------------------------------------------- | -------------------------------------------------------- | ------------------------------------------------------------------------------------ | ---------------------------------------------------------------- |
-| implement data structures whici can be accessed in a sequential manner. | provide a different interface for sequential containers. | implement sorted data structures that can be quickly searched(O(long n) complexity). | implement unordered data structures that can be quickly searched |
+| implement data structures which can be accessed in a sequential manner. | provide a different interface for sequential containers. | implement sorted data structures that can be quickly searched(O(long n) complexity). | implement unordered data structures that can be quickly searched |
 | vector                                                                  | queue                                                    | set                                                                                  | unordered_set `(c++11)`                                          |
-| list                                                                    | priority queue                                           | mutiset                                                                              | unordered_mutiset `(c++11)`                                      |
+| list                                                                    | priority queue                                           | multiset                                                                              | unordered_multiset `(c++11)`                                      |
 | deque                                                                   | stack                                                    | map                                                                                  | unordered_map `(c++11)`                                          |
-| arrays`(c++11)`                                                         | multimap                                                 |                                                                                      | unordered_mutimap `(c++11)`                                      |
+| arrays`(c++11)`                                                         | multimap                                                 |                                                                                      | unordered_multimap `(c++11)`                                      |
 | forward lists`(c++11)`                                                  |
 
 > Flowchart of Adaptive containers and Unordered Containers <sup>[1]
