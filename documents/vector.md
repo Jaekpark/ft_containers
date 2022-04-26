@@ -93,6 +93,21 @@ public:
 
 + 생성자 (Constructor)
 
+```c++
+// 기본 생성자 (default constructor)
+
+explicit vector(const allocator type& alloc = allocator_type());
+
+// 생성자 오버로딩
+explicit vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type());
+
+template <class InputIterator>
+	vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());
+
+// 복사 생성자
+explicit vector(const vector& x);
+```
+
 + 소멸자 (Destructor)
 
 + 복사 대입 연산자 (Copy Assignment Operator)
