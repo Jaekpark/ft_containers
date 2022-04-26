@@ -21,6 +21,7 @@
 		"memory_resource": "cpp",
 		"functional": "cpp",
 		"locale": "cpp",
-		"string_view": "cpp"
+		"string_view": "cpp",
+		"memory": "cpp"
 	}
 }
