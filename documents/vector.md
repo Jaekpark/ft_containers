@@ -26,10 +26,12 @@ int *array_ptr = new int[SIZE];
  | sequence  | 벡터의 원소들은 선형적인 순서로 정렬됩니다. 각 원소들은 이 순서상 자신의 위치에 따라 접근 될 수 있습니다.                                                                               |
  | dynamic   | 원소가 추가 혹은 삭제됨에 따라 동적으로 메모리가 관리되고, 포인터, 반복자를 통해 각 원소에 접근할 수 있습니다. 또한 컨테이너의 마지막 위치에서 원소를 빠르게 추가, 제거 할 수 있습니다. |
  | Allocator | 벡터는 `std::allocator` 객체를 사용해 필요한 메모리를 동적으로 관리합니다.                                                                                                              |
-### `std::vector` 컨테이너 정의
+## `std::vector` 컨테이너 정의
+
+벡터 컨테이너는 아래와 같은 클래스 템플릿으로 정의되어 있씁니다.
 
 ```c++
-template < class T, class Allocator = std::allocator<T> >
+template < class T, class Allocator = allocator<T> >
 class Vector;
 ```
 
@@ -42,7 +44,7 @@ class Vector;
 
 	메모리 할당을 수행하는 객체입니다. 기본적으로 `std::allocator<T>` 객체가 정의되어 있고, 벡터 클래스 내부에서 `allocator_type`으로 `재정의(typedef)` 됩니다.
 
-### 멤버 타입(Member types)
+## 멤버 타입(Member types)
 
 ```c++
 // Vector Synopsis
@@ -85,16 +87,6 @@ public:
 | difference_type        | 벡터 내의 두 원소간 `주소 차이`를 제공하기 위한 멤버 변수입니다.                                  | 보통 `ptrdiff_t`와 같습니다.                                           |
 | size_type              | 벡터 `원소의 수`를 표현하는 형식입니다.                                                           | 보통 `size_t`와 같습니다.                                              |
 
-
-	개념
-
-	컨테이너 속성
-
-	템플릿 파라미터
-
-	멤버 타입
-
-	멤버 함수
 		OCF
 			constructor
 			destructor
