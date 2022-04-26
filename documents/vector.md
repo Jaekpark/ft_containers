@@ -87,19 +87,6 @@ public:
 | difference_type        | 벡터 내의 두 원소간 `주소 차이`를 제공하기 위한 멤버 변수입니다.                                  | 보통 `ptrdiff_t`와 같습니다.                                           |
 | size_type              | 벡터 `원소의 수`를 표현하는 형식입니다.                                                           | 보통 `size_t`와 같습니다.                                              |
 
-		OCF
-			constructor
-			destructor
-			operator=
-
-		iterator
-		capacity
-		element access
-		modifiers
-		allocator
-		non-member function overloads
-
-
 ## 멤버 함수(Member Function)
 
 ### OCF(Orthodox Canoical Form)
