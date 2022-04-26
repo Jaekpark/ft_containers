@@ -20,7 +20,7 @@ Re-implement
 
 # What is STL? <sup>[1]
 
-> The `Standard Template Library (STL)` is a set of `C++ template classes` to provide common programming data structures and fuctions such as `list`, `stack`, `vector`, etc <sup>[1]
+> The `Standard Template Library (STL)` is a set of `C++ template classes` to provide common programming data structures and functions such as `list`, `stack`, `vector`, etc <sup>[1]
 
 > `STL` has four components
 > + [Algorithms](#algorithms)
