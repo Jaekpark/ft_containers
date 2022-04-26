@@ -1,0 +1,33 @@
+# Vector
+> `std::vector` is a `sequence` container that encapsulates `dynamic size` arrays <sup>[1]
+
+벡터는 캡슐화된 가변 길이(dynamic size) 배열 형태의 시퀀스 컨테이너 입니다.
+
+	정의
+
+	개념
+
+	컨테이너 속성
+
+	템플릿 파라미터
+
+	멤버 타입
+
+	멤버 함수
+		OCF
+			constructor
+			destructor
+			operator=
+
+		iterator
+		capacity
+		element access
+		modifiers
+		allocator
+		non-member function overloads
+
+
+
+## Reference
+
+<a name="vector">1</a>: ["std::vector", cppreference, last modified 21 Mar, 2022, accessed Apr 26, 2022, "https://en.cppreference.com/w/cpp/container/vector"](https://en.cppreference.com/w/cpp/container/vector)
