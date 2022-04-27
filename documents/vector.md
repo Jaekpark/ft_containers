@@ -131,7 +131,7 @@ public:
 
 	 **Prototype**
 	```c++
-	iterator		begin();
+	iterator	begin();
 	const_iterator	begin() const;
 	```
 
@@ -161,7 +161,7 @@ public:
 
 	 **Prototype**
 	```c++
-	iterator		end();
+	iterator	end();
 	const_iterator	end() const;
 	```
 
@@ -208,7 +208,7 @@ public:
 
 	**Prototype**
 	```c++
-	reverse_iterator		rbegin();
+	reverse_iterator	rbegin();
 	const_reverse_iterator	rbegin() const;
 	```
 	
@@ -239,7 +239,7 @@ public:
 
 	**Prototype**
 	```c++
-	reverse_iterator		rend();
+	reverse_iterator	rend();
 	const_reverse_iterator	rend() const;
 	```
 
