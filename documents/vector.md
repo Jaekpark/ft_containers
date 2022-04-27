@@ -194,9 +194,65 @@ public:
 
 + rbegin : 마지막 원소를 가리키는 `역방향 반복자(reverse iterator)`를 반환
 	
+	컨테이너의 마지막 원소를 가리키는 `역방향 반복자`를 반환합니다. 역방향 반복자는 컨테이너를 마지막 원소부터 첫 원소까지 역방향으로 탐색하기 위한 경우 사용합니다.
+	4개의 원소를 가진 컨테이너가 있고 각 원소의 위치를 `[first, second, third, last]`로 표현한다면 기존 `begin` 함수에서 반환된 `반복자`같은 경우 `first`를 가리키고 `++`연산자를 사용할 경우  `second`로 이동합니다. 하지만 `rbegin`은 `last`를 반환하고 `rbegin - 2` 연산을 통해 `second`로 이동 할 수 있습니다.
+
+	```c++
+	#include <iostream>
+    #include <vector>
+
+    int main(void) {
+      	std::vector<int> a;
+
+    	a.push_back(1);
+    	a.push_back(2);
+    	a.push_back(3);
+    	a.push_back(4);
+
+    	std::vector<int>::reverse_iterator rbegin = a.rbegin();
+
+    	std::cout << *rbegin << std::endl;
+		// 4
+		return 0;
+    }
+	```
 
 + rend : 첫 원소의 직전 위치를 가리키는 `역방향 반복자`를 반환
 
+	컨테이너 첫 원소의 직전 위치를 가리키는 `역방향 반복자`를 반환합니다. `rbegin`과 함께 컨테이너를 역순으로 순회하기 위해 사용 할 수 있습니다. `end` 함수가 마지막 원소의 다음 위치를 반환해 `placeholder` 역할을 수행한다면, `rbegin`은 반대로 첫 원소 직전 위치를 가리키는 `역방향 반복자` 반환을 통해 해당 역할을 수행합니다. `--`연산을 통해 마지막 원소에 가까운 위치로 접근할 수 있습니다.
+
+	```c++
+    #include <iostream>
+    #include <vector>
+
+    int main(void) {
+    	std::vector<int> a;
+
+    	a.push_back(1);
+    	a.push_back(2);
+    	a.push_back(3);
+    	a.push_back(4);
+
+    	std::vector<int>::reverse_iterator rbegin = a.rbegin();
+    	std::vector<int>::reverse_iterator rend = a.rend();
+
+    	std::cout << *rbegin << std::endl; // 4
+    	std::cout << *rend << std::endl; // 0 (past-end-last)
+
+    	std::cout << *(++rbegin) << std::endl; // 3
+    	std::cout << *(--rend) << std::endl; // 1
+
+		--rbegin; 
+		++rend;
+
+    	while (rbegin != rend) {
+    		std::cout << *rbegin << std::endl;
+    		rbegin++;
+    	} // 4 3 2 1
+
+    	return 0;
+	}
+	```
 ### Capacity
 
 + size

@@ -4,23 +4,27 @@
 int main(void) {
 	std::vector<int> a;
 
-	a.push_back(11);
-	a.push_back(12);
-	a.push_back(13);
+	a.push_back(1);
+	a.push_back(2);
+	a.push_back(3);
+	a.push_back(4);
 
-	std::vector<int>::iterator begin = a.begin();
-	std::vector<int>::iterator end = a.end();
+	std::vector<int>::reverse_iterator rbegin = a.rbegin();
+	std::vector<int>::reverse_iterator rend = a.rend();
+
+	std::cout << *rbegin << std::endl;
+	std::cout << *rend << std::endl;
+
+	std::cout << *(++rbegin) << std::endl;
+	std::cout << *(--rend) << std::endl; 
+
+	--rbegin;
+	++rend;
 	
-	std::cout << *begin << std::endl;
-	std::cout << *end << std::endl;
-
-	while (begin != end) {
-		std::cout << *begin << std::endl;
-		begin++;
+	while (rbegin != rend) {
+		std::cout << *rbegin << std::endl;
+		rbegin++;
 	}
-	
-	std::cout << *end << std::endl;
-	std::cout << *(--end) << std::endl;
 
 	return 0;
 }
