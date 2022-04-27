@@ -28,7 +28,7 @@ int *array_ptr = new int[SIZE];
  | Allocator | 벡터는 `std::allocator` 객체를 사용해 필요한 메모리를 동적으로 관리합니다.                                                                                                              |
 ## `std::vector` 컨테이너 정의
 
-벡터 컨테이너는 아래와 같은 클래스 템플릿으로 정의되어 있씁니다.
+벡터 컨테이너는 아래와 같은 클래스 템플릿으로 정의되어 있습니다.
 
 ```c++
 template < class T, class Allocator = allocator<T> >
@@ -192,9 +192,10 @@ public:
 
 ![rbegin-rend](https://upload.cppreference.com/mwiki/images/3/39/range-rbegin-rend.svg)
 
-+ rbegin : 마지막 원소를 가리키는 `역방향 반복자(reverse iterator)`를 반환합니다.
-  + 
-+ rend : `
++ rbegin : 마지막 원소를 가리키는 `역방향 반복자(reverse iterator)`를 반환
+	
+
++ rend : 첫 원소의 직전 위치를 가리키는 `역방향 반복자`를 반환
 
 ### Capacity
 
