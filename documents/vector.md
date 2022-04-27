@@ -93,29 +93,66 @@ public:
 
 + 생성자 (Constructor)
 
-```c++
-// 기본 생성자 (default constructor)
+	```c++
+    // 기본 생성자 (default constructor)
 
-explicit vector(const allocator type& alloc = allocator_type());
+    explicit vector(const allocator type& alloc = allocator_type());
 
-// 생성자 오버로딩
-explicit vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type());
+    // 오버로딩
+    // size n 만큼 val로 초기화 생성
+    explicit vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type());
 
-template <class InputIterator>
-	vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());
+    // first ~ last 까지 복사 생성
+    template <class InputIterator>
+  	explicit vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());
 
-// 복사 생성자
-explicit vector(const vector& x);
-```
+	// 복사 생성자
+	explicit vector(const vector& x);
+	```
 
 + 소멸자 (Destructor)
+  
+	```c++
+	~vector(void)
+	```
 
 + 복사 대입 연산자 (Copy Assignment Operator)
 
+	```c++
+	vector& operator=(const vector& x);
+	```
+
 ### Iterator
 
-+ begin
-+ end
+![cppreference](https://upload.cppreference.com/mwiki/images/1/1b/range-begin-end.svg)
+
++ `begin` : 컨테이너의 첫 번째 원소를 가리키는 `반복자(iterator)` 반환
+
+	벡터의 첫 원소를 가리키는 `임의 접근 반복자(Random Access Iterator)` 반환합니다. `const`로 선언된 벡터의 경우에는 `const iterator`를 반환합니다. `Element access`의 `front`와 첫 원소의 위치를 얻을 수 있다는 점에서 같지만, `front`는 첫 원소의 `참조자(reference)`를 반환하고, `begin` 함수는 `반복자(iterator)`를 반환 한다는 점에서 다릅니다.
+
+	`비어있는(Empty)` 컨테이너의 경우에 `begin`으로 부터 반환 된 `반복자`를 `역참조(dereference)`할 경우 에러가 발생하므로 주의해야합니다.
+
+	```c++
+	#include <iostream>
+	#include <vector>
+
+	int main(void) {
+		std::vector<int> a(0);
+		std::vector<int>::iterator iter_a = a.begin();
+		std::cout << *iter_a << std::endl;
+		// undefine behavior, segmentation fault
+
+		std::vector<int> b(1);
+		std::vector<int>::iterator iter_b = b.begin();
+		std::cout << *iter_b << std::endl;
+		// 0
+
+		return 0;
+	}
+	```
++ `end` : 마지막 원소 바로 다음(past-the-end)을 가리키는 `반복자`를 반환합니다.
+
+
 + rbegin
 + rend
 
