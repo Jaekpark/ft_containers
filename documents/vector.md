@@ -279,7 +279,32 @@ public:
 	```
 ### Capacity
 
-+ size
++ size : 컨테이너 `원소 개수` 반환 함수
+
+	**Prototype**
+	```c++
+	size_type	size() const;
+	```	
+	컨테이너에 존재 하는 원소의 개수를 반환하는 함수 입니다. 
+	`std::distance(container.begin(), container.end())` 즉, 컨테이너의 `begin iterator`와 `end iterator` 사이 거리와 같습니다.
+
+	```c++
+	#include <iostream>
+    #include <vector>
+
+    int main(void) {
+    	std::vector<int> a;
+
+    	a.push_back(1);
+    	a.push_back(2);
+
+    	std::cout << a.size() << std::endl;
+		std::cout << std::distance(a.begin(), a.end()) << std::endl;
+    	// 2, 2
+    	return 0;
+    }
+	```
+
 + max_size
 + resize
 + capacity
