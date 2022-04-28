@@ -441,7 +441,7 @@ public:
 	void	reserve(size_type n);
 	```
 
-	컨테이너가 최소한 `n`만큼의 용량을 가질 수 있도록 할당하는 함수입니다. `n`이 현재 용량 보다 작다면, `n`만큼의 메모리를 재할당하고, 그렇지 않다면 아무 일도 수행 하지 않습니다. 즉, 현재 용량 혹은 원소 개수 보다 작은 값으로 실행 할 경우에는 아무런 동작도 하지 않습니다.
+	컨테이너가 최소한 `n`만큼의 `용량(capacity)`을 가질 수 있도록 할당하는 함수입니다. `n`이 현재 용량 보다 작다면, `n`만큼의 메모리를 `재할당하고`, 그렇지 않다면 아무 일도 수행 하지 않습니다. 즉, 현재 용량 혹은 원소 개수 보다 작은 값으로 실행 할 경우에는 아무런 동작도 하지 않습니다.
 
 	```c++
 	#include <iostream>
@@ -464,8 +464,67 @@ public:
 	```
 
 ### Element access
-+ operator[]
+
++ `operator[]` : 원소의 참조자를 반환
+
+	**Prototype**
+	```c++
+	reference	operator[](size_type n);
+	const_reference	operator[](size_type n);
+	```
+
+	컨테이너의 첫 원소부터 `n` 만큼 `떨어진(offset)` 위치의 `참조자(reference)`를 반환합니다. `const` 타입의 컨테이너의 경우 `const_reference`로 반환됩니다. 
+	
+	여기서 `n`은 `배열의 인덱스`와 동일하게 첫 번째 원소는 `0`, 마지막 원소는 `size - 1` 입니다. 비슷한 동작을 하는 함수로 `at`이 있습니다. 다만 `at`과 다른 점은 `at`은 잘못된 위치에 접근하는 경우 `out_of_range` 예외를 발생시키지만 `인덱스 연산자`는 예외를 발생시키지 않는다는 것입니다.
+
+	또 다른 특징으로는 `인덱스 연산자`는 `추가 원소를 생성 할 수 없다`는 점입니다. 즉 컨테이너의 `생성자`나, `멤버 함수`로 입력되어있던 컨테이너의 값`(0 ~ (size - 1))`을 수정하는 것은 가능하지만, 설사 `capacity`가 충분하더라도 비어있는 공간에 접근하여 값을 변경`(메모리 공간에 대한 참조자이기 때문에 접근과 수정은 가능)`하더라도 컨테이너의 원소로 포함하지 않습니다.
+
+	이 점을 보면 컨테이너의 범위는 컨테이너 클래스 멤벼 변수로 정의된 `반복자(iterator)`가 가리키는 공간으로 결정되는 것을 알 수 있습니다. 따라서 원소가 `'1' (container[0])`, `'2' (container[1])` 두 개인 컨테이너의 `container[2]`는 `container.end()`로 받는 반복자와 같습니다.
+
+	```c++
+	#include <iostream>
+    #include <vector>
+
+    int main(void) {
+    	std::vector<int> a;
+
+    	a.push_back(10);
+    	a.push_back(11);
+		// a = [10, 11]
+    	std::cout << "a.size : " << a.size() << ", a.capacity : " << a.capacity() << std::endl; // a.size : 2, a.capacity : 2
+    	std::cout << a[0] << std::endl; // 10
+    	std::cout << a[1] << std::endl; // 11
+    	std::cout << a[2] << std::endl; // no element, 0
+    	std::cout << "a.size : " << a.size() << ", a.capacity : " << a.capacity() << std::endl; // a.size : 2, a.capacity : 2, 존재하지 않는 원소에 접근은 가능하지만, 접근 후 수정만으로 새로운 원소로 포함이 되지는 않습니다.
+
+    	a.reserve(3); // capacity 2 -> 3
+    	a[0] = 1; // 10 -> 1
+    	a[1] = 2; // 11 -> 2
+    	a[2] = 3; // no element, 0 -> 3
+    	std::cout << "a.size : " << a.size() << ", a.capacity : " << a.capacity() << std::endl; // a.size : 2, a.capacity : 3
+    	std::cout << a[0] << std::endl; // 1
+    	std::cout << a[1] << std::endl; // 2
+    	std::cout << a[2] << std::endl; // 3, but it's not en element of 'a'.(actually `a.end()` iterator)
+
+    	std::vector<int>::iterator begin = a.begin();
+    	std::vector<int>::iterator end = a.end();
+
+    	while (begin != end) {
+    		std::cout << *begin << std::endl;
+    		begin++;
+    	} // 1, 2
+		std::cout << *end << std::endl; // 3
+    	return 0;
+    }
+	```
+
 + at
++ 
+	**Prototype**
+	```c++
+	reference	at(sizt_type n);
+	const_reference	at(size_type n);
+	```
 + front
 + back
 
