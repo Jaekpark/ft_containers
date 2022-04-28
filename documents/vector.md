@@ -609,7 +609,7 @@ public:
 	```
 
 ### Modifiers
-+ assign : 컨테이너 값을 `대입(assign)`
++ `assign` : 컨테이너 값을 `할당(assign)`
   
 	**Prototype**
 	```c++
@@ -620,7 +620,7 @@ public:
 	void	assign(size_type n, const value& val);
 	```
 
-	컨테이너에 값을 `대입(assign)`하는 함수입니다. 즉 주어지는 조건에 따라 원래 컨테이너에 들어있던 내용을 삭제하고, 새 원소를 할당 및 교체 합니다. 이 때 필요에 따라 컨테이너의 크기를 재할당합니다. `assign` 함수는 두 가지 형태로 `오버로딩(overloading)`되어 있습니다.
+	컨테이너에 값을 `할당(assign)`하는 함수입니다. 즉 주어지는 조건에 따라 원래 컨테이너에 들어있던 내용을 삭제하고, 새 원소를 할당 및 교체 합니다. 이 때 필요에 따라 컨테이너의 크기를 재할당합니다. `assign` 함수는 두 가지 형태로 `오버로딩(overloading)`되어 있습니다.
 
 	1. `입력 반복자(Input Iterator)`를 템플릿 매개변수로 받는 함수 템플릿
 
@@ -695,7 +695,7 @@ public:
     }
 	```
 
-+ pop_back : 마지막 원소를 제거
++ `pop_back` : 마지막 원소를 제거
 
 	**Prototype**
 	```c++
