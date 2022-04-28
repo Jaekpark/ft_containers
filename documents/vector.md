@@ -465,12 +465,12 @@ public:
 
 ### Element access
 
-+ `operator[]` : 원소의 참조자를 반환
++ `operator[]` : 원소의 `참조자` 반환
 
 	**Prototype**
 	```c++
 	reference	operator[](size_type n);
-	const_reference	operator[](size_type n);
+	const_reference	operator[](size_type n) const;
 	```
 
 	컨테이너의 첫 원소부터 `n` 만큼 `떨어진(offset)` 위치의 `참조자(reference)`를 반환합니다. `const` 타입의 컨테이너의 경우 `const_reference`로 반환됩니다. 
@@ -518,15 +518,15 @@ public:
     }
 	```
 
-+ at : 원소의 참조자 반환
++ `at` : 원소의 `참조자` 반환
 
 	**Prototype**
 	```c++
 	reference	at(sizt_type n);
-	const_reference	at(size_type n);
+	const_reference	at(size_type n) const;
 	```
 
-	컨테이너의 첫 번째 원소로부터 `n 만큼 떨어진(offset)`에 있는 원소의 참조자를 반환합니다. `인덱스 연산자(operator[])`와 다른 점은 컨테이너 원소 범위에서 벗어난 값이 입력되는 경우 `out_of_range` 예외를 발생시키는 것입니다.
+	컨테이너의 첫 번째 원소로부터 `n만큼 떨어진(offset)` 위치에 있는 원소의 참조자를 반환합니다. `인덱스 연산자(operator[])`와 다른 점은 컨테이너 원소 범위에서 벗어난 값이 입력되는 경우 `out_of_range` 예외를 발생시키는 것입니다.
 
 	```c++
     #include <iostream>
@@ -550,8 +550,59 @@ public:
     }
 	```
 
-+ front
-+ back
++ `front` : 첫 번째 원소의 `참조자` 반환
+
+	**Prototype**
+	```c++
+	reference	front();
+	const_reference	front() const;
+	```
+
+	컨테이너 첫 번째 원소의 `참조자(reference)`를 반환합니다. `const` 타입의 컨테이너인 경우에는 `const_reference`를 반환합니다. `begin`과 다른점은 반복자가 아닌 참조자를 반환한다는 것입니다.
+
+	```c++
+	#include <iostream>
+    #include <vector>
+
+    int main(void) {
+    	std::vector<int> a;
+
+    	a.push_back(1);
+    	std::cout << a.front() << std::endl; // 1
+
+    	std::vector<int> b;
+    	std::cout << b.front() << std::endl; // segmentation fault
+
+    	return 0;
+    }
+	```
++ `back` : 마지막 원소의 `참조자` 반환
+
+	**Prototype**
+	```c++
+	reference	back();
+	const_reference	back() const;
+	```
+
+    컨테이너 마지막 원소의 `참조자(reference)`를 반환합니다. `const` 타입의 컨테이너인 경우에는 `const_reference`를 반환합니다. `end`와 다른점은 마지막 원소 다음 공간을 가리키는 반복자가 아닌 정확히 마지막 원소의 참조자를 반환한다는 것입니다.
+
+	```c++
+	#include <iostream>
+    #include <vector>
+
+    int main(void) {
+    	std::vector<int> a;
+
+    	a.push_back(1);
+    	a.push_back(2);
+    	std::cout << a.back() << std::endl; // 2
+
+    	std::vector<int> b;
+    	std::cout << b.back() << std::endl; // segmentation fault
+
+    	return 0;
+    }
+	```
 
 ### Modifiers
 + assign
