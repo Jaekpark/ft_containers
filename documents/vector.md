@@ -279,6 +279,8 @@ public:
 	```
 ### Capacity
 
+![capacity](../images/container_capacity.png)
+
 + `size` : 컨테이너 `원소 개수` 반환 함수
 
 	**Prototype**
