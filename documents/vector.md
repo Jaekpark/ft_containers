@@ -729,8 +729,13 @@ public:
     	print(a); // size : 1, capacity: 2 | a -> 1
     	return 0;
     }
-```
-+ insert
+	```
++ `insert` : 특정 값을 특정 위치에 원소로 삽입
+  
+  **Prototype**
+  ```c++
+  
+  ```
 + erase
 + swap
 + clear
