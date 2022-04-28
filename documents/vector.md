@@ -204,7 +204,7 @@ public:
 
 ![rbegin-rend](https://upload.cppreference.com/mwiki/images/3/39/range-rbegin-rend.svg)
 
-+ rbegin : 마지막 원소를 가리키는 `역방향 반복자(reverse iterator)`를 반환
++ `rbegin` : 마지막 원소를 가리키는 `역방향 반복자(reverse iterator)`를 반환
 
 	**Prototype**
 	```c++
@@ -235,7 +235,7 @@ public:
     }
 	```
 
-+ rend : 첫 원소의 직전 위치를 가리키는 `역방향 반복자`를 반환
++ `rend` : 첫 원소의 직전 위치를 가리키는 `역방향 반복자`를 반환
 
 	**Prototype**
 	```c++
@@ -279,7 +279,7 @@ public:
 	```
 ### Capacity
 
-+ size : 컨테이너 `원소 개수` 반환 함수
++ `size` : 컨테이너 `원소 개수` 반환 함수
 
 	**Prototype**
 	```c++
@@ -305,7 +305,7 @@ public:
     }
 	```
 
-+ max_size : 최대 원소 개수 반환
++ `max_size` : 최대 원소 개수 반환
 
 	**Prototype**
 	```c++
@@ -327,14 +327,14 @@ public:
     }
 	```
 
-+ resize : 컨테이너 사이즈를 재정의
++ `resize` : 컨테이너 사이즈를 재정의
 
 	**Prototype**
 	```c++
 	void	resize(size_type n, value_type val = value_type());
 	```
 
-	컨테이너 사이즈를 매개변수 `n`으로 리사이징 하는 함수 입니다. 몇 가지 사용방법에 따라 다른 동작을 수행합니다.
+	컨테이너 사이즈를 매개변수 `n`으로 리사이징 하는 함수 입니다. 상황에 따라 다른 동작을 수행합니다.
 
 	1. `size > n`
 		
@@ -380,9 +380,86 @@ public:
 	}
 	```
 
-+ capacity
-+ empty
-+ reserve
++ `capacity` : 메모리에 할당된 컨테이너의 크기 반환
+
+	**Prototype**
+	```c++
+	size_type	capacity() const;
+	```
+
+	현재 컨테이너에 할당 되어있는 메모리 크기에 따라 컨테이너가 가질 수 있는 최대 원소 개수를 반환합니다. `capacity` 함수의 반환 값은 최소한 `size`함수의 반환 값과 같거나 큰 값을 반환합니다. 왜냐하면 컨테이너는 원소가 추가 됨에 따라 추가 메모리 공간이 필요한 경우, 메모리 공간을 추가 할당하거나, 늘어난 크기만큼 재할당(벡터 컨테이너는 이 경우에 해당합니다.)하기 때문입니다. 컨테이너가 가질 수 있는 메모리 공간의 이론적 한계는 `max_size`함수의 반환 값과 같습니다. 컨테이너의 `용량(capacity)`는 아래에서 설명할 `reserve`함수를 통해 명시적으로 변경할 수 있습니다.
+
+	```c++
+	#include <iostream>
+    #include <vector>
+
+    int main(void) {
+    	std::vector<int> a(5); // initialize container to size 5 with int()
+
+    	std::cout << a.capacity() << std::endl; // 5
+    	a.push_back(1); // add element 1
+    	std::cout << a.capacity() << std::endl; // In my case, 10 (Allocate extra memory)
+    	a.reserve(16); // reserve capacity, 16
+    	std::cout << a.capacity() << std::endl; // 16;
+    	return 0;
+    }
+	```
+
++ `empty` : 컨테이너가 비어있는지 확인, 참/거짓 반환
+
+	**Prototype**
+	```c++
+	bool	empty() const;
+	```
+
+	컨테이너가 비어있는지 확인하는 함수입니다. 컨테이너가 가진 원소가 1개도 없다면 (즉, `size`가 `0`이라면) `true`를 반환하고 원소가 존재하면 `false`를 반환합니다.
+
+	```c++
+	#include <iostream>
+    #include <vector>
+
+    int main(void) {
+    	std::vector<int> a;
+
+    	std::cout << a.empty() << std::endl; // true, 1
+    	a.push_back(1);
+    	std::cout << a.empty() << std::endl; // false, 0
+
+    	std::vector<int> b(1);
+    	std::cout << b.empty() << std::endl; // false, 0
+
+    	return 0;
+    }
+	```
+
++ `reserve` : 컨테이너의 `용량(capacity)`를 변경
+
+	**Prototype**
+	```c++
+	void	reserve(size_type n);
+	```
+
+	컨테이너가 최소한 `n`만큼의 용량을 가질 수 있도록 할당하는 함수입니다. `n`이 현재 용량 보다 작다면, `n`만큼의 메모리를 재할당하고, 그렇지 않다면 아무 일도 수행 하지 않습니다. 즉, 현재 용량 혹은 원소 개수 보다 작은 값으로 실행 할 경우에는 아무런 동작도 하지 않습니다.
+
+	```c++
+	#include <iostream>
+    #include <vector>
+
+    int main(void) {
+    	std::vector<int> a(5); // capacity : 5, size : 5
+
+    	std::cout << a.capacity() << std::endl; // 5
+    	a.reserve(1); // new_capacity < size, capacity, do nothing
+    	std::cout << a.capacity() << std::endl; // 5
+    	a.reserve(10); // new_capacity > size, capacity, ok
+    	std::cout << a.capacity() << std::endl; // 10
+    	a.reserve(6);
+		// new_capacity > size, but new_capacity < capacity, do nothing
+    	std::cout << a.capacity() << std::endl; // 10
+
+    	return 0;
+    }
+	```
 
 ### Element access
 + operator[]
