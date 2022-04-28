@@ -137,7 +137,7 @@ public:
 
 	컨테이너의 첫 원소를 가리키는 `임의 접근 반복자(Random Access Iterator)` 반환합니다. `const`로 선언된 컨테이너의 경우에는 `const iterator`를 반환합니다. `Element access`의 `front`와 첫 원소의 위치를 얻을 수 있다는 점에서 같지만, `front`는 첫 원소의 `참조자(reference)`를 반환하고, `begin` 함수는 `반복자(iterator)`를 반환 한다는 점에서 다릅니다.
 
-	`비어있는(Empty)` 컨테이너의 경우에 `begin`으로 부터 반환 된 `반복자`를 `역참조(dereference)`할 경우 에러가 발생하므로 주의해야합니다.
+	`비어있는(Empty)` 컨테이너의 경우에 `begin`으로 부터 반환 된 `반복자`를 `역참조(dereference)`할 경우 `undefined behavior`가 발생하므로 주의해야합니다.
 
 	```c++
 	#include <iostream>
@@ -147,7 +147,7 @@ public:
 		std::vector<int> a(0);
 		std::vector<int>::iterator iter_a = a.begin();
 		std::cout << *iter_a << std::endl;
-		// undefine behavior, segmentation fault
+		// undefined behavior
 
 		std::vector<int> b(1);
 		std::vector<int>::iterator iter_b = b.begin();
@@ -573,7 +573,7 @@ public:
     	std::cout << a.front() << std::endl; // 1
 
     	std::vector<int> b;
-    	std::cout << b.front() << std::endl; // segmentation fault
+    	std::cout << b.front() << std::endl; // undefined behavior
 
     	return 0;
     }
@@ -588,6 +588,8 @@ public:
 
     컨테이너 마지막 원소의 `참조자(reference)`를 반환합니다. `const` 타입의 컨테이너인 경우에는 `const_reference`를 반환합니다. `end`와 다른점은 마지막 원소 다음 공간을 가리키는 반복자가 아닌 정확히 마지막 원소의 참조자를 반환한다는 것입니다.
 
+	`비어있는(empty)` 컨테이너는 `undefined behavior`가 발생합니다.
+
 	```c++
 	#include <iostream>
     #include <vector>
@@ -600,22 +602,134 @@ public:
     	std::cout << a.back() << std::endl; // 2
 
     	std::vector<int> b;
-    	std::cout << b.back() << std::endl; // segmentation fault
+    	std::cout << b.back() << std::endl; // undefined behavior
 
     	return 0;
     }
 	```
 
 ### Modifiers
-+ assign
++ assign : 컨테이너 값을 `대입(assign)`
   
 	**Prototype**
 	```c++
-
+	// (1) range assign
+	template <class InputIterator>
+		void	assign(InputIterator first, InputIterator last);
+	// (2) fill value
+	void	assign(size_type n, const value& val);
 	```
 
-+ push_back
-+ pop_back
+	컨테이너에 값을 `대입(assign)`하는 함수입니다. 즉 주어지는 조건에 따라 원래 컨테이너에 들어있던 내용을 삭제하고, 새 원소를 할당 및 교체 합니다. 이 때 필요에 따라 컨테이너의 크기를 재할당합니다. `assign` 함수는 두 가지 형태로 `오버로딩(overloading)`되어 있습니다.
+
+	1. `입력 반복자(Input Iterator)`를 템플릿 매개변수로 받는 함수 템플릿
+
+		`first` 부터 `last`까지 매개변수로 들어오는 특정 범위에 대한 대입을 수행합니다.
+
+	2. `n`개 만큼의 원소를 `val` 값으로 할당 및 교체하는 함수
+
+		매개변수 `n`으로 들어오는 사이즈만큼 `val`값을 복사 및 할당합니다.
+
+	```c++
+    #include <iostream>
+    #include <vector>
+
+    void	print(std::vector<int>& target) {
+     	std::vector<int>::iterator begin = target.begin();
+
+     	while (begin != target.end())
+     		std::cout << *(begin++) << " ";
+     	std::cout << std::endl;
+    }
+
+    int main(void) {
+    	std::vector<int> a(10, 9);
+    	std::vector<int> b(5, 1);
+
+    	std::cout << "before" << std::endl;
+     	print(a); // 9 9 9 9 9 9 9 9 9 9
+     	print(b); // 1 1 1 1 1
+     	std::cout << "after range assign" << std::endl;
+     	a.assign(b.begin(), b.end()); // b to a
+     	print(a); // 1 1 1 1 1
+     	print(b); // 1 1 1 1 1
+		std::cout << "after fill assign" << std::endl;
+    	a.assign(10, 1); // Fill in 10 elements with 1.
+    	b.assign(10, 2); // Fill in 10 elements with 2.
+    	print(a); // 1 1 1 1 1 1 1 1 1 1
+    	print(b); // 2 2 2 2 2 2 2 2 2 2
+    	return 0;
+    }
+	```
+
++ `push_back` : 원소 추가 함수
+
+	**Prototype**
+	```c++
+	void	push_back(const value& val);
+	```
+
+	컨테이너의 가장 마지막 원소로 `val`값을 복사해 추가합니다. 원소를 추가 할 수 있는 공간이 충분 즉,`capacity - size > 0` 인 경우 그대로 값을 추가하고, 반대로 부족한 경우에는 메모리를 재할당해 추가공간을 확보한 다음 원소를 추가합니다.
+
+	```c++
+	#include <iostream>
+    #include <vector>
+
+    void	print(std::vector<int>& target) {
+    	std::vector<int>::iterator begin = target.begin();
+    	std::cout << "size : " << target.size()
+    		<< ", capacity : " << target.capacity() << std::endl;
+    	while (begin != target.end())
+    		std::cout << *(begin++) << " ";
+    	std::cout << std::endl;
+    }
+
+    int main(void) {
+    	std::vector<int> a; // empty.
+
+    	a.push_back(1); // add 1
+    	print(a); // size : 1 , capacity : 1 | a -> 1
+    	a.push_back(2); // add 2
+    	print(a); // size : 2, capacity : 2 | a -> 1 2
+    	return 0;
+    }
+	```
+
++ pop_back : 마지막 원소를 제거
+
+	**Prototype**
+	```c++
+	void	pop_back();
+	```
+
+	컨테이너의 마지막 원소를 제거합니다. `비어있는(empty)` 컨테이너의 경우엔 `undefined behavior`가 발생합니다.
+
+	```c++
+	#include <iostream>
+    #include <vector>
+
+    void	print(std::vector<int>& target) {
+    	std::vector<int>::iterator begin = target.begin();
+    	std::cout << "size : " << target.size()
+    		<< ", capacity : " << target.capacity() << std::endl;
+    	while (begin != target.end())
+    		std::cout << *(begin++) << " ";
+    	std::cout << std::endl;
+    }
+
+    int main(void) {
+    	std::vector<int> a; // empty.
+    	
+    	// a.pop_back(); // Undefined behavior
+    	a.push_back(1); // add 1
+    	print(a); // size : 1 , capacity : 1 | a -> 1
+    	a.push_back(2); // add 2
+    	print(a); // size : 2, capacity : 2 | a -> 1 2
+    	a.pop_back();
+    	print(a); // size : 1, capacity: 2 | a -> 1
+    	return 0;
+    }
+```
 + insert
 + erase
 + swap
