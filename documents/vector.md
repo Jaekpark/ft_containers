@@ -479,7 +479,7 @@ public:
 
 	또 다른 특징으로는 `인덱스 연산자`는 `추가 원소를 생성 할 수 없다`는 점입니다. 즉 컨테이너의 `생성자`나, `멤버 함수`로 입력되어있던 컨테이너의 값`(0 ~ (size - 1))`을 수정하는 것은 가능하지만, 설사 `capacity`가 충분하더라도 비어있는 공간에 접근하여 값을 변경`(메모리 공간에 대한 참조자이기 때문에 접근과 수정은 가능)`하더라도 컨테이너의 원소로 포함하지 않습니다.
 
-	이 점을 보면 컨테이너의 범위는 컨테이너 클래스 멤벼 변수로 정의된 `반복자(iterator)`가 가리키는 공간으로 결정되는 것을 알 수 있습니다. 따라서 원소가 `'1' (container[0])`, `'2' (container[1])` 두 개인 컨테이너의 `container[2]`는 `container.end()`로 받는 반복자와 같습니다.
+	이 점을 보면 `컨테이너의 범위(bound)`는 컨테이너 클래스 멤벼 변수로 정의된 `반복자(iterator)`가 가리키는 공간으로 결정되는 것을 알 수 있습니다. 따라서 원소가 `'1' (container[0])`, `'2' (container[1])` 두 개인 컨테이너의 `container[2]`는 `container.end()`로 받는 반복자와 같습니다.
 
 	```c++
 	#include <iostream>
@@ -518,13 +518,38 @@ public:
     }
 	```
 
-+ at
-+ 
++ at : 원소의 참조자 반환
+
 	**Prototype**
 	```c++
 	reference	at(sizt_type n);
 	const_reference	at(size_type n);
 	```
+
+	컨테이너의 첫 번째 원소로부터 `n 만큼 떨어진(offset)`에 있는 원소의 참조자를 반환합니다. `인덱스 연산자(operator[])`와 다른 점은 컨테이너 원소 범위에서 벗어난 값이 입력되는 경우 `out_of_range` 예외를 발생시키는 것입니다.
+
+	```c++
+    #include <iostream>
+    #include <vector>
+    #include <exception>
+
+    int main(void) {
+    	std::vector<int> a;
+
+    	a.push_back(10);
+    	a.push_back(11);
+
+    	try {
+    		std::cout << a.at(0) << std::endl; // 10
+    		std::cout << a.at(1) << std::endl; // 11
+    		std::cout << a.at(2) << std::endl; // out_of_range, throw exception
+    	} catch (std::exception& e) {
+    		std::cout << e.what() << std::endl;
+    	}
+    	return 0;
+    }
+	```
+
 + front
 + back
 
