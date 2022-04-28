@@ -471,7 +471,7 @@ public:
 
 	**Prototype**
 	```c++
-	reference	operator[](size_type n);
+	reference		operator[](size_type n);
 	const_reference	operator[](size_type n) const;
 	```
 
@@ -524,7 +524,7 @@ public:
 
 	**Prototype**
 	```c++
-	reference	at(sizt_type n);
+	reference		at(sizt_type n);
 	const_reference	at(size_type n) const;
 	```
 
@@ -556,7 +556,7 @@ public:
 
 	**Prototype**
 	```c++
-	reference	front();
+	reference		front();
 	const_reference	front() const;
 	```
 
@@ -582,7 +582,7 @@ public:
 
 	**Prototype**
 	```c++
-	reference	back();
+	reference		back();
 	const_reference	back() const;
 	```
 
