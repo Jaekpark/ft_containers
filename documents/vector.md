@@ -305,8 +305,81 @@ public:
     }
 	```
 
-+ max_size
-+ resize
++ max_size : 최대 원소 개수 반환
+
+	**Prototype**
+	```c++
+	size_type	max_size() const;
+	```
+
+	컨테이너가 가질 수 있는 원소의 `최대 개수`를 반환 합니다. 사용하고 있는 시스템이나 운영체제의 환경에 따라 컨테이너가 가질 수 있는 원소의 최대 개수는 달라질 수 있습니다. 주의 할 점은 메모리는 한정적인 자원이기 때문에 컨테이너가 반드시 `max_size` 함수에서 반환 받은 크기만큼 원소를 갖는다는 보장은 없습니다.
+
+	```c++
+    #include <iostream>
+    #include <vector>
+
+    int main(void) {
+    	std::vector<int> a;
+
+    	std::cout << a.max_size() << std::endl;
+    	// 4611686018427387903 (2020 Intel Macbook pro, Monterey)
+    	return 0;
+    }
+	```
+
++ resize : 컨테이너 사이즈를 재정의
+
+	**Prototype**
+	```c++
+	void	resize(size_type n, value_type val = value_type());
+	```
+
+	컨테이너 사이즈를 매개변수 `n`으로 리사이징 하는 함수 입니다. 몇 가지 사용방법에 따라 다른 동작을 수행합니다.
+
+	1. `size > n`
+		
+		변경하려는 사이즈 `n`보다 기존 컨테이너의 `size`가 `큰` 경우, 첫 원소부터 `n`번째 원소까지만 남겨지고 남은 원소는 제거됩니다.
+	
+	2. `size < n`
+
+		변경하려는 사이즈가 기존 사이즈보다 큰 경우, 늘어난 공간에 `val`을 채웁니다. 사용자가 `val` 값을 입력하지 않을 경우 클래스 내부에 정의된 기본 `value_type()` 형태의 기본 생성자 실행 결과 값으로 초기화 됩니다.
+	
+	```c++
+	#include <iostream>
+    #include <vector>
+    
+	int main(void) {
+      	std::vector<int> a;
+
+      	a.push_back(1);
+      	a.push_back(2);
+      	a.push_back(3);
+      	a.push_back(4);
+
+      	std::vector<int>::iterator b = a.begin();
+      	std::vector<int>::iterator e = a.end();
+
+      	std::cout << "before" << std::endl;
+      	while(b != e) {
+      		std::cout << *b << " ";
+      		b++;
+      	}
+		// Before resize 1 2 3 4
+      	std::cout << std::endl << "after" << std::endl;
+
+      	a.resize(7, 1); // size 4 -> 7 | 5, 6, 7번째 원소 1로 초기화
+      	b = a.begin();
+      	e = a.end();
+      	while(b != e) {
+      		std::cout << *b << " ";
+      		b++;
+      	}
+		// After resize 1 2 3 4 1 1 1
+      	std::cout << std::endl;
+		return 0;
+	}
+	```
+
 + capacity
 + empty
 + reserve
