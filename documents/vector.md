@@ -465,6 +465,8 @@ public:
 
 ### Element access
 
+![element_access](../images/element_access.png)
+
 + `operator[]` : 원소의 `참조자` 반환
 
 	**Prototype**
@@ -606,6 +608,12 @@ public:
 
 ### Modifiers
 + assign
+  
+	**Prototype**
+	```c++
+
+	```
+
 + push_back
 + pop_back
 + insert
