@@ -966,20 +966,105 @@ public:
 
 	**Prototype**
 	```c++
+	// (1) '==' operator
 	template <class T, class Alloc>
 		bool	operator==(const vector<T, Alloc>& lhs, const vector<T, Alloc& rhs>)
+	// (2) '!=' operator
 	template <class T, class Alloc>
 		bool	operator!=(const vector<T, Alloc>& lhs, const vector<T, Alloc& rhs>)
+	// (3) '<' operator
 	template <class T, class Alloc>
 		bool	operator<(const vector<T, Alloc>& lhs, const vector<T, Alloc& rhs>)
+	// (4) '<=' operator
 	template <class T, class Alloc>
 		bool	operator<=(const vector<T, Alloc>& lhs, const vector<T, Alloc& rhs>)
+	// (5) '>' operator
 	template <class T, class Alloc>
 		bool	operator>(const vector<T, Alloc>& lhs, const vector<T, Alloc& rhs>)
+	// (6) '>=' operator
 	template <class T, class Alloc>
 		bool	operator>=(const vector<T, Alloc>& lhs, const vector<T, Alloc& rhs>)
 	```
-+ swap
+
+	두 컨테이너 간의 관계 연산 오버라이딩 함수들입니다.
+
+    1. `operator== & operator!=`
+
+		우선 컨테이너들의 `size`가 일치하는지 확인한 후 각 원소들이 같은지 순서대로 확인합니다.
+
+	2. `operator<, <= & operator>, >=`
+
+		컨테이너의 `size`에 관계 없이 순서대로 `<` 연산자를 사용해 원소들의 대소를 비교합니다.
+	
+	각 연산자 오버라이딩에 사용되는 `등가 연산 논리식`은 다음과 같습니다.
+	operator|equivalent operation
+	-|-
+	`a == b` | `a == b`
+	`a != b` | `!(a == b)`
+	`a < b` | `a > b`
+	`a > b` | `b < a` 
+	`a >= b` | `!(a < b)`
+	`a <= b` | `!(b < a)`
+
+	```c++
+    #include <iostream>
+    #include <vector>
+
+    int main ()
+    {
+		std::vector<int> foo (3,100);   // three ints with a value of 100
+		std::vector<int> bar (2,200);   // two ints with a value of 200
+
+		if (foo==bar) std::cout << "foo and bar are equal\n";
+		if (foo!=bar) std::cout << "foo and bar are not equal\n";
+		if (foo< bar) std::cout << "foo is less than bar\n";
+		if (foo> bar) std::cout << "foo is greater than bar\n";
+		if (foo<=bar) std::cout << "foo is less than or equal to bar\n";
+		if (foo>=bar) std::cout << "foo is greater than or equal to bar\n";
+
+		// foo and bar are not equal
+		// foo is less than bar
+		// foo is less than or equal to bar
+		return 0;
+	}
+	```
++ `swap` : 컨테이너 교환 함수(비 멤버 함수)
+
+	**Prototype**
+	```c++
+	template <class T, class Alloc>
+		void	swap(vector<T, Alloc>& x, vector<T, Alloc>& y);
+	```
+
+	멤버 함수 `swap`과 같이 컨테이너의 요소들(원소, 사이즈, 용량, 반복자)을 교환 해주는 함수입니다. 다만 `static non-member` 함수로서 두 컨테이너간 교환을 위해 대상이 되는 두 컨테이너를 매개변수로 받습니다. `x.swap(y)`이 호출된 것과 같습니다.
+
+	```c++
+	#include <iostream>
+    #include <vector>
+
+    void	print(std::vector<int>& target) {
+    	std::vector<int>::iterator begin = target.begin();
+    	std::cout << "size : " << target.size()
+    		<< ", capacity : " << target.capacity() << std::endl;
+    	while (begin != target.end())
+    		std::cout << *(begin++) << " ";
+    	std::cout << std::endl;
+    }
+
+    int main(void) {
+    	std::vector<int> a(2, 1);
+    	std::vector<int> b(1, 2);
+
+    	print(a); // 1 1 , size : 2, capacity : 2
+    	print(b); // 2, size : 1, capacity : 1
+    	std::swap(a, b); // swap a and b
+    	print(a); // 2, size : 1, capacity : 1
+    	print(b); // 1 1, size : 2, capacity : 2
+
+    	return 0;
+    }
+	```
+	
 ## Reference
 
 <a name="cpp-vector">[1]</a>: ["std::vector", cppreference, last modified 21 Mar, 2022, accessed Apr 26, 2022, "https://en.cppreference.com/w/cpp/container/vector"](https://en.cppreference.com/w/cpp/container/vector)
