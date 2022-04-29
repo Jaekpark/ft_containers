@@ -1,6 +1,6 @@
 # Vector
 
-> `std::vector` is a `sequence` container that encapsulates `dynamic size` arrays <sup>[1]
+> `std::vector` is a `sequence` container that encapsulates `dynamic size`   arrays <sup>[1]
 ### `std::vector`, 벡터 컨테이너란?
 
 [cppreference](https:://cppreference.com)에서 벡터를 정의한 구문을 그대로 인용하자면
@@ -94,7 +94,6 @@ public:
 ### OCF(Orthodox Canoical Form)
 
 + 생성자 (Constructor)
-
 	```c++
     // 기본 생성자 (default constructor)
 
