@@ -14,14 +14,13 @@ int main(void) {
 	std::vector<int> a(2, 1);
 	std::vector<int> b(1, 2);
 
-	print(a);
-	print(b);
-	a.swap(b);
-	print(a);
-	print(b);
+	print(a); // 1 1 , size : 2, capacity : 2
+	print(b); // 2, size : 1, capacity : 1
 
-	std::swap(a, b);
-	print(a);
-	print(b);
+	a.clear();
+	b.clear();
+	print(a); // empty, size : 0, capacity : 2
+	print(b); // empty, size : 0, capacity : 1
+
 	return 0;
 }

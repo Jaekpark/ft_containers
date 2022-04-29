@@ -858,7 +858,75 @@ public:
 + `swap` : 컨테이너 교환 함수
 
 	**Prototype**
-+ clear
+	```c++
+	void	swap(vector& x);
+	```
+
+	컨테이너의 내용을 `x` 컨테이너 객체의 내용으로 바꾸는 함수 입니다. `swap` 함수를 호출하면 기존 컨테이너는 `x`의 원소, 반복자, 사이즈, 용량을 그대로 갖게 되고, `x` 컨테이너는 기존 컨테이너의 요소들을 그대로 가져갑니다.
+
+	```c++
+	#include <iostream>
+    #include <vector>
+
+    void	print(std::vector<int>& target) {
+    	std::vector<int>::iterator begin = target.begin();
+    	std::cout << "size : " << target.size()
+    		<< ", capacity : " << target.capacity() << std::endl;
+    	while (begin != target.end())
+    		std::cout << *(begin++) << " ";
+    	std::cout << std::endl;
+    }
+
+    int main(void) {
+    	std::vector<int> a(2, 1);
+    	std::vector<int> b(1, 2);
+
+    	print(a); // 1 1 , size : 2, capacity : 2
+    	print(b); // 2, size : 1, capacity : 1
+    	a.swap(b); // swap a and b
+    	print(a); // 2, size : 1, capacity : 1
+    	print(b); // 1 1, size : 2, capacity : 2
+
+    	return 0;
+    }
+	```
++ `clear` : 모든 원소 제거
+
+	**Prototype**
+	```c++
+	void	clear();
+	```
+
+	컨테이너의 모든 원소를 제거하고 `size`를 0으로 만드는 함수입니다. 다만 `capacity`는 줄어들지 않습니다.
+
+	```c++
+	#include <iostream>
+    #include <vector>
+
+    void	print(std::vector<int>& target) {
+    	std::vector<int>::iterator begin = target.begin();
+    	std::cout << "size : " << target.size()
+    		<< ", capacity : " << target.capacity() << std::endl;
+    	while (begin != target.end())
+    		std::cout << *(begin++) << " ";
+    	std::cout << std::endl;
+    }
+
+    int main(void) {
+    	std::vector<int> a(2, 1);
+    	std::vector<int> b(1, 2);
+
+    	print(a); // 1 1 , size : 2, capacity : 2
+    	print(b); // 2, size : 1, capacity : 1
+
+    	a.clear();
+    	b.clear();
+    	print(a); // empty, size : 0, capacity : 2
+    	print(b); // empty, size : 0, capacity : 1
+
+    	return 0;
+    }
+	```
 
 ### Allocator
 + get_allocator
