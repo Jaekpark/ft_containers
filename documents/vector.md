@@ -145,11 +145,11 @@ vector& operator=(const vector& x);
 
 #### `begin` : 컨테이너의 첫 번째 원소를 가리키는 `반복자(iterator)` 반환
 
-+ **Prototype**
-    ```c++
-    iterator	begin();
-    const_iterator	begin() const;
-    ```
+***Prototype***
+```c++
+iterator	begin();
+const_iterator	begin() const;
+```
 
 컨테이너의 첫 원소를 가리키는 `임의 접근 반복자(Random Access Iterator)` 반환합니다. `const`로 선언된 컨테이너의 경우에는 `const iterator`를 반환합니다. `Element access`의 `front`와 첫 원소의 위치를 얻을 수 있다는 점에서 같지만, `front`는 첫 원소의 `참조자(reference)`를 반환하고, `begin` 함수는 `반복자(iterator)`를 반환 한다는 점에서 다릅니다.
 
@@ -175,7 +175,7 @@ int main(void) {
 ```
 #### `end` : 마지막 원소 바로 다음(past-the-end)을 가리키는 `반복자`를 반환
 
-+ **Prototype**
+***Prototype***
 ```c++
 iterator	end();
 const_iterator	end() const;
@@ -222,7 +222,7 @@ int main(void) {
 
 #### `rbegin` : 마지막 원소를 가리키는 `역방향 반복자(reverse iterator)`를 반환
 
-+ **Prototype**
+***Prototype***
 ```c++
 reverse_iterator	rbegin();
 const_reverse_iterator	rbegin() const;
@@ -253,7 +253,7 @@ int main(void) {
 
 #### `rend` : 첫 원소의 직전 위치를 가리키는 `역방향 반복자`를 반환
 
-+ **Prototype**
+***Prototype***
 ```c++
 reverse_iterator	rend();
 const_reverse_iterator	rend() const;
@@ -299,7 +299,7 @@ int main(void) {
 
 #### `size` : 컨테이너 `원소 개수` 반환 함수
 
-+ **Prototype**
+***Prototype***
 ```c++
 size_type	size() const;
 ```	
@@ -325,7 +325,7 @@ int main(void) {
 
 #### `max_size` : 최대 원소 개수 반환
 
-+ **Prototype**
+***Prototype***
 ```c++
 size_type	max_size() const;
 ```
@@ -347,7 +347,7 @@ int main(void) {
 
 #### `resize` : 컨테이너 사이즈를 재정의
 
-+ **Prototype**
+***Prototype***
 ```c++
 void	resize(size_type n, value_type val = value_type());
 ```
@@ -399,7 +399,7 @@ int main(void) {
 ```
 #### `capacity` : 메모리에 할당된 컨테이너의 크기 반환
 
-+ **Prototype**
+***Prototype***
 ```c++
 size_type	capacity() const;
 ```
@@ -424,7 +424,7 @@ int main(void) {
 
 + `empty` : 컨테이너가 비어있는지 확인, 참/거짓 반환
 
-+ **Prototype**
+***Prototype***
 ```c++
 bool	empty() const;
 ```
@@ -451,7 +451,7 @@ int main(void) {
 
 #### `reserve` : 컨테이너의 `용량(capacity)`를 변경
 
-+ **Prototype**
+***Prototype***
 ```c++
 void	reserve(size_type n);
 ```
@@ -484,7 +484,7 @@ int main(void) {
 
 #### `operator[]` : 원소의 `참조자` 반환
 
-+ **Prototype**
+***Prototype***
 ```c++
 reference		operator[](size_type n);
 const_reference	operator[](size_type n) const;
@@ -541,7 +541,7 @@ int main(void) {
 
 #### `at` : 원소의 `참조자` 반환
 
-+ **Prototype**
+***Prototype***
 ```c++
 reference		at(sizt_type n);
 const_reference	at(size_type n) const;
@@ -573,7 +573,7 @@ int main(void) {
 
 + `front` : 첫 번째 원소의 `참조자` 반환
 
-+ **Prototype**
+***Prototype***
 ```c++
 reference		front();
 const_reference	front() const;
@@ -599,7 +599,7 @@ int main(void) {
 ```
 #### `back` : 마지막 원소의 `참조자` 반환
 
-+ **Prototype**
+***Prototype***
 ```c++
 reference		back();
 const_reference	back() const;
@@ -630,7 +630,7 @@ int main(void) {
 ### Modifiers
 #### `assign` : 컨테이너 값을 `할당(assign)`
   
-+ **Prototype**
+***Prototype***
 ```c++
 // (1) range assign
 template <class InputIterator>
@@ -683,7 +683,7 @@ int main(void) {
 
 #### `push_back` : 원소 추가 함수
 
-+ **Prototype**
+***Prototype***
 ```c++
 void	push_back(const value& val);
 ```
@@ -716,7 +716,7 @@ int main(void) {
 
 + `pop_back` : 마지막 원소를 제거
 
-+ **Prototype**
+***Prototype***
 ```c++
 void	pop_back();
 ```
@@ -752,7 +752,7 @@ int main(void) {
 
 #### `insert` : 특정 값을 특정 위치에 원소로 삽입
   
-+ **Prototype**
+***Prototype***
 ```c++
 // (1) insert single element
 iterator	insert(iterator position, const value_type& val);
@@ -818,7 +818,7 @@ int main(void) {
 
 #### `erase` : 원소 삭제
 
-+ **Prototype**
+***Prototype***
 ```c++
 iterator	erase(iterator position);
 iterator	erase(iterator first, iterator last);
@@ -872,7 +872,7 @@ int main(void) {
 
 + `swap` : 컨테이너 교환 함수
 
-+ **Prototype**
+***Prototype***
 ```c++
 void	swap(vector& x);
 ```
@@ -908,7 +908,7 @@ int main(void) {
 
 #### `clear` : 모든 원소 제거
 
-+ **Prototype**
+***Prototype***
 ```c++
 void	clear();
 ```
@@ -947,7 +947,7 @@ int main(void) {
 ### Allocator
 #### `get_allocator` : 컨테이너 메모리 할당 객체 복사
 
-+ **Prototype**
+***Prototype***
 ```c++
 allocator_type	get_allocator() const;
 ```
@@ -980,7 +980,7 @@ int main(void) {
 
 #### `relation operators` : 비교 연산자 오버라이딩
 
-+ **Prototype**
+***Prototype***
 ```c++
 // (1) '==' operator
 template <class T, class Alloc>
@@ -1046,7 +1046,7 @@ int main ()
 ```
 #### `swap` : 컨테이너 교환 함수(비 멤버 함수)
 
-+ **Prototype**
+***Prototype***
 ```c++
 template <class T, class Alloc>
     void	swap(vector<T, Alloc>& x, vector<T, Alloc>& y);
