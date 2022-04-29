@@ -109,34 +109,34 @@ public:
 ### OCF(Orthodox Canoical Form)
 
 #### 생성자 (Constructor)
-	```c++
-    // 기본 생성자 (default constructor)
+```c++
+  // 기본 생성자 (default constructor)
 
-    explicit vector(const allocator type& alloc = allocator_type());
+  explicit vector(const allocator type& alloc = allocator_type());
 
-    // 오버로딩
-    // size n 만큼 val로 초기화 생성
-    explicit vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type());
+  // 오버로딩
+  // size n 만큼 val로 초기화 생성
+  explicit vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type());
 
-    // first ~ last 까지 복사 생성
-    template <class InputIterator>
-  	explicit vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());
+  // first ~ last 까지 복사 생성
+  template <class InputIterator>
+	explicit vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());
 
 	// 복사 생성자
 	explicit vector(const vector& x);
-	```
+```
 
 #### 소멸자 (Destructor)
   
-	```c++
-	~vector(void)
-	```
+```c++
+~vector(void)
+```
 
 #### 복사 대입 연산자 (Copy Assignment Operator)
 
-	```c++
-	vector& operator=(const vector& x);
-	```
+```c++
+vector& operator=(const vector& x);
+```
 
 ### Iterator
 
@@ -145,76 +145,76 @@ public:
 
 #### `begin` : 컨테이너의 첫 번째 원소를 가리키는 `반복자(iterator)` 반환
 
-	 **Prototype**
-	```c++
-	iterator	begin();
-	const_iterator	begin() const;
-	```
+**Prototype**
+```c++
+iterator	begin();
+const_iterator	begin() const;
+```
 
-	컨테이너의 첫 원소를 가리키는 `임의 접근 반복자(Random Access Iterator)` 반환합니다. `const`로 선언된 컨테이너의 경우에는 `const iterator`를 반환합니다. `Element access`의 `front`와 첫 원소의 위치를 얻을 수 있다는 점에서 같지만, `front`는 첫 원소의 `참조자(reference)`를 반환하고, `begin` 함수는 `반복자(iterator)`를 반환 한다는 점에서 다릅니다.
+컨테이너의 첫 원소를 가리키는 `임의 접근 반복자(Random Access Iterator)` 반환합니다. `const`로 선언된 컨테이너의 경우에는 `const iterator`를 반환합니다. `Element access`의 `front`와 첫 원소의 위치를 얻을 수 있다는 점에서 같지만, `front`는 첫 원소의 `참조자(reference)`를 반환하고, `begin` 함수는 `반복자(iterator)`를 반환 한다는 점에서 다릅니다.
 
-	`비어있는(Empty)` 컨테이너의 경우에 `begin`으로 부터 반환 된 `반복자`를 `역참조(dereference)`할 경우 `undefined behavior`가 발생하므로 주의해야합니다.
+`비어있는(Empty)` 컨테이너의 경우에 `begin`으로 부터 반환 된 `반복자`를 `역참조(dereference)`할 경우 `undefined behavior`가 발생하므로 주의해야합니다.
 
-	```c++
-	#include <iostream>
-	#include <vector>
+```c++
+#include <iostream>
+#include <vector>
 
-	int main(void) {
-		std::vector<int> a(0);
-		std::vector<int>::iterator iter_a = a.begin();
-		std::cout << *iter_a << std::endl;
-		// undefined behavior
+int main(void) {
+    std::vector<int> a(0);
+    std::vector<int>::iterator iter_a = a.begin();
+    std::cout << *iter_a << std::endl;
+    // undefined behavior
 
-		std::vector<int> b(1);
-		std::vector<int>::iterator iter_b = b.begin();
-		std::cout << *iter_b << std::endl;
-		// 0
+    std::vector<int> b(1);
+    std::vector<int>::iterator iter_b = b.begin();
+    std::cout << *iter_b << std::endl;
+    // 0
 
-		return 0;
-	}
-	```
+    return 0;
+}
+```
 #### `end` : 마지막 원소 바로 다음(past-the-end)을 가리키는 `반복자`를 반환
 
-	 **Prototype**
-	```c++
-	iterator	end();
-	const_iterator	end() const;
-	```
+    **Prototype**
+```c++
+iterator	end();
+const_iterator	end() const;
+```
 
-	컨테이너의 마지막 원소의 다음의 위치를 기리키는 `반복자`를 반환합니다. `end` 함수에서 반환되는 반복자는 실제 값을 가진 컨테이너 `원소`의 위치가 아닌 컨테이너의 메모리 상 위치를 지정하는 `placeholder`입니다. 비어있는 컨테이너의 경우는 `begin`과 동일합니다.
+컨테이너의 마지막 원소의 다음의 위치를 기리키는 `반복자`를 반환합니다. `end` 함수에서 반환되는 반복자는 실제 값을 가진 컨테이너 `원소`의 위치가 아닌 컨테이너의 메모리 상 위치를 지정하는 `placeholder`입니다. 비어있는 컨테이너의 경우는 `begin`과 동일합니다.
 
-	일반적으로 `begin`과 함께 벡터 컨테이너의 모든 원소를 포함하는 범위를 지정하기 위해 같이 사용됩니다.
+일반적으로 `begin`과 함께 벡터 컨테이너의 모든 원소를 포함하는 범위를 지정하기 위해 같이 사용됩니다.
 
-	빈 컨테이너로 부터 반환 받은 반복자는 역참조 할 수 없습니다.
+빈 컨테이너로 부터 반환 받은 반복자는 역참조 할 수 없습니다.
 
-	```c++
-    #include <iostream>
-    #include <vector>
+```c++
+#include <iostream>
+#include <vector>
 
-    int main(void) {
-    	std::vector<int> a;
+int main(void) {
+    std::vector<int> a;
 
-    	a.push_back(11);
-    	a.push_back(12);
-    	a.push_back(13);
+    a.push_back(11);
+    a.push_back(12);
+    a.push_back(13);
 
-		// a -> [11, 12, 13]
-    	std::vector<int>::iterator begin = a.begin();
-    	std::vector<int>::iterator end = a.end();
-    	
-		std::cout << *end << std::endl;
-		// 0
-		std::cout << *(--end) << std::endl;
-		// 13
+    // a -> [11, 12, 13]
+    std::vector<int>::iterator begin = a.begin();
+    std::vector<int>::iterator end = a.end();
+    
+    std::cout << *end << std::endl;
+    // 0
+    std::cout << *(--end) << std::endl;
+    // 13
 
-    	while (begin != end) {
-    		std::cout << *begin << std::endl;
-    		begin++;
-    	}
-		// 11, 12, 13
-    	return 0;
+    while (begin != end) {
+        std::cout << *begin << std::endl;
+        begin++;
     }
-	```
+    // 11, 12, 13
+    return 0;
+}
+```
 
 #### rbegin & rend
 
@@ -222,128 +222,128 @@ public:
 
 #### `rbegin` : 마지막 원소를 가리키는 `역방향 반복자(reverse iterator)`를 반환
 
-	**Prototype**
-	```c++
-	reverse_iterator	rbegin();
-	const_reverse_iterator	rbegin() const;
-	```
-	
-	컨테이너의 마지막 원소를 가리키는 `역방향 반복자`를 반환합니다. 역방향 반복자는 컨테이너를 마지막 원소부터 첫 원소까지 역방향으로 탐색하기 위한 경우 사용합니다.
-	4개의 원소를 가진 컨테이너가 있고 각 원소의 위치를 `[first, second, third, last]`로 표현한다면 기존 `begin` 함수에서 반환된 `반복자`같은 경우 `first`를 가리키고 `++`연산자를 사용할 경우  `second`로 이동합니다. 하지만 `rbegin`은 `last`를 반환하고 `rbegin - 2` 연산을 통해 `second`로 이동 할 수 있습니다.
+**Prototype**
+```c++
+reverse_iterator	rbegin();
+const_reverse_iterator	rbegin() const;
+```
 
-	```c++
-	#include <iostream>
-    #include <vector>
+컨테이너의 마지막 원소를 가리키는 `역방향 반복자`를 반환합니다. 역방향 반복자는 컨테이너를 마지막 원소부터 첫 원소까지 역방향으로 탐색하기 위한 경우 사용합니다.
+4개의 원소를 가진 컨테이너가 있고 각 원소의 위치를 `[first, second, third, last]`로 표현한다면 기존 `begin` 함수에서 반환된 `반복자`같은 경우 `first`를 가리키고 `++`연산자를 사용할 경우  `second`로 이동합니다. 하지만 `rbegin`은 `last`를 반환하고 `rbegin - 2` 연산을 통해 `second`로 이동 할 수 있습니다.
 
-    int main(void) {
-      	std::vector<int> a;
+```c++
+#include <iostream>
+#include <vector>
 
-    	a.push_back(1);
-    	a.push_back(2);
-    	a.push_back(3);
-    	a.push_back(4);
+int main(void) {
+    std::vector<int> a;
 
-    	std::vector<int>::reverse_iterator rbegin = a.rbegin();
+    a.push_back(1);
+    a.push_back(2);
+    a.push_back(3);
+    a.push_back(4);
 
-    	std::cout << *rbegin << std::endl;
-		// 4
-		return 0;
-    }
-	```
+    std::vector<int>::reverse_iterator rbegin = a.rbegin();
+
+    std::cout << *rbegin << std::endl;
+    // 4
+    return 0;
+}
+```
 
 #### `rend` : 첫 원소의 직전 위치를 가리키는 `역방향 반복자`를 반환
 
-	**Prototype**
-	```c++
-	reverse_iterator	rend();
-	const_reverse_iterator	rend() const;
-	```
+**Prototype**
+```c++
+reverse_iterator	rend();
+const_reverse_iterator	rend() const;
+```
 
-	컨테이너 첫 원소의 직전 위치를 가리키는 `역방향 반복자`를 반환합니다. `rbegin`과 함께 컨테이너를 역순으로 순회하기 위해 사용 할 수 있습니다. `end` 함수가 마지막 원소의 다음 위치를 반환해 `placeholder` 역할을 수행한다면, `rbegin`은 반대로 첫 원소 직전 위치를 가리키는 `역방향 반복자` 반환을 통해 해당 역할을 수행합니다. `--`연산을 통해 마지막 원소에 가까운 위치로 접근할 수 있습니다.
+컨테이너 첫 원소의 직전 위치를 가리키는 `역방향 반복자`를 반환합니다. `rbegin`과 함께 컨테이너를 역순으로 순회하기 위해 사용 할 수 있습니다. `end` 함수가 마지막 원소의 다음 위치를 반환해 `placeholder` 역할을 수행한다면, `rbegin`은 반대로 첫 원소 직전 위치를 가리키는 `역방향 반복자` 반환을 통해 해당 역할을 수행합니다. `--`연산을 통해 마지막 원소에 가까운 위치로 접근할 수 있습니다.
 
-	```c++
-    #include <iostream>
-    #include <vector>
+```c++
+#include <iostream>
+#include <vector>
 
-    int main(void) {
-    	std::vector<int> a;
+int main(void) {
+    std::vector<int> a;
 
-    	a.push_back(1);
-    	a.push_back(2);
-    	a.push_back(3);
-    	a.push_back(4);
+    a.push_back(1);
+    a.push_back(2);
+    a.push_back(3);
+    a.push_back(4);
 
-    	std::vector<int>::reverse_iterator rbegin = a.rbegin();
-    	std::vector<int>::reverse_iterator rend = a.rend();
+    std::vector<int>::reverse_iterator rbegin = a.rbegin();
+    std::vector<int>::reverse_iterator rend = a.rend();
 
-    	std::cout << *rbegin << std::endl; // 4
-    	std::cout << *rend << std::endl; // 0 (past-end-last)
+    std::cout << *rbegin << std::endl; // 4
+    std::cout << *rend << std::endl; // 0 (past-end-last)
 
-    	std::cout << *(++rbegin) << std::endl; // 3
-    	std::cout << *(--rend) << std::endl; // 1
+    std::cout << *(++rbegin) << std::endl; // 3
+    std::cout << *(--rend) << std::endl; // 1
 
-		--rbegin; 
-		++rend;
+    --rbegin; 
+    ++rend;
 
-    	while (rbegin != rend) {
-    		std::cout << *rbegin << std::endl;
-    		rbegin++;
-    	} // 4 3 2 1
+    while (rbegin != rend) {
+        std::cout << *rbegin << std::endl;
+        rbegin++;
+    } // 4 3 2 1
 
-    	return 0;
-	}
-	```
+    return 0;
+}
+```
 ### Capacity
 
 ![capacity](../images/container_capacity.png)
 
-+ `size` : 컨테이너 `원소 개수` 반환 함수
+#### `size` : 컨테이너 `원소 개수` 반환 함수
 
-	**Prototype**
-	```c++
-	size_type	size() const;
-	```	
-	컨테이너에 존재 하는 원소의 개수를 반환하는 함수 입니다. 
-	`std::distance(container.begin(), container.end())` 즉, 컨테이너의 `begin iterator`와 `end iterator` 사이 거리와 같습니다.
+**Prototype**
+```c++
+size_type	size() const;
+```	
+컨테이너에 존재 하는 원소의 개수를 반환하는 함수 입니다. 
+`std::distance(container.begin(), container.end())` 즉, 컨테이너의 `begin iterator`와 `end iterator` 사이 거리와 같습니다.
 
-	```c++
-	#include <iostream>
-    #include <vector>
+```c++
+#include <iostream>
+#include <vector>
 
-    int main(void) {
-    	std::vector<int> a;
+int main(void) {
+    std::vector<int> a;
 
-    	a.push_back(1);
-    	a.push_back(2);
+    a.push_back(1);
+    a.push_back(2);
 
-    	std::cout << a.size() << std::endl;
-		std::cout << std::distance(a.begin(), a.end()) << std::endl;
-    	// 2, 2
-    	return 0;
-    }
-	```
+    std::cout << a.size() << std::endl;
+    std::cout << std::distance(a.begin(), a.end()) << std::endl;
+    // 2, 2
+    return 0;
+}
+```
 
-+ `max_size` : 최대 원소 개수 반환
+#### `max_size` : 최대 원소 개수 반환
 
-	**Prototype**
-	```c++
-	size_type	max_size() const;
-	```
+**Prototype**
+```c++
+size_type	max_size() const;
+```
 
-	컨테이너가 가질 수 있는 원소의 `최대 개수`를 반환 합니다. 사용하고 있는 시스템이나 운영체제의 환경에 따라 컨테이너가 가질 수 있는 원소의 최대 개수는 달라질 수 있습니다. 주의 할 점은 메모리는 한정적인 자원이기 때문에 컨테이너가 반드시 `max_size` 함수에서 반환 받은 크기만큼 원소를 갖는다는 보장은 없습니다.
+컨테이너가 가질 수 있는 원소의 `최대 개수`를 반환 합니다. 사용하고 있는 시스템이나 운영체제의 환경에 따라 컨테이너가 가질 수 있는 원소의 최대 개수는 달라질 수 있습니다. 주의 할 점은 메모리는 한정적인 자원이기 때문에 컨테이너가 반드시 `max_size` 함수에서 반환 받은 크기만큼 원소를 갖는다는 보장은 없습니다.
 
-	```c++
-    #include <iostream>
-    #include <vector>
+```c++
+#include <iostream>
+#include <vector>
 
-    int main(void) {
-    	std::vector<int> a;
+int main(void) {
+    std::vector<int> a;
 
-    	std::cout << a.max_size() << std::endl;
-    	// 4611686018427387903 (2020 Intel Macbook pro, Monterey)
-    	return 0;
-    }
-	```
+    std::cout << a.max_size() << std::endl;
+    // 4611686018427387903 (2020 Intel Macbook pro, Monterey)
+    return 0;
+}
+```
 
 + `resize` : 컨테이너 사이즈를 재정의
 
