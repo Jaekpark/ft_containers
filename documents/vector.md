@@ -142,7 +142,7 @@ vector& operator=(const vector& x);
 
 #### begin & end
 ![cppreference](https://upload.cppreference.com/mwiki/images/1/1b/range-begin-end.svg)
-
+---
 #### `begin` : 컨테이너의 첫 번째 원소를 가리키는 `반복자(iterator)` 반환
 
 ***Prototype***
@@ -173,6 +173,7 @@ int main(void) {
     return 0;
 }
 ```
+---
 #### `end` : 마지막 원소 바로 다음(past-the-end)을 가리키는 `반복자`를 반환
 
 ***Prototype***
@@ -219,7 +220,7 @@ int main(void) {
 #### rbegin & rend
 
 ![rbegin-rend](https://upload.cppreference.com/mwiki/images/3/39/range-rbegin-rend.svg)
-
+---
 #### `rbegin` : 마지막 원소를 가리키는 `역방향 반복자(reverse iterator)`를 반환
 
 ***Prototype***
@@ -250,7 +251,7 @@ int main(void) {
     return 0;
 }
 ```
-
+---
 #### `rend` : 첫 원소의 직전 위치를 가리키는 `역방향 반복자`를 반환
 
 ***Prototype***
@@ -296,7 +297,7 @@ int main(void) {
 ### Capacity
 
 ![capacity](../images/container_capacity.png)
-
+---
 #### `size` : 컨테이너 `원소 개수` 반환 함수
 
 ***Prototype***
@@ -322,7 +323,7 @@ int main(void) {
     return 0;
 }
 ```
-
+---
 #### `max_size` : 최대 원소 개수 반환
 
 ***Prototype***
@@ -344,7 +345,7 @@ int main(void) {
     return 0;
 }
 ```
-
+---
 #### `resize` : 컨테이너 사이즈를 재정의
 
 ***Prototype***
@@ -397,6 +398,7 @@ int main(void) {
     return 0;
 }
 ```
+---
 #### `capacity` : 메모리에 할당된 컨테이너의 크기 반환
 
 ***Prototype***
@@ -421,7 +423,7 @@ int main(void) {
     return 0;
 }
 ```
-
+---
 + `empty` : 컨테이너가 비어있는지 확인, 참/거짓 반환
 
 ***Prototype***
@@ -448,7 +450,7 @@ int main(void) {
     return 0;
 }
 ```
-
+---
 #### `reserve` : 컨테이너의 `용량(capacity)`를 변경
 
 ***Prototype***
@@ -481,7 +483,7 @@ int main(void) {
 ### Element access
 
 ![element_access](../images/element_access.png)
-
+---
 #### `operator[]` : 원소의 `참조자` 반환
 
 ***Prototype***
@@ -538,7 +540,7 @@ int main(void) {
     return 0;
 }
 ```
-
+---
 #### `at` : 원소의 `참조자` 반환
 
 ***Prototype***
@@ -570,7 +572,7 @@ int main(void) {
     return 0;
 }
 ```
-
+---
 + `front` : 첫 번째 원소의 `참조자` 반환
 
 ***Prototype***
@@ -597,6 +599,7 @@ int main(void) {
     return 0;
 }
 ```
+---
 #### `back` : 마지막 원소의 `참조자` 반환
 
 ***Prototype***
@@ -680,7 +683,7 @@ int main(void) {
     return 0;
 }
 ```
-
+---
 #### `push_back` : 원소 추가 함수
 
 ***Prototype***
@@ -713,7 +716,7 @@ int main(void) {
     return 0;
 }
 ```
-
+---
 + `pop_back` : 마지막 원소를 제거
 
 ***Prototype***
@@ -749,7 +752,7 @@ int main(void) {
     return 0;
 }
 ```
-
+---
 #### `insert` : 특정 값을 특정 위치에 원소로 삽입
   
 ***Prototype***
@@ -815,7 +818,7 @@ int main(void) {
     return 0;
 }
 ```
-
+---
 #### `erase` : 원소 삭제
 
 ***Prototype***
@@ -869,8 +872,8 @@ int main(void) {
     return 0;
 }
 ```
-
-+ `swap` : 컨테이너 교환 함수
+---
+#### `swap` : 컨테이너 교환 함수
 
 ***Prototype***
 ```c++
@@ -905,7 +908,7 @@ int main(void) {
     return 0;
 }
 ```
-
+---
 #### `clear` : 모든 원소 제거
 
 ***Prototype***
@@ -977,7 +980,7 @@ int main(void) {
 }
 ```
 ## 비-멤버 함수 (Non-menber Function)
-
+---
 #### `relation operators` : 비교 연산자 오버라이딩
 
 ***Prototype***
@@ -1044,6 +1047,7 @@ int main ()
     return 0;
 }
 ```
+---
 #### `swap` : 컨테이너 교환 함수(비 멤버 함수)
 
 ***Prototype***
