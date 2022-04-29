@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <memory>
 
 void	print(std::vector<int>& target) {
 	std::vector<int>::iterator begin = target.begin();
@@ -10,17 +11,29 @@ void	print(std::vector<int>& target) {
 	std::cout << std::endl;
 }
 
+int* test(std::allocator<int>& alloc, int size) {
+	int* result = alloc.allocate(size);
+
+	for (int i = 0; i < size; i++)
+		alloc.construct(&result[i], i);
+	for (int j = 0; j < size; j++)
+		std::cout << result[j] << std::endl;
+	return result;
+}
+
 int main(void) {
-	std::vector<int> a(2, 1);
-	std::vector<int> b(1, 2);
+	std::vector<int> a;
+	int size = 5;
 
-	print(a); // 1 1 , size : 2, capacity : 2
-	print(b); // 2, size : 1, capacity : 1
+	std::allocator<int> alloc = a.get_allocator();
+	int* result = alloc.allocate(size);
 
-	a.clear();
-	b.clear();
-	print(a); // empty, size : 0, capacity : 2
-	print(b); // empty, size : 0, capacity : 1
-
+	for (int i = 0; i < size; i++)
+		alloc.construct(&result[i], i);
+	for (int j = 0; j < size; j++)
+		std::cout << result[j] << std::endl;
+	for (int k = 0; k < size; k++)
+		alloc.destroy(&result[k]);
+	alloc.deallocate(result, size);
 	return 0;
 }

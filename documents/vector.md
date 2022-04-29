@@ -929,7 +929,37 @@ public:
 	```
 
 ### Allocator
-+ get_allocator
++ `get_allocator` : 컨테이너 메모리 할당 객체 복사
+
+	**Prototype**
+	```c++
+	allocator_type	get_allocator() const;
+	```
+
+	컨테이너에 사용된 메모리 할당 객체를 복사하는 함수입니다.
+
+	```c++
+	#include <iostream>
+	#include <memory>
+	#include <vector>
+
+	int main(void) {
+    	std::vector<int> a;
+    	int size = 5;
+
+    	std::allocator<int> alloc = a.get_allocator(); // get_allocator
+    	int* result = alloc.allocate(size); // allocate memory
+
+    	for (int i = 0; i < size; i++)
+    		alloc.construct(&result[i], i); // construct object
+    	for (int j = 0; j < size; j++)
+    		std::cout << result[j] << std::endl; // 0 1 2 3 4
+    	for (int k = 0; k < size; k++)
+    		alloc.destroy(&result[k]); // destroy object
+    	alloc.deallocate(result, size); // deallocate memory
+    	return 0;
+    }
+	```
 ## 비-멤버 함수 (Non-menber Function)
 
 + 관계 연산자
