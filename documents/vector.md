@@ -3,7 +3,7 @@
 ## 목차(Contents)
 
 ### [`std::vector`, 벡터 컨테이너란?](#stdvector-벡터-컨테이너란)
-### [`std::vector` 클래스](#stdvector--클래스)
+### [`std::vector` 클래스](#stdvector-클래스)
 ### [멤버 타입(Member types)](#멤버-타입member-types)
 ### [멤버 함수(Member functions)](#멤버-함수member-function)
 + [OCF(Orthodox Canonical Form)](#ocforthodox-canoical-form)
