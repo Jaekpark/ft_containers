@@ -493,7 +493,8 @@ public:
     	a.push_back(10);
     	a.push_back(11);
 		// a = [10, 11]
-    	std::cout << "a.size : " << a.size() << ", a.capacity : " << a.capacity() << std::endl; // a.size : 2, a.capacity : 2
+    	std::cout << "a.size : " << a.size() << ", a.capacity : " << a.capacity() << std::endl;
+		// a.size : 2, a.capacity : 2
     	std::cout << a[0] << std::endl; // 10
     	std::cout << a[1] << std::endl; // 11
     	std::cout << a[2] << std::endl; // no element, 0
@@ -504,7 +505,8 @@ public:
     	a[0] = 1; // 10 -> 1
     	a[1] = 2; // 11 -> 2
     	a[2] = 3; // no element, 0 -> 3
-    	std::cout << "a.size : " << a.size() << ", a.capacity : " << a.capacity() << std::endl; // a.size : 2, a.capacity : 3
+    	std::cout << "a.size : " << a.size() << ", a.capacity : " << a.capacity() << std::endl;
+		// a.size : 2, a.capacity : 3
     	std::cout << a[0] << std::endl; // 1
     	std::cout << a[1] << std::endl; // 2
     	std::cout << a[2] << std::endl; 
