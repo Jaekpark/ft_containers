@@ -734,8 +734,11 @@ public:
   
   **Prototype**
   ```c++
+  // (1) insert single element
   iterator	insert(iterator position, const value& val);
+  // (2) fill elements
   void		insert(iterator position, size_type n, const value& val);
+  // (3) insert by range
   template <class InputiIterator>
 	void		insert(itertor position, InputiIterator first, InputIterator last);
   ```
