@@ -2,18 +2,18 @@
 
 ## 목차(Contents)
 
-### [`std::vector`, 벡터 컨테이너란?](#stdvector-벡터-컨테이너란)
-### [`std::vector` 클래스](#stdvector-클래스)
-### [멤버 타입(Member types)](#멤버-타입member-types-sup12)
-### [멤버 함수(Member functions)](#멤버-함수member-function)
-+ [OCF(Orthodox Canonical Form)](#ocforthodox-canoical-form)
-+ [Iterator](#iterator)
-+ [Element access](#element-access)
-+ [Modifiers](#modifiers)
-### [비-멤버 함수 (Non-menber Function)](#비-멤버-함수-non-menber-function)
-### [참고 자료(Reference)](#reference)
+### [1. `std::vector`, 벡터 컨테이너란?](#stdvector-벡터-컨테이너란)
+### [2. `std::vector` 클래스](#stdvector-클래스)
++ [멤버 타입(Member types)](#멤버-타입member-types-sup12)
++ [멤버 함수(Member functions)](#멤버-함수member-function)
+  + [OCF(Orthodox Canonical Form)](#ocforthodox-canoical-form)
+  + [Iterator](#iterator)
+  + [Element access](#element-access)
+  + [Modifiers](#modifiers)
++ [비-멤버 함수 (Non-menber Function)](#비-멤버-함수-non-menber-function)
+### [3. 참고 자료(Reference)](#reference)
 ---
-## `std::vector`, 벡터 컨테이너란?
+# `std::vector`, 벡터 컨테이너란?
 
 > `std::vector` is a `sequence` container that encapsulates `dynamic size` arrays <sup>[1]
 
@@ -41,7 +41,7 @@ int *array_ptr = new int[SIZE];
  | dynamic   | 원소가 추가 혹은 삭제됨에 따라 동적으로 메모리가 관리되고, 포인터, 반복자를 통해 각 원소에 접근할 수 있습니다. 또한 컨테이너의 마지막 위치에서 원소를 빠르게 추가, 제거 할 수 있습니다. |
  | Allocator | 벡터는 `std::allocator` 객체를 사용해 필요한 메모리를 동적으로 관리합니다.                                                                                                              |
  ---
-## `std::vector` 클래스
+# `std::vector` 클래스
 
 벡터 컨테이너는 아래와 같은 클래스 템플릿으로 정의되어 있습니다.
 
