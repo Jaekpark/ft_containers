@@ -962,7 +962,23 @@ public:
 	```
 ## 비-멤버 함수 (Non-menber Function)
 
-+ 관계 연산자
++ `relation operators` : 비교 연산자 오버라이딩
+
+	**Prototype**
+	```c++
+	template <class T, class Alloc>
+		bool	operator==(const vector<T, Alloc>& lhs, const vector<T, Alloc& rhs>)
+	template <class T, class Alloc>
+		bool	operator!=(const vector<T, Alloc>& lhs, const vector<T, Alloc& rhs>)
+	template <class T, class Alloc>
+		bool	operator<(const vector<T, Alloc>& lhs, const vector<T, Alloc& rhs>)
+	template <class T, class Alloc>
+		bool	operator<=(const vector<T, Alloc>& lhs, const vector<T, Alloc& rhs>)
+	template <class T, class Alloc>
+		bool	operator>(const vector<T, Alloc>& lhs, const vector<T, Alloc& rhs>)
+	template <class T, class Alloc>
+		bool	operator>=(const vector<T, Alloc>& lhs, const vector<T, Alloc& rhs>)
+	```
 + swap
 ## Reference
 
