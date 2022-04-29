@@ -44,6 +44,8 @@ class Vector;
 
 	메모리 할당을 수행하는 객체입니다. 기본적으로 `std::allocator<T>` 객체가 정의되어 있고, 벡터 클래스 내부에서 `allocator_type`으로 `재정의(typedef)` 됩니다.
 
+---
+
 ## 멤버 타입(Member types) <sup>[1][2]
 
 ```c++
@@ -86,7 +88,7 @@ public:
 | const_reverse_iterator | 역방향 벡터 `const` 타입 원소에 접근할 수 있는 `임의 접근 반복자(Random Access Iterator)` 입니다. | -                                                                      |
 | difference_type        | 벡터 내의 두 원소간 `주소 차이`를 제공하기 위한 멤버 변수입니다.                                  | 보통 `ptrdiff_t`와 같습니다.                                           |
 | size_type              | 벡터 `원소의 수`를 표현하는 형식입니다.                                                           | 보통 `size_t`와 같습니다.                                              |
-
+---
 ## 멤버 함수(Member Function)
 
 ### OCF(Orthodox Canoical Form)
