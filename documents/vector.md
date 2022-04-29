@@ -146,10 +146,10 @@ vector& operator=(const vector& x);
 #### `begin` : 컨테이너의 첫 번째 원소를 가리키는 `반복자(iterator)` 반환
 
 + **Prototype**
-```c++
-iterator	begin();
-const_iterator	begin() const;
-```
+    ```c++
+    iterator	begin();
+    const_iterator	begin() const;
+    ```
 
 컨테이너의 첫 원소를 가리키는 `임의 접근 반복자(Random Access Iterator)` 반환합니다. `const`로 선언된 컨테이너의 경우에는 `const iterator`를 반환합니다. `Element access`의 `front`와 첫 원소의 위치를 얻을 수 있다는 점에서 같지만, `front`는 첫 원소의 `참조자(reference)`를 반환하고, `begin` 함수는 `반복자(iterator)`를 반환 한다는 점에서 다릅니다.
 
