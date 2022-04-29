@@ -734,7 +734,10 @@ public:
   
   **Prototype**
   ```c++
-  
+  iterator	insert(iterator position, const value& val);
+  void	insert(iterator position, size_type n, const value& val);
+  template <class InputiIterator>
+	void	insert(itertor position, InputiIterator first, InputIterator last);
   ```
 + erase
 + swap
