@@ -497,7 +497,8 @@ public:
     	std::cout << a[0] << std::endl; // 10
     	std::cout << a[1] << std::endl; // 11
     	std::cout << a[2] << std::endl; // no element, 0
-    	std::cout << "a.size : " << a.size() << ", a.capacity : " << a.capacity() << std::endl; // a.size : 2, a.capacity : 2, 존재하지 않는 원소에 접근은 가능하지만, 접근 후 수정만으로 새로운 원소로 포함이 되지는 않습니다.
+    	std::cout << "a.size : " << a.size() << ", a.capacity : " << a.capacity() << std::endl; 
+		// a.size : 2, a.capacity : 2, 존재하지 않는 원소에 접근은 가능하지만, 접근 후 수정만으로 새로운 원소로 포함이 되지는 않습니다.
 
     	a.reserve(3); // capacity 2 -> 3
     	a[0] = 1; // 10 -> 1
@@ -506,7 +507,8 @@ public:
     	std::cout << "a.size : " << a.size() << ", a.capacity : " << a.capacity() << std::endl; // a.size : 2, a.capacity : 3
     	std::cout << a[0] << std::endl; // 1
     	std::cout << a[1] << std::endl; // 2
-    	std::cout << a[2] << std::endl; // 3, but it's not en element of 'a'.(actually `a.end()` iterator)
+    	std::cout << a[2] << std::endl; 
+		// 3, but it's not en element of 'a'.(actually `a.end()` iterator)
 
     	std::vector<int>::iterator begin = a.begin();
     	std::vector<int>::iterator end = a.end();
