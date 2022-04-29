@@ -11,14 +11,17 @@ void	print(std::vector<int>& target) {
 }
 
 int main(void) {
-	std::vector<int> a; // empty.
-	
-	// a.pop_back(); // Undefined behavior
-	a.push_back(1); // add 1
-	print(a); // size : 1 , capacity : 1 | a -> 1
-	a.push_back(2); // add 2
-	print(a); // size : 2, capacity : 2 | a -> 1 2
-	a.pop_back();
-	print(a); // size : 1, capacity: 2 | a -> 1
+	std::vector<int> a(2, 1);
+	std::vector<int> b(1, 2);
+
+	print(a);
+	print(b);
+	a.swap(b);
+	print(a);
+	print(b);
+
+	std::swap(a, b);
+	print(a);
+	print(b);
 	return 0;
 }

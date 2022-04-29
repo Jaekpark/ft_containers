@@ -1,6 +1,6 @@
 # Vector
 
-> `std::vector` is a `sequence` container that encapsulates `dynamic size` arrays <sup>[1]  
+> `std::vector` is a `sequence` container that encapsulates `dynamic size` arrays <sup>[1]
 ### `std::vector`, 벡터 컨테이너란?
 
 [cppreference](https:://cppreference.com)에서 벡터를 정의한 구문을 그대로 인용하자면
@@ -740,15 +740,124 @@ public:
   **Prototype**
   ```c++
   // (1) insert single element
-  iterator	insert(iterator position, const value& val);
+  iterator	insert(iterator position, const value_type& val);
   // (2) fill elements
-  void		insert(iterator position, size_type n, const value& val);
+  void		insert(iterator position, size_type n, const value_type& val);
   // (3) insert by range
-  template <class InputiIterator>
-	void		insert(itertor position, InputiIterator first, InputIterator last);
+  template <class InputIterator>
+	void		insert(iterator position, InputIterator first, InputIterator last);
   ```
-+ erase
-+ swap
+
+	컨테이너의 특정 위치에 원소를 삽입하는 함수입니다. `insert` 함수는 3가지 형태로 `오버로딩`되어 있습니다.
+	
+	1. `단일 원소 삽입 (single element)`
+
+		삽입할 위치를 가리키는 반복자 `position` 원소의 앞에 `val` 값의 원소를 새롭게 추가하고, 추가된 원소를 가리키는 `임의 접근 반복자(random access iterator)`를 반환합니다.
+
+	2. `원소 복수 삽입 (fill element)`
+
+		삽입할 위치를 가리키는 반복자 `position` 원소 앞에 `val` 값의 원소를 `n`개 만큼 추가합니다.
+
+	3. `범위 지정 삽입 (range)`
+
+		삽입할 위치를 가리키는 반복자 `position` 원소 앞에 `first` 부터 `last` 범위의 원소들을 추가합니다.
+
+	`insert` 함수는 필요한 경우 컨테이너의 메모리를 재할당합니다.
+	
+	> `벡터` 컨테이너는 배열을 기본적인 저장 형태로 사용하기 때문에, 컨테이너 끝 이외의 지점에 새로운 원소를 추가 할 경우, 추가 되는 원소 뒤에 오는 원소들은 ***위치가 한 칸씩 뒤로 이동합니다.*** 이는 벡터와 동일하게 `시퀀스 컨테이너`로 분류되는 `list`, `forward_list`에 비해 추가적인 비용이 발생하는 비효율적인 측면이 있습니다.
+
+	```c++
+    #include <iostream>
+    #include <vector>
+
+    void	print(std::vector<int>& target) {
+     	std::vector<int>::iterator begin = target.begin();
+     	std::cout << "size : " << target.size()
+     		<< ", capacity : " << target.capacity() << std::endl;
+     	while (begin != target.end())
+     		std::cout << *(begin++) << " ";
+     	std::cout << std::endl;
+    }
+
+    int main(void) {
+     	std::vector<int> a(5, 3); // 3 3 3 3 3
+     	std::vector<int> b(5, 4); // 4 4 4 4 4
+
+     	print(a); // 3 3 3 3 3
+     	a.insert((a.begin()), 10); // 가장 앞에 10 추가
+     	print(a); // 10 3 3 3 3 3
+     	a.insert(a.begin(), 3, 1); // 가장 앞에 1, 3개 추가
+     	print(a); // 1 1 1 10 3 3 3 3 3
+     	a.insert(a.begin(), (b.begin()), b.end()); 
+		// a의 가장 앞에, b 전체 범위 추가
+     	print(a); // 4 4 4 4 1 1 1 10 3 3 3 3 3
+
+     	// std::vector<int> c;
+
+     	// Undefined behavior
+     	// c.insert(a.begin(), 1); iterator position is not an iterator of c
+     	// a.insert(a.begin(), --c.begin(), c.end()); wrong range
+		return 0;
+    }
+	```
+
++ `erase` : 원소 삭제
+
+	**Prototype**
+	```c++
+	iterator	erase(iterator position);
+	iterator	erase(iterator first, iterator last);
+	```
+
+	컨테이너 특정 원소를 지우는 함수입니다. 두 가지 형태로 `오버로딩` 되어 있습니다.
+
+	1. `단일 원소 삭제`
+
+		`position`에 해당하는 원소를 삭제하고, 지워진 원소의 다음 위치에 있던 원소의 반복자를 반환 합니다.
+
+	2. `범위 지정 삭제`
+
+		`first` 부터 `last` 까지의 원소를 삭제하고, 마지막으로 지워진 원소의 다음 위치에 있던 원소의 반복자를 반환합니다.
+
+	잘못된 반복자나, 범위가 매개변수로 사용되는 경우 `undefined behavior`가 발생 할 수 있습니다.
+	
+	> `insert` 함수에서 언급한 것과 동일하게 벡터 컨테이너는 배열 기반 저장 형태를 갖고 있기 때문에, 가장 마지막 원소를 제외한 다른 위치의 원소를 삭제할 경우 원소의 재배치가 일어나 `list`, `forward_list`에 비해 비효율적인 구조를 가지고 있습니다.
+
+	```c++
+    #include <iostream>
+    #include <vector>
+
+    void	print(std::vector<int>& target) {
+     	std::vector<int>::iterator begin = target.begin();
+     	std::cout << "size : " << target.size()
+     		<< ", capacity : " << target.capacity() << std::endl;
+     	while (begin != target.end())
+     		std::cout << *(begin++) << " ";
+     	std::cout << std::endl;
+    }
+
+    int main(void) {
+     	std::vector<int> a;
+     	std::vector<int>::iterator it;
+     	a.push_back(11);
+     	a.push_back(12);
+     	a.push_back(13);
+     	a.push_back(14);
+
+     	print(a); // 11 12 13 14
+     	it = a.erase(a.end() - 1); // erase last element
+     	std::cout << *it << std::endl; // 14, it == after erase a.end()
+     	std::cout << *(a.end()) << std::endl; // 14
+     	print(a); // 11 12 13
+     	a.erase(a.begin(), a.end()); // erase all
+     	print(a); // nothing
+     	return 0;
+    }
+	```
+
++ `swap` : 컨테이너 교환 함수
+
+	**Prototype**
 + clear
 
 ### Allocator
