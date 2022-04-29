@@ -108,7 +108,7 @@ public:
 
 ### OCF(Orthodox Canoical Form)
 
-+ 생성자 (Constructor)
+#### 생성자 (Constructor)
 	```c++
     // 기본 생성자 (default constructor)
 
@@ -126,13 +126,13 @@ public:
 	explicit vector(const vector& x);
 	```
 
-+ 소멸자 (Destructor)
+#### 소멸자 (Destructor)
   
 	```c++
 	~vector(void)
 	```
 
-+ 복사 대입 연산자 (Copy Assignment Operator)
+#### 복사 대입 연산자 (Copy Assignment Operator)
 
 	```c++
 	vector& operator=(const vector& x);
@@ -143,7 +143,7 @@ public:
 #### begin & end
 ![cppreference](https://upload.cppreference.com/mwiki/images/1/1b/range-begin-end.svg)
 
-+ `begin` : 컨테이너의 첫 번째 원소를 가리키는 `반복자(iterator)` 반환
+#### `begin` : 컨테이너의 첫 번째 원소를 가리키는 `반복자(iterator)` 반환
 
 	 **Prototype**
 	```c++
@@ -173,7 +173,7 @@ public:
 		return 0;
 	}
 	```
-+ `end` : 마지막 원소 바로 다음(past-the-end)을 가리키는 `반복자`를 반환
+#### `end` : 마지막 원소 바로 다음(past-the-end)을 가리키는 `반복자`를 반환
 
 	 **Prototype**
 	```c++
@@ -220,7 +220,7 @@ public:
 
 ![rbegin-rend](https://upload.cppreference.com/mwiki/images/3/39/range-rbegin-rend.svg)
 
-+ `rbegin` : 마지막 원소를 가리키는 `역방향 반복자(reverse iterator)`를 반환
+#### `rbegin` : 마지막 원소를 가리키는 `역방향 반복자(reverse iterator)`를 반환
 
 	**Prototype**
 	```c++
@@ -251,7 +251,7 @@ public:
     }
 	```
 
-+ `rend` : 첫 원소의 직전 위치를 가리키는 `역방향 반복자`를 반환
+#### `rend` : 첫 원소의 직전 위치를 가리키는 `역방향 반복자`를 반환
 
 	**Prototype**
 	```c++
