@@ -27,8 +27,6 @@
 
 컴퓨터가 처리할 수 있는 정보는 0과 1 두 가지 뿐이라는 점에서 굉장히 단순하지만, 컴퓨터는 인간의 두뇌로는 처리하기 힘든 막대한 양의 정보를 순식간에 처리할 수 있습니다. 하지만 이런 연산 능력을 활용하기 위해서는 컴퓨터에게 우리가 다루고자 하는 `대상`이나 원하는 `동작`을 `재정의` 하고, 재정의된 개념을 바탕으로 컴퓨터가 처리가능한 방식으로 `구현`하는 과정이 필요합니다. 이 과정이 바로 `프로그래밍`입니다.
 
-
-
 <p align="center">
 <img src="https://media.gettyimages.com/photos/computer-operators-program-eniac-the-first-electronic-digital-by-picture-id615303458?s=2048x2048" alt="eniac"><img src="">
 </p>
