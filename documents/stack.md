@@ -145,5 +145,7 @@ stack& operator=(const stack& x);
 ---
 ## Reference
 
-[PROGRAMMING THE ENIAC: AN EXAMPLE OF WHY COMPUTER HISTORY IS HARD, Leonard J. Shustek, last modified May 18, 2016, accessed May 06, 2022 "https://computerhistory.org/blog/programming-the-eniac-an-example-of-why-computer-history-is-hard/"](https://computerhistory.org/blog/programming-the-eniac-an-example-of-why-computer-history-is-hard/)
++ [PROGRAMMING THE ENIAC: AN EXAMPLE OF WHY COMPUTER HISTORY IS HARD, Leonard J. Shustek, last modified May 18, 2016, accessed May 06, 2022](https://computerhistory.org/blog/programming-the-eniac-an-example-of-why-computer-history-is-hard/)
+
++ [Binary Numbers, electronics-tutorials, last modified Dec 05, 2021, accessed May 06, 2022](https://www.electronics-tutorials.ws/binary/bin_1.html)
 
