@@ -150,8 +150,10 @@ stack& operator=(const stack& x);
 + ["추상화", namu wiki, last modified Feb 08, 2022, accessed May 06, 2022](https://namu.wiki/w/%EC%B6%94%EC%83%81%ED%99%94)
 + ["Abstraction (computer science)", Wikipedia, last modified Jan 21, 2022, accessed May 06, 2022](https://en.wikipedia.org/wiki/Abstraction_(computer_science))
 
-index|title | author | last modified | accessed
--|-|-|-|-
-[1](https://computerhistory.org/blog/programming-the-eniac-an-example-of-why-computer-history-is-hard/)|[PROGRAMMING THE ENIAC: AN EXAMPLE OF WHY COMPUTER HISTORY IS HARD](https://computerhistory.org/blog/programming-the-eniac-an-example-of-why-computer-history-is-hard/)|Leonard J. Shustek|May 18, 2016|May 06, 2022
+index|title | author | last modified | accessed | url status
+-|-|-|-|-|-
+[1](https://computerhistory.org/blog/programming-the-eniac-an-example-of-why-computer-history-is-hard/)|[PROGRAMMING THE ENIAC: AN EXAMPLE OF WHY COMPUTER HISTORY IS HARD](https://computerhistory.org/blog/programming-the-eniac-an-example-of-why-computer-history-is-hard/)|Leonard J. Shustek|May 18, 2016|May 06, 2022 | ok
+2|[Binary Numbers](https://www.electronics-tutorials.ws/binary/bin_1.html)|electronics-tutorials.ws|Dec 05, 2021|May 06, 2022|ok
+
 
 
