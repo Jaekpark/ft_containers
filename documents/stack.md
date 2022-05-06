@@ -21,9 +21,10 @@
 
 <!-- > 추상 : 여러 가지 사물이나 개념에서 공통되는 특성이나 속성 따위를 추출하여 파악하는 작용. <sup>[1] -->
 
+### 컴퓨터 프로그래밍이란
 `컴퓨터 프로그래밍`은 현실에 존재하는 문제나 대상을 디지털 셰계로 옮겨와 컴퓨터의 연산능력을 통해 해결하고 표현하기 위한 방법입니다. 인간은 문제 해결을 위해 다채롭게 현실 세계를 인지하고, 논리적이거나 직관적인 사고를 할 수 있지만, 컴퓨터는 `0`과 `1`로 이루어진 전기 신호, 즉 `2진 구조`를 같는 한 개의 `비트`를 최소 단위로 일련의 연산을 수행합니다.
 
-> 사실 0과 1 이진 표현도 인간이 이해하기 쉽도록 표현한 방식입니다. 조금 더 정확하게 표현하면 컴퓨터는 자신을 구성하고 있는 회로의 전압차이를 통해 2가지 상태에 대한 정보를 얻습니다. 예를 들면 회로에 5v 전압이 흐르면 `1`, 전압이 0v 이거나 접지 전압이면 `0`으로 인식하는 방식입니다. <sup>[2](#reference)
+> 사실 0과 1 이진 표현도 인간이 이해하기 쉽도록 표현한 방식입니다. 이를 `기계어(Machine Language, Machine Code)`라고 합니다. 따라서 엄밀히 말하면 컴퓨터는 숫자 자체를 인식하는것이 아니고, 자신을 구성하고 있는 회로의 전압차이를 통해 2가지 상태를 갖습니다. 예를 들면 회로에 5v 전압이 흐르면 기계어 `1`, 전압이 0v 이거나 접지 전압이면 `0`으로 포현할 수 있습니다. <sup>[2](#reference)
 
 컴퓨터가 처리할 수 있는 정보는 0과 1 두 가지 뿐이라는 점에서 굉장히 단순하지만, 컴퓨터는 인간의 두뇌로는 처리하기 힘든 막대한 양의 정보를 순식간에 처리할 수 있습니다. 하지만 이런 연산 능력을 활용하기 위해서는 컴퓨터에게 우리가 다루고자 하는 `대상`이나 원하는 `동작`을 `재정의` 하고, 재정의된 개념을 컴퓨터가 처리가능한 방식으로 `구현`하는 과정이 필요합니다. 이 과정이 바로 `프로그래밍`입니다.
 
@@ -37,8 +38,13 @@
 
 `애니악(ENIAC)`과 같은 초기 컴퓨터에서 프로그래밍은 거대한 기기의 외부로 들어나 있는 스위칭 소자 배선판에 선을 결선해 연산을 수행하는 방식을 사용했습니다. 예를 들어 어떤 값을 더한 뒤 곱셈을 하고 싶다면, 곱셈기와 덧셈기를 서로 연결하는 식이었습니다.  하지만 이후 `폰 노이만 구조`에 따라 설계된 컴퓨터들은 `중앙 처리 장치(CPU)`, `메모리(Memory)`, `대용량 저장장치(Storage)`, `입출력 장치(I/O)`를 갖는 범용 컴퓨터로써 프로그램 내장 방식으로 동작하게 되었고, 자연스럽게 `프로그래밍 언어(Language)`의 등장으로 이어집니다.
 
-앞서 언급한대로, 컴퓨터의 
+### 프로그래밍 언어
+<p align="center">
+<img src="https://datacadamia.com/_media/code/lang/language_hierarchy.gif?tseed=1463472063" alt="machine-code">
+</p>
+컴퓨터가 수행 할 수 있는 연산은 모두 2진 데이터로 구성되어 있습니다.
 
+### 추상화
 
 컴퓨터 공학에서 `추상화(Abstraction)`란, 특정 대상이 가지고 있거나, 혹은 가져야 하는 필수적이고 핵심적인 특징들을 정의하는 하는 것을 말합니다. 조금 더 구체적으로는 `인터페이스` 역할을 하는 `모델`을 만드는 것과 같습니다.
 
@@ -152,6 +158,7 @@ index|title | author | last modified | accessed | url status
 [1](https://computerhistory.org/blog/programming-the-eniac-an-example-of-why-computer-history-is-hard/)|[PROGRAMMING THE ENIAC: AN EXAMPLE OF WHY COMPUTER HISTORY IS HARD](https://computerhistory.org/blog/programming-the-eniac-an-example-of-why-computer-history-is-hard/)|Leonard J. Shustek|May 18, 2016|May 06, 2022 | ok
 [2](https://www.electronics-tutorials.ws/binary/bin_1.html)|[Binary Numbers](https://www.electronics-tutorials.ws/binary/bin_1.html)|electronics-tutorials.ws|Dec 05, 2021|May 06, 2022|ok
 [3](https://en.wikipedia.org/wiki/Abstraction_(computer_science))|[Abstraction](https://en.wikipedia.org/wiki/Abstraction_(computer_science))|wikipedia|Jan 21, 2022|May 06, 2022|ok
+[4](http://www.ee.ic.ac.uk/pcheung/teaching/DE1_EE/Lectures/Topic%2014%20-%20How%20CPU%20works%20(notes).pdf)|[How CPU works](http://www.ee.ic.ac.uk/pcheung/teaching/DE1_EE/Lectures/Topic%2014%20-%20How%20CPU%20works%20(notes).pdf)|Impreial College, Peter YK Cheung|June 9, 2020|May 6, 2022|ok
 
 
 
