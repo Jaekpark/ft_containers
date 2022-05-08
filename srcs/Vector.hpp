@@ -4,6 +4,8 @@
 #include <iostream>
 #include <string>
 #include <memory>
+#include <vector>
+#include <iterator>
 #include <stdexcept>
 
 namespace ft {
@@ -13,7 +15,9 @@ namespace ft {
 	public:
 		typedef T			value_type;
 		typedef Allocator	allocator_type;
-		typedef typename allocator_type::reference
+		typedef typename allocator_type::reference  reference;
+		typedef typename allocator_type::const_reference  const_reference;
+		typedef typename std::iterator
 
 		protected:
 
