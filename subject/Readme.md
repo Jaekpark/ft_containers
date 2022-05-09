@@ -138,58 +138,53 @@ Summary:
 + `std::make_pair`
 
 ### 3.1 요구 사항 (Requirements)
-+ The namespace must be `ft`.
-+ Each inner data structure used in your containers must be logical and justified (this means using a `simple array` for `map` is not ok).
-+ You **cannot** implement `more public functions` than the ones offered in the standard containers. Everything else must be `private` or `protected`. Each public function or variable must be justified.
-+ All the member functions, non-member functions and `overloads` of the standard
-containers are expected.
-+ You must follow the `original naming`. Take care of details.
-+ If the container has an `iterator` system, you must implement it.
-+ You must use `std::allocator`.
-+ For non-member `overloads`, the keyword `friend` is allowed. Each use of friend
-must be justified and will be checked during evaluation.
-+ Of course, for the implementation of `map::value_compare`, the keyword `friend` is
-allowed.
-
+> + The namespace must be `ft`.
 + `namespace`는 `ft`로 정의합니다.
+> + Each inner data structure used in your containers must be logical and justified (this means using a `simple array` for `map` is not ok).
 + 컨테이너 구현에 사용되는 내부 자료구조는 논리적이고 타당해야합니다. 이 말은 `map` 구현을 위해 `단순 배열`을 사용 할 수 없음을 의미합니다.
+> + You **cannot** implement `more public functions` than the ones offered in the standard containers. Everything else must be `private` or `protected`. Each public function or variable must be justified.
 + C++ 표준 컨테이너에 정의된 것 외의 추가 `public` 멤버 함수는 구현할 수 없습니다. 표준의 퍼블릭 멤버 함수를 제외한 모든 구성 요소는 `private` 혹은 `protected` 접근 제한자로 보호해야 합니다. 각 `public` 멤버 함수나 변수는 선언하는데 타당한 이유가 있어야 합니다.
+> + All the member functions, non-member functions and `overloads` of the standard containers are expected.
 + 모든 멤버 함수 혹은 비-멤버 함수는 표준에서 구현 된것과 동일하게 `오버로드` 해야합니다.
+> + You must follow the `original naming`. Take care of details.
 + 위 요소들의 명명 규칙은 표준과 동일하게 구성해야합니다. 세부 사항을 잘 확인합니다.
+> + If the container has an `iterator` system, you must implement it.
 + 컨테이너에 `반복자(iterator)`가 구현된 경우 동일하고 구현합니다.
+> + You must use `std::allocator`.
 + 메모리 할당은 `std::allocator`를 사용해야합니다.
+> + For non-member `overloads`, the keyword `friend` is allowed. Each use of friend must be justified and will be checked during evaluation.
 + `비-멤버 함수의 오버로딩`에 `friend` 키워드를 사용할 수 있습니다. 이 때 사용 이유가 타당해야하며 이는 동료 평가시 검증할 수 있어야 합니다.
+> + Of course, for the implementation of `map::value_compare`, the keyword `friend` is allowed.
 + 물론 `map::value_compare`를 구현할때 `friend` 키워드를 사용 가능합니다.
 
-> You can use https://www.cplusplus.com/ and https://cppreference.com/ as references.
+
+	> You can use https://www.cplusplus.com/ and https://cppreference.com/ as references.
+	
+	> https://www.cplusplus.com/ 과 https://cppreference.com/ 을 참고할 수 있습니다.
 
 ### 3.2 테스트 (Testing)
-+ You must also provide tests, at least a main.cpp, for your defense. You have to go
-further than the main given as example!
-+ You must produce two binaries that run the same tests: one with your containers
-only, and the other one with the STL containers.
-+ Compare outputs and performance / timing (your containers can be up to 20
-times slower).
-+ Test your containers with: `ft::<container>`.
-
+> + You must also provide tests, at least a main.cpp, for your defense. You have to go further than the main given as example!
 + 동료 평가 디펜스를 위해 기본으로 주어지는 `main.cpp` 외의 추가적으로 작성된 파일을 반드시 제출해야 합니다.
+> + You must produce two binaries that run the same tests: one with your containers only, and the other one with the STL containers.
 + 기존 C++ 표준 컨테이너와 비교하기 위해 표준 컨테이너로 컴파일 한 실행파일과 직접 구현한 컨테이너로 컴파일 한 실행파일을 만들 수 있도록 구성해야합니다.
+> + Compare outputs and performance / timing (your containers can be up to 20 times slower).
 + 출력 결과와 성능(20배 정도 차이 내)을 비교해봅시다.
+> + Test your containers with: `ft::<container>`.
 + 위 규칙에 따라 직접 구현한 컨테이너는 `ft::<container>` 형식으로 테스트 할 수 있어야 합니다.
 
-> A main.cpp file is available to download on the intranet project page.
+	> A main.cpp file is available to download on the intranet project page.
 
-> main.cpp 파일은 인트라넷의 프로젝트 페이지에서 다운로드 할 수 있습니다.
+	> main.cpp 파일은 인트라넷의 프로젝트 페이지에서 다운로드 할 수 있습니다.
 
 ## 4. 보너스 파트 (Bonus part)
 
-You will get extra points if you implement one last container:
+> You will get extra points if you implement one last container:
 
 `set` 컨테이너를 구현해 추가 점수를 받을 수 있습니다.
 
 + set
 	
-	But this time, a `Red-Black tree` is mandatory.
+	> But this time, a `Red-Black tree` is mandatory.
 
 	`레드-블랙 트리`를 기본으로 구현하도록 합니다.
 
@@ -199,8 +194,6 @@ You will get extra points if you implement one last container:
 
 ## 5. 제출 및 동료 평가 (Submission and peer-evaluation)
 
-Turn in your assignment in your Git repository as usual. Only the work inside your
-repository will be evaluated during the defense. Don’t hesitate to double check the
-names of your files to ensure they are correct.
+> Turn in your assignment in your Git repository as usual. Only the work inside your repository will be evaluated during the defense. Don’t hesitate to double check the names of your files to ensure they are correct.
 
 항상 그랬듯이 프로젝트 깃 리포지토리에 과제를 제출합시다. 평가는 해당 깃 리포지토리 안에서만 진행됩니다. 올바른 파일이름으로 제출했는지 꼭 다시 한번 확인 해야합니다.
