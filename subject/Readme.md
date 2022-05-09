@@ -3,8 +3,8 @@
 
 Summary: 
 
-	The standard C++ containers have all a specific usage.
-	To make sure you understand them, let’s re-implement them!
+>The standard C++ containers have all a specific usage.
+>To make sure you understand them, let’s re-implement them!
 
 	C++ 컨테이너는 종류에 따라 각기 다른 특징을 가지고 있고, 컨테이너를 잘 이해하고 있는 프로그래머는 상황에 따라 적합한 컨테이너를 사용해 문제를 효과적으로 해결 할 수 있습니다.
 
@@ -24,8 +24,9 @@ Summary:
 
 ## 1. Objectives
 
-In this project, you will implement a few container types of the C++ standard template
-library. You have to take the structure of each standard container as reference. If a part of the Orthodox Canonical form is missing in it, do not implement it. As a reminder, you have to comply with the C++98 standard, so any later feature of the containers MUST NOT be implemented, but every C++98 feature (even deprecated ones) is expected.
+> In this project, you will implement a few container types of the C++ standard template library. 
+> You have to take the structure of each standard container as reference. If a part of the Orthodox Canonical form is missing in it, do not implement it.
+> As a reminder, you have to comply with the C++98 standard, so any later feature of the containers MUST NOT be implemented, but every C++98 feature(even deprecated ones) is expected.
 
 이번 프로젝트의 목표는 C++ STL에 포함된 몇가지 컨테이너를 직접 구현하는 것입니다. 각 컨테이너는 C++ 표준 컨테이너와 같은 구조로 구현해야 합니다. 만약 해당 컨테이너가`OCF(Orthodox Canonical Form)`를 따르지 않는다면, 우리 역시 마찬가지로 구현해야 합니다. 재차 강조하지만 기준이 되는 C++ 표준 버전은 `C++98` 표준입니다. 따라서 `C++98`이 아닌 최근 버전에서 제공되는 기능들은 포함되어선 안됩니다. 하지만 `C++98`에 포함되는 모든 기능들은 최근 표준에서는 `사용되지 않는(Deprecated)` 것일지라도 반드시 구현해야합니다.
 
@@ -35,15 +36,16 @@ library. You have to take the structure of each standard container as reference.
 > + Compile your code with `c++` and the flags `-Wall -Wextra -Werror`
 > + Your code should still compile if you add the flag `-std=c++98`
 
-**컴파일**
-+ 컴파일러는 `c++` 를 사용해야하고 컴파일 플래그로 `-Wall -Wextra -Werror`를 사용해야합니다.
-+ `-std=c++98` 플래그를 사용해 컴파일 했을 때도 문제가 없어야합니다.
 
 > **Formatting and naming conventions**
 > + For each container, turn in the appropriately named class files.
 > + Goodbye `Norminette`! No coding style is enforced. You can follow your favorite one.
 > But keep in mind that a code your peer-evaluators can’t understand is a code they can’t grade. Do your best to write a clean and readable code.
 
+**컴파일**
++ 컴파일러는 `c++` 를 사용해야하고 컴파일 플래그로 `-Wall -Wextra -Werror`를 사용해야합니다.
++ `-std=c++98` 플래그를 사용해 컴파일 했을 때도 문제가 없어야합니다.
+  
 **포맷팅과 네이밍 컨벤션**
 + 각 컨테이너에 대해 적절한 이름으로 명명된 클래스 파일들을 제출해야 합니다. 
   + `예 : header file for class Vector -> Vector.hpp`
@@ -53,28 +55,23 @@ library. You have to take the structure of each standard container as reference.
 > 
 > You are not coding in C anymore. Time to C++! Therefore:
 > + You are allowed to use everything from the `standard library`. Thus, instead of sticking to what you already know, it would be smart to use as much as possible the `C -ish versions` of the C functions you are used to.
-> + However, you can’t use any other external library. It means `C++11` (and derived forms) and Boost libraries are **forbidden**. The following functions are forbidden too: *printf(), *alloc() and free(). If you use them, your grade will be 0 and that’s it.
+> + However, you can’t use any other external library. It means `C++11` (and derived forms) and `Boost libraries` are **forbidden**. The following functions are forbidden too:` *printf()`, `*alloc()` and `free()`. If you use them, your grade will be 0 and that’s it.
 
 **허용/금지**
 + C++ `표준 라이브러리`에 포함되어있는 함수는 모두 사용 할 수 있습니다. 따라서 우리가 기존 `C`에서 사용했던 함수들을 사용하기 보다는 같은 기능을 하는 `C++ 버전`의 함수를 사용하는 것이 좋습니다.
 + 그러나 `C++11` 에서 새롭게 제공하는 함수들이나 `Boost 라이브러리`와 같은 외부 라이브러리는 **사용할 수 없습니다**. 또한 `C`에서 사용되는 `*printf()`, `*alloc()`, `free()` 함수도 사용을 금지합니다. 만약 이 규칙을 어길 경우 평가 점수는 0점입니다.
 
 
-**A few design requirements**
-+ `Memory leakage` occurs in C++ too. When you allocate memory, you must avoid
-memory leaks.
-+ Any function implementation put in a header file (except for `function templates`)
-means 0 to the exercise.
-+ You should be able to use each of your headers independently from others. Thus,
-they must include all the dependencies they need. However, you must avoid the
-problem of `double inclusion` by adding `include guards`. Otherwise, your grade will
-be 0.
+> **A few design requirements**
+> + `Memory leakage` occurs in C++ too. When you allocate memory, you must avoid memory leaks.
+> + Any function implementation put in a header file (except for `function templates`) means 0 to the exercise.
+> + You should be able to use each of your headers independently from others. Thus, they must include all the dependencies they need. However, you must avoid the problem of `double inclusion` by adding `include guards`. Otherwise, your grade will be 0.
 
 **설계 요구사항**
 + C++ 에서도 `메모리 누수`는 발생 할 수 있습니다. 만약 동적 메모리 할당을 사용한 경우 메모리 누수가 발생하지 않도록 구현해야합니다.
 + `함수 템플릿`을 제외한 일반 함수는 헤더 파일에 구현 할 수 없습니다. 헤더 파일에 일반 함수의 구현이 포함된 경우 평가 점수는 0점입니다.
 + 각 헤더 파일은 독립적으로 사용 가능하도록 구성해야합니다. 따라서 헤더 파일은 파일에 포함된 기능들이 동작하도록 하는 모든 의존성을 포함해야 합니다. 다만 `헤더파일 중복선언(double inclusion)` 문제를 피하기 위해 각 헤더 파일에 `include guards`를 추가해야 합니다. 그렇지 않을 경우 평가점수는 0점입니다.
-  + `include guard macro`
+  + `include guard macro`<sub> 역자 주
 	```c
 	// File name : foo.h
 	#ifndef FOO_H // include guard
@@ -83,29 +80,28 @@ be 0.
 	#endif
 	```
 
-**Read me**
-+ You can add some additional files if you need to (i.e., to `split your code`) and
-organize your work as you wish as long as you turn in the mandatory files.
-+ By Odin, by Thor! Use your brain!!!
+> **Read me**
+> + You can add some additional files if you need to (i.e., to `split your code`) and organize your work as you wish as long as you turn in the mandatory files.
+> + By Odin, by Thor! Use your brain!!!
 
 **Read me**
 + 필요한 경우 추가적인 파일을 포함(즉, `코드 분할`을 위한 파일)해 제출 할 수 있습니다. `Mandatory`에서 요구하는 필수 파일만 제출 한다면 추가적인 구성은 자유롭게 할 수 있습니다.
 + 자, 머리 한번 써봅시다.
 
 
-> Since your task here is to recode the STL containers, you of course cannot use them in order to implement yours.
+	> Since your task here is to recode the STL containers, you of course cannot use them in order to implement yours.
 
-> 당연한 일이겠지만, 이번 과제는 STL 컨테이너를 직접 구현해보는 것이기 때문에 C++ STL Container는 사용 할 수 없습니다.
+	> 당연한 일이겠지만, 이번 과제는 STL 컨테이너를 직접 구현해보는 것이기 때문에 C++ STL Container는 사용 할 수 없습니다.
 
 ## 3. 필수 구현 파트 (Mandatory part)
 
-Implement the following containers and turn in the necessary `<container>.hpp` files:
+> Implement the following containers and turn in the necessary `<container>.hpp` files:
 
 아래에 기재된 컨테이너를 구현하고 `<컨테이너 이름>.hpp`의 형식으로 파일을 작성합니다.
 
 + `벡터 (vector)`
 	
-	You don’t have to do the `vector<bool>` specialization.
+	>	You don’t have to do the `vector<bool>` specialization.
 	
 	`vector<bool>` 타입에 대한 템플릿 특수화를 구현할 필요는 없습니다.
 	
@@ -113,15 +109,15 @@ Implement the following containers and turn in the necessary `<container>.hpp` f
 
 + `스택 (stack)`
 
-  	It will use your vector class as default underlying container. But it must still be compatible with other containers, the STL ones included.
+  	> It will use your vector class as default underlying container. But it must still be compatible with other containers, the STL ones included.
 	
 	`vector` 클래스를 기반으로 작성해야 합니다. 하지만 다른 컨테이너와 호환 가능하도록 작성해야 합니다.
 
-> You can pass this assignment without the stack (80/100). But if you want to do the bonus part, you have to implement the 3 mandatory containers: vector, map and stack.
+	> You can pass this assignment without the stack (80/100). But if you want to do the bonus part, you have to implement the 3 mandatory containers: vector, map and stack.
 
-> 이번 과제는 스택을 구현하지 않아도 벡터와 맵이 문제 없을 경우 80/100점으로 통과가 가능합니다. 하지만 보너스 파트를 평가받으려면 vector, map, stack 이 세 종륭의 컨테이너는 반드시 구현해야합니다.
+	> 이번 과제는 스택을 구현하지 않아도 벡터와 맵이 문제 없을 경우 80/100점으로 통과가 가능합니다. 하지만 보너스 파트를 평가받으려면 vector, map, stack 이 세 종륭의 컨테이너는 반드시 구현해야합니다.
 
-You also have to implement:
+> You also have to implement:
 
 아래의 항목 또한 구현해야합니다.
 
@@ -129,11 +125,10 @@ You also have to implement:
 + `reverse_iterator`
 + `enable_if`
 
-	Yes, it is `C++11` but you will be able to implement it in a `C++98` manner.
+	> Yes, it is `C++11` but you will be able to implement it in a `C++98` manner.
+	> This is asked so you can discover `SFINAE`.
 
 	네 이는 `C++11` 표준 부터 제공되는 기능이지만, `C++98` 표준으로도 구현이 가능합니다.
-
-	This is asked so you can discover `SFINAE`.
 
 	`SFINAE`가 무엇인지 알아보도록 합시다.
 
