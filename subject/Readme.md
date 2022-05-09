@@ -115,7 +115,7 @@ Summary:
 
 	> You can pass this assignment without the stack (80/100). But if you want to do the bonus part, you have to implement the 3 mandatory containers: vector, map and stack.
 
-	> 이번 과제는 스택을 구현하지 않아도 벡터와 맵이 문제 없을 경우 80/100점으로 통과가 가능합니다. 하지만 보너스 파트를 평가받으려면 vector, map, stack 이 세 종륭의 컨테이너는 반드시 구현해야합니다.
+	> 이번 과제는 스택을 구현하지 않아도 벡터와 맵이 문제 없을 경우 80/100점으로 통과가 가능합니다. 하지만 보너스 파트를 평가받으려면 vector, map, stack 이 세 종류의 컨테이너는 반드시 구현해야합니다.
 
 > You also have to implement:
 
