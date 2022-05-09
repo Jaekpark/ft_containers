@@ -4,7 +4,7 @@
 
 ### [1. `iterator`, 반복자란?](#iterator-반복자란)
 ### [2. `iterator` 클래스](#iterator-클래스)
-+ [멤버 타입 (Member types)]
++ [멤버 타입 (Member types)](#멤버-타입member-types)
 ### [3. 참고 자료 (Reference)](#reference)
 ---
 # `iterator`, 반복자란?<sup>[[3]](#reference)
