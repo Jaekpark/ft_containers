@@ -13,14 +13,14 @@ Summary:
 ## Contents
 
 - [ft_containers](#ft_containers)
-    - [Contents](#contents)
-    - [1. Objectives](#1-objectives)
-    - [2. 기본 규칙 (Geneal rules)](#2-기본-규칙-geneal-rules)
-    - [3. 필수 구현 파트 (Mandatory part)](#3-필수-구현-파트-mandatory-part)
-        - [3.1 요구 사항 (Requirements)](#31-요구-사항-requirements)
-        - [3.2 테스트 (Testing)](#32-테스트-testing)
-    - [4. 보너스 파트 (Bonus part)](#4-보너스-파트-bonus-part)
-    - [5. 제출 및 동료 평가 (Submission and peer-evaluation)](#5-제출-및-동료-평가-submission-and-peer-evaluation)
+	- [Contents](#contents)
+	- [1. Objectives](#1-objectives)
+	- [2. 기본 규칙 (Geneal rules)](#2-기본-규칙-geneal-rules)
+	- [3. 필수 구현 파트 (Mandatory part)](#3-필수-구현-파트-mandatory-part)
+		- [3.1 요구 사항 (Requirements)](#31-요구-사항-requirements)
+		- [3.2 테스트 (Testing)](#32-테스트-testing)
+	- [4. 보너스 파트 (Bonus part)](#4-보너스-파트-bonus-part)
+	- [5. 제출 및 동료 평가 (Submission and peer-evaluation)](#5-제출-및-동료-평가-submission-and-peer-evaluation)
 
 ## 1. Objectives
 
@@ -31,32 +31,29 @@ library. You have to take the structure of each standard container as reference.
 
 ## 2. 기본 규칙 (Geneal rules)
 
-**Compiling**
-+ Compile your code with `c++` and the flags `-Wall -Wextra -Werror`
-+ Your code should still compile if you add the flag `-std=c++98`
+> **Compiling**
+> + Compile your code with `c++` and the flags `-Wall -Wextra -Werror`
+> + Your code should still compile if you add the flag `-std=c++98`
 
 **컴파일**
 + 컴파일러는 `c++` 를 사용해야하고 컴파일 플래그로 `-Wall -Wextra -Werror`를 사용해야합니다.
 + `-std=c++98` 플래그를 사용해 컴파일 했을 때도 문제가 없어야합니다.
 
-**Formatting and naming conventions**
-+ For each container, turn in the appropriately named class files.
-+ Goodbye `Norminette`! No coding style is enforced. You can follow your favorite one.
-But keep in mind that a code your peer-evaluators can’t understand is a code they
-can’t grade. Do your best to write a clean and readable code.
+> **Formatting and naming conventions**
+> + For each container, turn in the appropriately named class files.
+> + Goodbye `Norminette`! No coding style is enforced. You can follow your favorite one.
+> But keep in mind that a code your peer-evaluators can’t understand is a code they can’t grade. Do your best to write a clean and readable code.
 
 **포맷팅과 네이밍 컨벤션**
 + 각 컨테이너에 대해 적절한 이름으로 명명된 클래스 파일들을 제출해야 합니다. 
   + `예 : header file for class Vector -> Vector.hpp`
 + `norminette`은 더 이상 사용하지 않습니다. 특별히 강제되는 코딩 스탠다드는 없기 때문에 원하는 표준에 따라 코드를 작성해도 좋습니다. 하지만 동료 평가시 평가자가 평가를 진행하기 힘들 정도로 이해하기 어려운 난잡한 코드는 평가 받을 수 없습니다. 최선을 다해 가독성이 좋은 클린 코드를 작성하도록 해봅시다.
 
-**Allowed/Forbidden**
-
-You are not coding in C anymore. Time to C++! Therefore:
-
-+ You are allowed to use everything from the `standard library`. Thus, instead of sticking to what you already know, it would be smart to use as much as possible the `C -ish versions` of the C functions you are used to.
-
-+ However, you can’t use any other external library. It means `C++11` (and derived forms) and Boost libraries are **forbidden**. The following functions are forbidden too: *printf(), *alloc() and free(). If you use them, your grade will be 0 and that’s it.
+> **Allowed/Forbidden**
+> 
+> You are not coding in C anymore. Time to C++! Therefore:
+> + You are allowed to use everything from the `standard library`. Thus, instead of sticking to what you already know, it would be smart to use as much as possible the `C -ish versions` of the C functions you are used to.
+> + However, you can’t use any other external library. It means `C++11` (and derived forms) and Boost libraries are **forbidden**. The following functions are forbidden too: *printf(), *alloc() and free(). If you use them, your grade will be 0 and that’s it.
 
 **허용/금지**
 + C++ `표준 라이브러리`에 포함되어있는 함수는 모두 사용 할 수 있습니다. 따라서 우리가 기존 `C`에서 사용했던 함수들을 사용하기 보다는 같은 기능을 하는 `C++ 버전`의 함수를 사용하는 것이 좋습니다.
