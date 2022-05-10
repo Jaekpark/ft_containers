@@ -1,5 +1,6 @@
 #include <iostream>
 #include "config.hpp"
+#include <iterator>
 
 _BEGIN_NAMESPACE_FT
 
@@ -11,9 +12,8 @@ class foo {
 };
 _END_NAMESPACE_FT
 
-using namespace ft;
 
 int main(void) {
-	ft::foo a;
+
 	return 0;
 }

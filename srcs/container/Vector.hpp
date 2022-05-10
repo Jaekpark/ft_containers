@@ -10,7 +10,7 @@
 #include <stdexcept>
 
 namespace ft {
-
+std::iterator<int>::InputIterator	iter;
 	template < class T, class Allocator = std::allocator<T> >
 	class vector {
 	public:
