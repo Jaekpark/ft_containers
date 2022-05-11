@@ -1,6 +1,7 @@
 #include <iostream>
-#include "config.hpp"
+#include <vector>
 #include <iterator>
+#include "config.hpp"
 
 _BEGIN_NAMESPACE_FT
 
@@ -14,6 +15,7 @@ _END_NAMESPACE_FT
 
 
 int main(void) {
+	std::vector<int> a(5, 5);
 
 	return 0;
 }

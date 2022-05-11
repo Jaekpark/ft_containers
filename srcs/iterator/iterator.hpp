@@ -6,12 +6,14 @@
 #include "../config.hpp"
 #include "../iterator/iterator_traits.hpp"
 
+#define _FT_VECTOR_ITERATOR ft::iterator<random_access_iterator_tag, pointer>
+
 _BEGIN_NAMESPACE_FT
 
 template <class Category,
 					class T,
 					class Distance = ptrdiff_t,
-					class Pointer = T,
+					class Pointer = T*,
 					class Reference = T&>
 struct iterator
 {

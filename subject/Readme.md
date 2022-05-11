@@ -149,7 +149,7 @@ Summary:
 > + You must follow the `original naming`. Take care of details.
 + 위 요소들의 명명 규칙은 표준과 동일하게 구성해야합니다. 세부 사항을 잘 확인합니다.
 > + If the container has an `iterator` system, you must implement it.
-+ 컨테이너에 `반복자(iterator)`가 구현된 경우 동일하고 구현합니다.
++ 컨테이너에 `반복자(iterator)`가 구현된 경우 동일하게 구현합니다.
 > + You must use `std::allocator`.
 + 메모리 할당은 `std::allocator`를 사용해야합니다.
 > + For non-member `overloads`, the keyword `friend` is allowed. Each use of friend must be justified and will be checked during evaluation.
