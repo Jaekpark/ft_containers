@@ -4,7 +4,7 @@
 
 ### [1. `std::vector`, 벡터 컨테이너란?](#stdvector-벡터-컨테이너란)
 ### [2. `std::vector` 클래스](#stdvector-클래스)
-+ [요약(Summary]()
++ [개요 (Synopsis)](#개요synopsis)
 + [멤버 타입 (Member types)](#멤버-타입member-types-12)
 + [멤버 함수 (Member functions)](#멤버-함수member-function)
   + [OCF (Orthodox Canonical Form)](#ocforthodox-canoical-form)
@@ -60,7 +60,7 @@ class Vector;
 
 	메모리 할당을 수행하는 객체입니다. 기본적으로 `std::allocator<T>` 객체가 할당되어 있고, 벡터 클래스 내부에서 `allocator_type`으로 `재정의(typedef)` 됩니다.
 ---
-## 멤버 타입(Member types) <sup>[1][2]
+## 개요(Synopsis)
 
 ```c++
 // Vector Synopsis
@@ -99,47 +99,47 @@ public:
 
 	template <class InputIterator>
 		void	assign(size_type n, const T& u);
-		allocator_type	get_allocator(void) const;
+	allocator_type	get_allocator(void) const;
 
-		//iterator
-		iterator								begin(void);
-		const_iterator					begin(void) const;
-		iterator								end(void);
-		const_iterator					end(void) const;
-		reverse_iterator				rbegin(void);
-		const_reverse_iterator	rbegin(void);
-		reverse_iterator				rend(void);
-		const_reverse_iterator	rend(void);
+	//iterator
+	iterator								begin(void);
+	const_iterator					begin(void) const;
+	iterator								end(void);
+	const_iterator					end(void) const;
+	reverse_iterator				rbegin(void);
+	const_reverse_iterator	rbegin(void);
+	reverse_iterator				rend(void);
+	const_reverse_iterator	rend(void);
 
-		//capacity
-		size_type								size(void) const;
-		size_type								max_size(void) const;
-		void										resize(size_type n, value_type val = value_type());
-		size_type								capacity(void) const;
-		bool										empty(void) const;
-		void										reserve(size_type n);
+	//capacity
+	size_type								size(void) const;
+	size_type								max_size(void) const;
+	void										resize(size_type n, value_type val = value_type());
+	size_type								capacity(void) const;
+	bool										empty(void) const;
+	void										reserve(size_type n);
 
-		// element access
-		reference								operator[](size_type n);
-		const_reference					operator[](size_type n) const;
-		reference								at(size_type n);
-		const_reference					at(size_type n) const;
-		reference								front(void);
-		const_reference					front(void) const;
-		reference								back(void);
-		const_reference					back(void) const;
+	// element access
+	reference								operator[](size_type n);
+	const_reference					operator[](size_type n) const;
+	reference								at(size_type n);
+	const_reference					at(size_type n) const;
+	reference								front(void);
+	const_reference					front(void) const;
+	reference								back(void);
+	const_reference					back(void) const;
 
-		// modifiers
-		void										push_back(const T& x);
-		void										pop_back(void);
-		iterator								insert(iterator position, const T& x);
-		void										insert(iterator position, size_type n, const T& x);
-		template <class InputIterator>
-			void									insert(iterator position, InputIterator first, InputIterator last);
-		iterator								erase(iterator position);
-		iterator								erase(iterator first, iterator last);
-		void										swap(vector<T, Allocator>&);
-		void										clear(void);
+	// modifiers
+	void										push_back(const T& x);
+	void										pop_back(void);
+	iterator								insert(iterator position, const T& x);
+	void										insert(iterator position, size_type n, const T& x);
+	template <class InputIterator>
+		void									insert(iterator position, InputIterator first, InputIterator last);
+	iterator								erase(iterator position);
+	iterator								erase(iterator first, iterator last);
+	void										swap(vector<T, Allocator>&);
+	void										clear(void);
 };
 // relation operator
 template <class T, class Allocator>
@@ -155,6 +155,8 @@ template <class T, class Allocator>
 template <class T, class Allocator>
 	bool operator>=(const vector<T, Allocator>& x, const vector<T, Allocator>& y);
 ```
+## 멤버 타입(Member types) <sup>[1][2]
+
 
 | member type            | definition                                                                                        | note                                                                   |
 | ---------------------- | ------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
