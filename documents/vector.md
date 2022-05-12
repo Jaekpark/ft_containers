@@ -74,7 +74,7 @@ public:
 	typedef typename allocator_type::difference_type		difference_type;
 	// 참조자 타입 선언
 	typedef typename allocator_type::reference				reference;
-	typedef typename allocator_type::const_reference		const_reference;
+	typedef typename allocator_type::const_reference			const_reference;
 	// 포인터 타입 선언
 	typedef typename allocator_type::pointer				pointer;
 	typedef typename allocator_type::const_pointer				const_pointer;
