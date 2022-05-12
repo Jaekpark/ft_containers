@@ -68,16 +68,16 @@ template < class T, class Allocator = std::allocator<T> >
 class vector {
 public:
 	//기본 타입 선언
-	typedef T																													value_type;
-	typedef Allocator																									allocator_type;
-	typedef typename allocator_type::size_type												size_type;
-	typedef typename allocator_type::difference_type									difference_type;
+	typedef T			value_type;
+	typedef Allocator		allocator_type;
+	typedef typename allocator_type::size_type		size_type;
+	typedef typename allocator_type::difference_type		difference_type;
 	// 참조자 타입 선언
-	typedef typename allocator_type::reference												reference;
-	typedef typename allocator_type::const_reference									const_reference;
+	typedef typename allocator_type::reference		reference;
+	typedef typename allocator_type::const_reference		const_reference;
 	// 포인터 타입 선언
-	typedef typename allocator_type::pointer													pointer;
-	typedef typename allocator_type::const_pointer										const_pointer;
+	typedef typename allocator_type::pointer		pointer;
+	typedef typename allocator_type::const_pointer		const_pointer;
 	// 반복자 타입 선언
 	typedef std::iterator<random_access_iterator_tag, pointer>				iterator;
 	typedef std::iterator<random_access_iterator_tag, const_pointer>	const_iterator;
