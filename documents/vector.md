@@ -189,7 +189,7 @@ template <class T, class Allocator>
 
   // first ~ last 까지 복사 생성
   template <class InputIterator>
-	explicit vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());
+		vector(InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());
 
 	// 복사 생성자
 	explicit vector(const vector& x);
