@@ -114,10 +114,10 @@ public:
 	//capacity
 	size_type	size(void) const;
 	size_type	max_size(void) const;
-	void		resize(size_type n, value_type val = value_type());
+	void			resize(size_type n, value_type val = value_type());
 	size_type	capacity(void) const;
-	bool		empty(void) const;
-	void		reserve(size_type n);
+	bool			empty(void) const;
+	void			reserve(size_type n);
 
 	// element access
 	reference								operator[](size_type n);
