@@ -120,13 +120,13 @@ public:
 	void		reserve(size_type n);
 
 	// element access
-	reference		operator[](size_type n);
+	reference	operator[](size_type n);
 	const_reference	operator[](size_type n) const;
-	reference		at(size_type n);
+	reference	at(size_type n);
 	const_reference	at(size_type n) const;
-	reference		front(void);
+	reference	front(void);
 	const_reference	front(void) const;
-	reference		back(void);
+	reference	back(void);
 	const_reference	back(void) const;
 
 	// modifiers
