@@ -31,12 +31,17 @@ public:
 	typedef typename ft::reverse_iterator<iterator>					reverse_iterator;
 	typedef typename ft::reverse_iterator<const_iterator>		const_reverse_iterator;
 
-	Vector(void) {};
-	explicit Vector(const allocator_type& alloc = allocator_type()) {};
-	// explicit vector(size_type n, const allocator_type& alloc = allocator_type()) {
-		
-	// }
-	// explicit vector(size_type n, const value_type& value = value_type(), const allocator_type& alloc = allocator_type()) {
+	vector(void) {};
+	explicit vector(const Allocator& alloc = Allocator()) {};
+	explicit vector(size_type n, const T& value = T(),
+									const Allocator& allocator = Allocator()) {};
+	template <class InputIterator>
+		explicit vector(InputIterator first, InputIterator last,
+										const Allocator& allocator = Allocator()) {};
+	explicit vector(const vector<T, Allocator>& x) {};
+	~vector(void) {};
+
+	vector<T, Allocator>& operator=(const vector<T, Allocator>& x) {};
 	// 	for (int i = 0; i < n; i++)
 	// 		pointer++ = value;
 	// }

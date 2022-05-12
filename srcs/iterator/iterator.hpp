@@ -6,7 +6,6 @@
 #include "../config.hpp"
 #include "../iterator/iterator_traits.hpp"
 
-#define _FT_VECTOR_ITERATOR ft::iterator<random_access_iterator_tag, pointer>
 
 _BEGIN_NAMESPACE_FT
 
