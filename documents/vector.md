@@ -81,8 +81,8 @@ public:
 	// 반복자 타입 선언
 	typedef std::iterator<random_access_iterator_tag, pointer>	iterator;
 	typedef std::iterator<random_access_iterator_tag, const_pointer>	const_iterator;
-	typedef typename std::reverse_iterator<iterator>	reverse_iterator;
-	typedef typename std::reverse_iterator<const_iterator>	const_reverse_iterator;
+	typedef typename std::reverse_iterator<iterator>		reverse_iterator;
+	typedef typename std::reverse_iterator<const_iterator>		const_reverse_iterator;
 
 	// 생성자/소멸자
 	explicit vector(const Allocator& alloc = Allocator());
