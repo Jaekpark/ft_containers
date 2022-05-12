@@ -87,7 +87,7 @@ public:
 	// 생성자/소멸자
 	explicit vector(const Allocator& alloc = Allocator());
 	explicit vector(size_type n, const T& value = T(),
-									const Allocator& allocator = Allocator());
+				const Allocator& allocator = Allocator());
 	template <class InputIterator>
 		vector(InputIterator first, InputIterator last,
 					const Allocator& allocator = Allocator());
