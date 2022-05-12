@@ -76,8 +76,8 @@ public:
 	typedef typename allocator_type::reference		reference;
 	typedef typename allocator_type::const_reference		const_reference;
 	// 포인터 타입 선언
-	typedef typename allocator_type::pointer	pointer;
-	typedef typename allocator_type::const_pointer	const_pointer;
+	typedef typename allocator_type::pointer			pointer;
+	typedef typename allocator_type::const_pointer			const_pointer;
 	// 반복자 타입 선언
 	typedef std::iterator<random_access_iterator_tag, pointer>		iterator;
 	typedef std::iterator<random_access_iterator_tag, const_pointer>	const_iterator;
