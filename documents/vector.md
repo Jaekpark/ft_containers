@@ -112,12 +112,12 @@ public:
 	const_reverse_iterator	rend(void);
 
 	//capacity
-	size_type								size(void) const;
-	size_type								max_size(void) const;
-	void										resize(size_type n, value_type val = value_type());
-	size_type								capacity(void) const;
-	bool										empty(void) const;
-	void										reserve(size_type n);
+	size_type	size(void) const;
+	size_type	max_size(void) const;
+	void	resize(size_type n, value_type val = value_type());
+	size_type	capacity(void) const;
+	bool	empty(void) const;
+	void	reserve(size_type n);
 
 	// element access
 	reference								operator[](size_type n);
