@@ -130,16 +130,16 @@ public:
 	const_reference	back(void) const;
 
 	// modifiers
-	void	push_back(const T& x);
-	void	pop_back(void);
+	void		push_back(const T& x);
+	void		pop_back(void);
 	iterator	insert(iterator position, const T& x);
-	void	insert(iterator position, size_type n, const T& x);
+	void		insert(iterator position, size_type n, const T& x);
 	template <class InputIterator>
 		void	insert(iterator position, InputIterator first, InputIterator last);
 	iterator	erase(iterator position);
 	iterator	erase(iterator first, iterator last);
-	void	swap(vector<T, Allocator>&);
-	void	clear(void);
+	void		swap(vector<T, Allocator>&);
+	void		clear(void);
 };
 // relation operator
 template <class T, class Allocator>
