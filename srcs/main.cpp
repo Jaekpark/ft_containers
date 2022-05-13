@@ -1,22 +1,16 @@
 #include <iostream>
 // #include <vector>
 // #include <iterator>
+#include <vector>
 #include "config.hpp"
-
-_BEGIN_NAMESPACE_FT
-
-class foo {
-	public:
-	foo(void) {
-		std::cout << "hi" << std::endl;
-	}
-};
-_END_NAMESPACE_FT
-
+#include "container/vector.hpp"
 
 int main(void) {
-	ft::foo a;
+	// std::vector<int> origin;
+	ft::vector<int> copy(5);
 
+	std::cout << copy.capacity() << std::endl;
+	std::cout << *(copy.begin()) << std::endl;
 	// (void)a;
 	return 0;
 }

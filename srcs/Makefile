@@ -1,5 +1,5 @@
 INCS				=	
-SRCS				=	main.cpp
+SRCS				=	main.cpp iterator/iterator.hpp iterator/iterator_traits.hpp iterator/reverse_iterator.hpp container/vector.hpp
 OBJS				= 	$(patsubst %.cpp, %.o, $(SRCS_FILE))
 SRCS_DIR			=	./
 OBJS_DIR			=	./

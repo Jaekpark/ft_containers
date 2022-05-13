@@ -15,7 +15,7 @@ struct reverse_iterator
 										typename iterator_traits<Iterator>::pointer,
 										typename iterator_traits<Iterator>::reference> {
 protected:
-	iterator_type current;
+	Iterator current;
 
 public:
 	typedef Iterator	iterator_type;
@@ -31,14 +31,14 @@ public:
 
 	Iterator	base(void) const { return current; };
 	reference	operator*(void) const { iterator_type tmp = current; return *--tmp; };
-	pointer		operator->(void) const { return &(operator*()) };
+	pointer		operator->(void) const { return &(operator*()); };
 
 	reverse_iterator&	operator++(void) { --current; return *this; };
 	reverse_iterator	operator++(int)	{ reverse_iterator tmp = *this; --current; return tmp; };
-	reverse_iterator& operator--(void) { ++current; return *this }
-	reverse_iterator	operator--(int) { reverse_iterator tmp = *this ++current; return tmp; };
-	reverse_iterator	operator+	(difference_type n) const { return reverse_iterator(current - n) };
-	reverse_iterator	operator-	(difference_type n) const { return reverse_iterator(current + n) };
+	reverse_iterator& operator--(void) { ++current; return *this; }
+	reverse_iterator	operator--(int) { reverse_iterator tmp = *this; ++current; return tmp; };
+	reverse_iterator	operator+	(difference_type n) const { return reverse_iterator(current - n); };
+	reverse_iterator	operator-	(difference_type n) const { return reverse_iterator(current + n); };
 	reverse_iterator	operator+=(difference_type n) { current -= n; return *this; };
 	reverse_iterator	operator-=(difference_type n) { current += n; return *this; };
 };
@@ -69,7 +69,7 @@ template <class Iterator>
 template <class Iterator>
 	reverse_iterator<Iterator> operator+(
 		typename reverse_iterator<Iterator>::difference_type n,
-		const reverse_iterator<Iterator>& x) { return x.current - n };
+		const reverse_iterator<Iterator>& x) { return x.current - n; };
 
 _END_NAMESPACE_FT
 
