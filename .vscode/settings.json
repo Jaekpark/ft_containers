@@ -71,6 +71,7 @@
 		"__functional_base_03": "cpp",
 		"__config_site": "cpp",
 		"version": "cpp",
-		"__undef_macros": "cpp"
+		"__undef_macros": "cpp",
+		"iomanip": "cpp"
 	}
 }
