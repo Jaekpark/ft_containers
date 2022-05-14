@@ -4,4 +4,8 @@
 #define _BEGIN_NAMESPACE_FT namespace ft {
 #define _END_NAMESPACE_FT }
 
+#ifndef NAMESPACE
+#define NAMESPACE ft
+#endif
+
 #endif

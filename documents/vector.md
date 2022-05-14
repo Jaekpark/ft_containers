@@ -9,6 +9,7 @@
 + [멤버 함수 (Member functions)](#멤버-함수member-function)
   + [OCF (Orthodox Canonical Form)](#ocforthodox-canoical-form)
   + [Iterator](#iterator)
+  + [Capacity](#capacity)
   + [Element access](#element-access)
   + [Modifiers](#modifiers)
 + [비-멤버 함수 (Non-menber Function)](#비-멤버-함수-non-menber-function)
@@ -97,10 +98,6 @@ public:
 	// 대입 연산자
 	vector<T, Allocator>& operator=(const vector<T, Allocator>& x);
 
-	template <class InputIterator>
-		void	assign(size_type n, const T& u);
-	allocator_type	get_allocator(void) const;
-
 	//iterator
 	iterator		begin(void);
 	const_iterator		begin(void) const;
@@ -130,6 +127,9 @@ public:
 	const_reference	back(void) const;
 
 	// modifiers
+	template <class InputIterator>
+		void	assign(InputIterator first, InputIterator last);
+	void	assign(size_type n, const T& u);
 	void		push_back(const T& x);
 	void		pop_back(void);
 	iterator	insert(iterator position, const T& x);
@@ -140,6 +140,9 @@ public:
 	iterator	erase(iterator first, iterator last);
 	void		swap(vector<T, Allocator>&);
 	void		clear(void);
+
+	//allocator
+	allocator_type	get_allocator(void) const;
 };
 // relation operator
 template <class T, class Allocator>
@@ -1156,9 +1159,9 @@ int main(void) {
 ---
 ## Reference
 
-<a name="cpp-vector">[1]</a>: ["std::vector", cppreference, last modified 21 Mar, 2022, accessed Apr 26, 2022, "https://en.cppreference.com/w/cpp/container/vector"](https://en.cppreference.com/w/cpp/container/vector)
-
-<a name="vector-class">[2]</a>: ["Vector class", Microsoft Docs, last modified 08 Apr, 2021, accessed Apr 26, 2022, "https://docs.microsoft.com/en-us/cpp/standard-library/vector-class?view=msvc-170"](https://docs.microsoft.com/en-us/cpp/standard-library/vector-class?view=msvc-170)
-
-<a name="cplus-vector">[3]</a>: ["std::vector", cplusplus, last modified unknown, accessed Apr 26, 2022, "https://www.cplusplus.com/reference/vector/vector/"](https://www.cplusplus.com/reference/vector/vector/)
+| index                                                                                 | title                                                                                            | author       | last modified | accessed     | url status |
+| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------ | ------------- | ------------ | ---------- |
+| [1](https://en.cppreference.com/w/cpp/container/vector)                               | [std::vector](https://en.cppreference.com/w/cpp/container/vector)                                | cppreference | 21 Mar, 2022  | 15 May, 2022 | ok         |
+| [2](https://www.cplusplus.com/reference/vector/vector/)                               | [std::vector](https://www.cplusplus.com/reference/vector/vector/)                                | cplusplus    | unknown       | May 15, 2022 | ok         |
+| [3](https://docs.microsoft.com/en-us/cpp/standard-library/vector-class?view=msvc-170) | [Vector class](https://docs.microsoft.com/en-us/cpp/standard-library/vector-class?view=msvc-170) | Microsoft    | Apr 26, 2022  | May 15, 2022 | ok         |
 

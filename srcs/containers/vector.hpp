@@ -85,8 +85,9 @@ class vector {
   vector<T, Allocator> &operator=(const vector<T, Allocator> &x){};
 
   template <class InputIterator>
+  void assign(InputIterator first, InputIterator last);
   void assign(size_type n, const T &u);
-  allocator_type get_allocator(void) const;
+  allocator_type get_allocator(void) const { return _alloc; };
 
   // iterator
   iterator begin(void) { return _begin; };
@@ -95,28 +96,49 @@ class vector {
   };
   iterator end(void) { return _end; };
   const_iterator end(void) const { return _end; };
-  reverse_iterator rbegin(void);
-  const_reverse_iterator rbegin(void) const;
-  reverse_iterator rend(void);
-  const_reverse_iterator rend(void) const;
+  reverse_iterator rbegin(void) { return reverse_iterator(begin()); };
+  const_reverse_iterator rbegin(void) const {
+    return const_reverse_iterator(begin());
+  };
+  reverse_iterator rend(void) { return reverse_iterator(end()); };
+  const_reverse_iterator rend(void) const {
+    return const_reverse_iterator(end());
+  };
 
   // capacity
   size_type size(void) const { return _end - _begin; };
-  size_type max_size(void) const;
-  void resize(size_type n, value_type val = value_type());
+  size_type max_size(void) const { return _alloc().max_size(); };
+  void resize(size_type n, value_type val = value_type()) {
+    size_type sz = this->size();
+    if (n > this->max_size()) throw(std::length_error("vector::resize"));
+    if (sz > n)
+      for (; sz != n; sz--) _alloc.destroy(_end--);
+    else
+      for (; sz != n; sz++)
+        _alloc.construct(_end++, val);  // not yet, after implement insert
+  };
   size_type capacity(void) const { return _end_capacity - _begin; };
-  bool empty(void) const;
-  void reserve(size_type n);
+  bool empty(void) const { return (size() == 0 ? true : false); };
+  void reserve(size_type n) {
+    if (n > this->max_size())
+      throw(std::length_error("vector::reserve"));  // not complete
+  };
 
   // element access
   reference operator[](size_type n) { return *(_begin + n); };
-  const_reference operator[](size_type n) const;
-  reference at(size_type n);
-  const_reference at(size_type n) const;
-  reference front(void);
-  const_reference front(void) const;
-  reference back(void);
-  const_reference back(void) const;
+  const_reference operator[](size_type n) const { return *(_begin + n); };
+  reference at(size_type n) {
+    if (n >= this->size()) throw(std::out_of_range("vector::at"));
+    return *(_begin + n);
+  };
+  const_reference at(size_type n) const {
+    if (n >= this->size()) throw(std::out_of_range("vector::at"));
+    return *(_begin + n);
+  };
+  reference front(void) { return *(_begin); };
+  const_reference front(void) const { return *_begin; };
+  reference back(void) { return *_end; };
+  const_reference back(void) const { return *_end; };
 
   // modifiers
   void push_back(const T &x);

@@ -5,12 +5,16 @@
 #include "config.hpp"
 #include "containers/vector.hpp"
 
-int main(void) {
-  std::vector<int> origin(5, 10);
-  std::vector<int> copy(origin);
+#ifndef NAMESPACE
+#define NAMESPACE ft
+#endif
 
-  std::cout << copy[0] << std::endl;
-  // std::cout << copy.size() << std::endl;
-  // std::cout << copy.capacity() << std::endl;
+int main(void) {
+  NAMESPACE::vector<int> origin(1);
+
+  // origin.reserve(10);
+  // origin.push_back(1);
+  std::cout << origin.size() << std::endl;
+  std::cout << origin.front() << std::endl;
   return 0;
 }

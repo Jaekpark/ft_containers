@@ -4,7 +4,7 @@ This is a project to re-implement some `C++ STL Containers` to understand them.
 
 Some requirements for this project are as follow:
 
-Re-implement 
+Re-implement
 
 + [`std::vector`](documents/vector.md)
 + [`std::map`](documents/map.md)
@@ -48,9 +48,9 @@ This project is designed to implement a few containers, functions, and iterators
 | ----------------------------------------------------------------------- | -------------------------------------------------------- | ------------------------------------------------------------------------------------ | ---------------------------------------------------------------- |
 | implement data structures which can be accessed in a sequential manner. | provide a different interface for sequential containers. | implement sorted data structures that can be quickly searched(O(long n) complexity). | implement unordered data structures that can be quickly searched |
 | vector                                                                  | queue                                                    | set                                                                                  | unordered_set `(c++11)`                                          |
-| list                                                                    | priority queue                                           | multiset                                                                              | unordered_multiset `(c++11)`                                      |
+| list                                                                    | priority queue                                           | multiset                                                                             | unordered_multiset `(c++11)`                                     |
 | deque                                                                   | stack                                                    | map                                                                                  | unordered_map `(c++11)`                                          |
-| arrays`(c++11)`                                                         | multimap                                                 |                                                                                      | unordered_multimap `(c++11)`                                      |
+| arrays`(c++11)`                                                         | multimap                                                 |                                                                                      | unordered_multimap `(c++11)`                                     |
 | forward lists`(c++11)`                                                  |
 
 > Flowchart of Adaptive containers and Unordered Containers <sup>[1]
@@ -69,4 +69,8 @@ This project is designed to implement a few containers, functions, and iterators
 
 > As the name suggests, iterators are used for working upon a sequence of values. They are the major feature that allow generality in STL. <sup>[1]
 # Reference
-<a nmae="what-is-stl">1</a>: ["The C++ Standard Template Library (STL)", GeeksforGeeks, last modified Nov 19, 2021, accessed Apr 25, 2022, "https://www.geeksforgeeks.org/the-c-standard-template-library-stl/?ref=lbp"](https://www.geeksforgeeks.org/the-c-standard-template-library-stl/?ref=lbp)
+
+| index                                                                           | title                                                                                                                 | author        | last modified | accessed     | url status |
+| ------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | ------------- | ------------- | ------------ | ---------- |
+| [1](https://www.geeksforgeeks.org/the-c-standard-template-library-stl/?ref=lbp) | [The C++ Standard Template Library (STL)](https://www.geeksforgeeks.org/the-c-standard-template-library-stl/?ref=lbp) | GeeksforGeeks | 19 Nov, 2021  | 15 May, 2022 | ok         |
+
