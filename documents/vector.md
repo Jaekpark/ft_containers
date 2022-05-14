@@ -98,10 +98,6 @@ public:
 	// 대입 연산자
 	vector<T, Allocator>& operator=(const vector<T, Allocator>& x);
 
-	template <class InputIterator>
-		void	assign(size_type n, const T& u);
-	allocator_type	get_allocator(void) const;
-
 	//iterator
 	iterator		begin(void);
 	const_iterator		begin(void) const;
@@ -131,6 +127,9 @@ public:
 	const_reference	back(void) const;
 
 	// modifiers
+	template <class InputIterator>
+		void	assign(InputIterator first, InputIterator last);
+	void	assign(size_type n, const T& u);
 	void		push_back(const T& x);
 	void		pop_back(void);
 	iterator	insert(iterator position, const T& x);
@@ -141,6 +140,9 @@ public:
 	iterator	erase(iterator first, iterator last);
 	void		swap(vector<T, Allocator>&);
 	void		clear(void);
+
+	//allocator
+	allocator_type	get_allocator(void) const;
 };
 // relation operator
 template <class T, class Allocator>
