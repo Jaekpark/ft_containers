@@ -95,10 +95,14 @@ class vector {
   };
   iterator end(void) { return _end; };
   const_iterator end(void) const { return _end; };
-  reverse_iterator rbegin(void);
-  const_reverse_iterator rbegin(void) const;
-  reverse_iterator rend(void);
-  const_reverse_iterator rend(void) const;
+  reverse_iterator rbegin(void) { return reverse_iterator(begin()); };
+  const_reverse_iterator rbegin(void) const {
+    return const_reverse_iterator(begin());
+  };
+  reverse_iterator rend(void) { return reverse_iterator(end()); };
+  const_reverse_iterator rend(void) const {
+    return const_reverse_iterator(end());
+  };
 
   // capacity
   size_type size(void) const { return _end - _begin; };
