@@ -9,6 +9,7 @@
 + [멤버 함수 (Member functions)](#멤버-함수member-function)
   + [OCF (Orthodox Canonical Form)](#ocforthodox-canoical-form)
   + [Iterator](#iterator)
+  + [Capacity](#capacity)
   + [Element access](#element-access)
   + [Modifiers](#modifiers)
 + [비-멤버 함수 (Non-menber Function)](#비-멤버-함수-non-menber-function)
