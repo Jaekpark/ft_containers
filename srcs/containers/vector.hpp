@@ -106,11 +106,19 @@ class vector {
 
   // capacity
   size_type size(void) const { return _end - _begin; };
-  size_type max_size(void) const;
-  void resize(size_type n, value_type val = value_type());
+  size_type max_size(void) const { return _alloc().max_size(); };
+  void resize(size_type n, value_type val = value_type()) {
+    size_type sz = this->size();
+    if (n > this->max_size()) throw(std::length_error("vector::resize"));
+    if (sz > n)
+      for (; sz != n; sz--) _alloc.destroy(_end--);
+    else
+      for (; sz != n; sz++)
+        _alloc.construct(_end++, val);  // not yet, after implement insert
+  };
   size_type capacity(void) const { return _end_capacity - _begin; };
-  bool empty(void) const;
-  void reserve(size_type n);
+  bool empty(void) const { return (size() == 0 ? true : false); };
+  void reserve(size_type n){};
 
   // element access
   reference operator[](size_type n) { return *(_begin + n); };
