@@ -82,7 +82,15 @@ class vector {
     _alloc.deallocate(_begin, n);
   };
 
-  vector<T, Allocator> &operator=(const vector<T, Allocator> &x){};
+  vector<T, Allocator> &operator=(const vector<T, Allocator> &x) {
+    if (*this != x) {
+      _alloc = x._alloc;
+      _begin = x._begin;
+      _end = x._end;
+      _end_capacity = _end_capacity;
+    }
+    return *this;
+  };
 
   template <class InputIterator>
   void assign(InputIterator first, InputIterator last);
