@@ -83,12 +83,6 @@ class vector {
   };
 
   vector<T, Allocator> &operator=(const vector<T, Allocator> &x) {
-    if (*this != x) {
-      _alloc = x._alloc;
-      _begin = x._begin;
-      _end = x._end;
-      _end_capacity = _end_capacity;
-    }
     return *this;
   };
 
@@ -158,7 +152,10 @@ class vector {
   iterator erase(iterator position);
   iterator erase(iterator first, iterator last);
   void swap(vector<T, Allocator> &);
-  void clear(void);
+  void clear(void) {
+    size_type n = _begin - _end;
+    while (n--) _alloc.destroy(_end--);
+  };
 };
 
 _END_NAMESPACE_FT

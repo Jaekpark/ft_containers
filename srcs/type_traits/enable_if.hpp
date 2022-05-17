@@ -1,12 +1,13 @@
 #ifndef _FT_ENABLE_IF_HPP
 #define _FT_ENABLE_IF_HPP
+#include <type_traits>
 
 #include "../config.hpp"
-//namespace_start
+// namespace_start
 _BEGIN_NAMESPACE_FT
 template <bool, typename T>
 struct enable_if {};
-//namespace_end
+// namespace_end
 _END_NAMESPACE_FT
 
 #endif
