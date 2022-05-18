@@ -30,7 +30,7 @@ Re-implement
 
 This project is designed to implement a few containers, functions, and iterators in the C++98.
 
-## Algorithms
+## Algorithms`
 
 > The header algorithm defines a collection of functions especially designed to be used on ranges of elements. They act on containers and provide means for various operations for the contents of the containers. <sup>[1]
 
