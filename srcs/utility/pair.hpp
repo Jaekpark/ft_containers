@@ -14,7 +14,7 @@ private:
 public:
 	//default_constructor
 	explicit pair(void);
-	//initialize
+	//initializeㅎㄴㅅ
 	explicit pair(const T1& x, const T2& y);
 	//copy_constructor
 	template <class U1, class U2>
