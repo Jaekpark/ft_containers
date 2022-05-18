@@ -11,6 +11,7 @@
 #include "../config.hpp"
 #include "../iterator/iterator.hpp"
 #include "../iterator/reverse_iterator.hpp"
+#include "../type_traits/enable_if.hpp"
 
 #define _ITERATOR_CATEGORY random_access_iterator_tag
 
@@ -41,7 +42,8 @@ class vector {
   typedef T value_type;
   typedef Allocator allocator_type;
   typedef typename allocator_type::size_type size_type;
-
+	/* 기본생성자
+	*/
   explicit vector(const Allocator &alloc = Allocator())
       : _alloc(alloc), _begin(nullptr), _end(nullptr), _end_capacity(nullptr){};
   explicit vector(size_type n, const T &value = T(),
@@ -54,7 +56,8 @@ class vector {
   };
   template <class InputIterator>
   vector(InputIterator first, InputIterator last,
-         const Allocator &alloc = Allocator())
+         const Allocator &alloc = Allocator(),
+				 typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = nullptr)
       : _alloc(alloc), _begin(nullptr), _end(nullptr), _end_capacity(nullptr) {
     difference_type n = std::distance(first, last);
     _begin = _alloc.allocate(n);
