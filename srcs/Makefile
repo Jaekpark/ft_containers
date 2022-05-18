@@ -1,11 +1,12 @@
-INCS				=	
-SRCS				=	main.cpp iterator/iterator.hpp iterator/iterator_traits.hpp iterator/reverse_iterator.hpp container/vector.hpp
+INCS				=	iterator/iterator.hpp iterator/iterator_traits.hpp iterator/reverse_iterator.hpp container/vector.hpp \
+							type_traits/is_integral.hpp type_traits/enable_if.hpp
+SRCS				=	main.cpp
 OBJS				= 	$(patsubst %.cpp, %.o, $(SRCS_FILE))
 SRCS_DIR			=	./
 OBJS_DIR			=	./
 INCS_DIR			=	./
 
-SRCS_FILE			=	$(addprefix $(SRCS_DIR), $(SRCS))
+SRCS_FILE			=		$(addprefix $(SRCS_DIR), $(SRCS))
 OBJS_FILE			= 	$(addprefix $(OBJS_DIR), $(notdir $(OBJS)))
 INCS_FILE			= 	$(addprefix $(INCS_DIR), $(INCS))
 

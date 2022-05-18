@@ -12,10 +12,9 @@ struct integral_constant {
   typedef T value_type;
   typedef integral_constant<T, v> type;
 
-  const operator value_type() const { return value; };
+  operator value_type() const { return value; };
   const value_type operator()() const { return value; }
 };
-
 typedef integral_constant<bool, true> true_type;
 typedef integral_constant<bool, false> false_type;
 
@@ -25,10 +24,6 @@ template <>
 struct is_integral<bool> : true_type {};
 template <>
 struct is_integral<char> : true_type {};
-// template <> (since c++11)
-// struct is_integral<char16_t> : true_type {};
-// template <> (since c++11)
-// struct is_integral<char32_t> : true_type {};
 template <>
 struct is_integral<wchar_t> : true_type {};
 template <>
@@ -49,6 +44,10 @@ template <>
 struct is_integral<unsigned long int> : true_type {};
 template <>
 struct is_integral<unsigned long long int> : true_type {};
+// template <> (since c++11)
+// struct is_integral<char16_t> : true_type {};
+// template <> (since c++11)
+// struct is_integral<char32_t> : true_type {};
 
 _END_NAMESPACE_FT
 // namespace_end
