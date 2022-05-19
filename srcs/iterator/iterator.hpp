@@ -19,20 +19,21 @@ struct iterator {
   typedef Category iterator_category;
 };
 
-// template <class Iterator>
-// struct iterator {
-//  public:
-//   typedef Iterator iterator_type;
-//   typedef ft::iterator_traits<iterator_type>::value_type value_type;
-//   typedef ft::iterator_traits<iterator_type>::difference_type
-//   difference_type; typedef ft::iterator_traits<iterator_type>::pointer
-//   pointer; typedef ft::iterator_traits<iterator_type>::reference reference;
-//   typedef ft::iterator_traits<iterator_type>::iterator_category
-//       iterator_category;
+template <class Iterator>
+struct iterator_wrap {
+ public:
+  typedef Iterator iterator_type;
+  typedef typename ft::iterator_traits<iterator_type>::value_type value_type;
+  typedef typename ft::iterator_traits<iterator_type>::difference_type
+      difference_type;
+  typedef typename ft::iterator_traits<iterator_type>::pointer pointer;
+  typedef typename ft::iterator_traits<iterator_type>::reference reference;
+  typedef typename ft::iterator_traits<iterator_type>::iterator_category
+      iterator_category;
 
-//  private:
-//   iterator_type _i;
-// };
+ private:
+  iterator_type _i;
+};
 /** c++ 20 부터는 인접 반복자(contiguous_iterator)가 추가되었습니다.
  * struct contiguous_iterator_tag	: public random_access_iterator_tag {};
  **/
