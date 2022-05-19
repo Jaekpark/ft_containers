@@ -42,10 +42,11 @@ class vector {
   typedef T value_type;
   typedef Allocator allocator_type;
   typedef typename allocator_type::size_type size_type;
-	/* 기본생성자
-	*/
+
+  // * Default Constructor
   explicit vector(const Allocator &alloc = Allocator())
       : _alloc(alloc), _begin(nullptr), _end(nullptr), _end_capacity(nullptr){};
+  // * Fill Constructor
   explicit vector(size_type n, const T &value = T(),
                   const Allocator &alloc = Allocator())
       : _alloc(alloc), _begin(nullptr), _end(nullptr), _end_capacity(nullptr) {
@@ -54,10 +55,12 @@ class vector {
     _end_capacity = _begin + n;
     while (n--) _alloc.construct(_end++, value);
   };
+  // * Range Constructor
   template <class InputIterator>
   vector(InputIterator first, InputIterator last,
          const Allocator &alloc = Allocator(),
-				 typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = nullptr)
+         typename ft::enable_if<!ft::is_integral<InputIterator>::value,
+                                InputIterator>::type * = nullptr)
       : _alloc(alloc), _begin(nullptr), _end(nullptr), _end_capacity(nullptr) {
     difference_type n = std::distance(first, last);
     _begin = _alloc.allocate(n);
@@ -65,6 +68,7 @@ class vector {
     _end_capacity = _begin + n;
     while (n--) _alloc.construct(_end++, *first++);
   };
+  // * Copy Constructor
   explicit vector(const vector<T, Allocator> &x)
       : _alloc(Allocator()),
         _begin(nullptr),
@@ -77,6 +81,7 @@ class vector {
     _end_capacity = _begin + n;
     for (; x_end != x._begin; x_end--) _alloc.construct(_end++, *x_end);
   }
+  // * Destructor
   ~vector(void) {
     difference_type n = _begin - _end_capacity;
     pointer _last_element = _end;
@@ -84,10 +89,10 @@ class vector {
       _alloc.destroy(_last_element);
     _alloc.deallocate(_begin, n);
   };
-
+  // * Operator =
   vector<T, Allocator> &operator=(const vector<T, Allocator> &x) {
     (void)x;
-		return *this;
+    return *this;
   };
 
   template <class InputIterator>
@@ -95,7 +100,7 @@ class vector {
   void assign(size_type n, const T &u);
   allocator_type get_allocator(void) const { return _alloc; };
 
-  // iterator
+  // * iterator
   iterator begin(void) { return _begin; };
   const_iterator begin(void) const {
     return static_cast<const_pointer>(_begin);
@@ -111,7 +116,7 @@ class vector {
     return const_reverse_iterator(end());
   };
 
-  // capacity
+  // * capacity
   size_type size(void) const { return _end - _begin; };
   size_type max_size(void) const { return _alloc().max_size(); };
   void resize(size_type n, value_type val = value_type()) {
@@ -130,7 +135,7 @@ class vector {
       throw(std::length_error("vector::reserve"));  // not complete
   };
 
-  // element access
+  // * element access
   reference operator[](size_type n) { return *(_begin + n); };
   const_reference operator[](size_type n) const { return *(_begin + n); };
   reference at(size_type n) {
@@ -146,7 +151,7 @@ class vector {
   reference back(void) { return *_end; };
   const_reference back(void) const { return *_end; };
 
-  // modifiers
+  // * modifiers
   void push_back(const T &x);
   void pop_back(void);
   iterator insert(iterator position, const T &x);
