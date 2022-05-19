@@ -20,7 +20,7 @@ struct iterator {
 };
 
 template <class Iterator>
-struct iterator_wrap {
+class wrap_iterator {
  public:
   typedef Iterator iterator_type;
   typedef typename ft::iterator_traits<iterator_type>::value_type value_type;
@@ -33,6 +33,10 @@ struct iterator_wrap {
 
  private:
   iterator_type _i;
+
+ public:
+  wrap_iterator(void) : _i{};
+  wrap_iterator(const wrap_iterator<Iterator>)
 };
 /** c++ 20 부터는 인접 반복자(contiguous_iterator)가 추가되었습니다.
  * struct contiguous_iterator_tag	: public random_access_iterator_tag {};
