@@ -17,7 +17,7 @@
 
 _BEGIN_NAMESPACE_FT
 template <class T, class Allocator = std::allocator<T> >
-class vector {
+class vector_base {
  protected:
   typedef typename Allocator::difference_type difference_type;
   // 참조자 타입 선언
@@ -31,7 +31,10 @@ class vector {
   typedef ft::iterator<_ITERATOR_CATEGORY, const_pointer> const_iterator;
   typedef typename ft::reverse_iterator<iterator> reverse_iterator;
   typedef typename ft::reverse_iterator<const_iterator> const_reverse_iterator;
+};
 
+template <class T, class Allocator = std::allocator<T> >
+class vector : public vector_base<T> {
  private:
   Allocator _alloc;
   pointer _begin;
