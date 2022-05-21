@@ -114,11 +114,11 @@ class wrap_iterator {
                   const wrap_iterator<Iterator>& y) {
     return !(y < x);
   }
+};
+/** c++ 20 부터는 인접 반복자(contiguous_iterator)가 추가되었습니다.
+ * struct contiguous_iterator_tag	: public random_access_iterator_tag {};
+ **/
 
-  /** c++ 20 부터는 인접 반복자(contiguous_iterator)가 추가되었습니다.
-   * struct contiguous_iterator_tag	: public random_access_iterator_tag {};
-   **/
-
-  _END_NAMESPACE_FT
+_END_NAMESPACE_FT
 
 #endif
