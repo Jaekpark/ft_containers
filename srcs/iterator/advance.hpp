@@ -28,5 +28,13 @@ void advance(RandomIterator& i,
              random_access_iterator_tag) {
   i += n;
 }
+
+template <class InputIterator, class Distance>
+void advance(InputIterator& i, Distance n) {
+  ft::advance(i,
+              typename ft::iterator_traits<InputIterator>::difference_type(n),
+              typename ft::iterator_tratis<InputIterator>::iterator_category());
+}
+
 _END_NAMESPACE_FT
 #endif
