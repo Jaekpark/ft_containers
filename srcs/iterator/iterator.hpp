@@ -5,6 +5,8 @@
 #include <iterator>
 
 #include "../config.hpp"
+#include "../iterator/advance.hpp"
+#include "../iterator/distance.hpp"
 #include "../iterator/iterator_traits.hpp"
 
 _BEGIN_NAMESPACE_FT
@@ -35,6 +37,7 @@ class wrap_iterator {
   iterator_type _i;
 
  public:
+<<<<<<< HEAD
   wrap_iterator(void) : _i {}
   explicit wrap_iterator(const wrap_iterator& x) : _i(x.base()) {}
   wrap_iterator(const wrap_iterator<U>& u) : current(u.base()) {}
@@ -114,6 +117,10 @@ class wrap_iterator {
                   const wrap_iterator<Iterator>& y) {
     return !(y < x);
   }
+=======
+  wrap_iterator(void) : _i{};
+  wrap_iterator(const wrap_iterator<Iterator>& x)
+>>>>>>> dev/iterator
 };
 /** c++ 20 부터는 인접 반복자(contiguous_iterator)가 추가되었습니다.
  * struct contiguous_iterator_tag	: public random_access_iterator_tag {};
