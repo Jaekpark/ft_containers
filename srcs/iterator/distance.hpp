@@ -2,13 +2,13 @@
 #define _FT_DISTANCE_HPP
 
 #include "../config.hpp"
-#include "../iterator/iterator.hpp"
+#include "./iterator_traits.hpp"
 // namespace_start
 _BEGIN_NAMESPACE_FT
 template <class InputIterator>
 typename ft::iterator_traits<InputIterator>::difference_type distance(
     InputIterator first, InputIterator last, ft::input_iterator_tag) {
-  typename ft::iterator_tratis<InputIterator>::difference_type dist(0);
+  typename ft::iterator_traits<InputIterator>::difference_type dist(0);
   while (first++ != last) dist++;
   return dist;
 }
