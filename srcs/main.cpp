@@ -13,10 +13,8 @@
 #endif
 
 int main(void) {
-  int a = 0;
-
-  std::true_type;
-
-  decltype(a);
+  ft::vector<int> a(1, 5);
+  a.begin();
+  // std::vector<int> b;
   return 0;
 }
