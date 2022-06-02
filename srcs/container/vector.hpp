@@ -10,6 +10,7 @@
 
 #include "../config.hpp"
 #include "../iterator/iterator.hpp"
+#include "../iterator/iterator_traits.hpp"
 #include "../iterator/reverse_iterator.hpp"
 #include "../type_traits/enable_if.hpp"
 
@@ -18,28 +19,36 @@
 _BEGIN_NAMESPACE_FT
 template <class T, class Allocator = std::allocator<T> >
 class vector_base {
- protected:
-  typedef typename Allocator::difference_type difference_type;
-  // 참조자 타입 선언
-  typedef typename Allocator::reference reference;
-  typedef typename Allocator::const_reference const_reference;
-  // 포인터 타입 선언
-  typedef typename Allocator::pointer pointer;
-  typedef typename Allocator::const_pointer const_pointer;
-  // 반복자 타입 선언
-  typedef ft::iterator<_ITERATOR_CATEGORY, pointer> iterator;
-  typedef ft::iterator<_ITERATOR_CATEGORY, const_pointer> const_iterator;
-  typedef typename ft::reverse_iterator<iterator> reverse_iterator;
-  typedef typename ft::reverse_iterator<const_iterator> const_reverse_iterator;
-};
+ public:
+  typedef Allocator allocator_type;
+  typedef allocator_traits<allocator_type> alloc_traits;
+  typedef typename alloc_traits::size_type size_type;
 
-template <class T, class Allocator = std::allocator<T> >
-class vector : public vector_base<T> {
- private:
-  Allocator _alloc;
+ protected:
+  typedef T value_type;
+  typedef value_type &reference;
+  typedef const value_type &const_reference;
+  typedef typename alloc_traits::difference_type difference_type;
+  typedef typename alloc_traits::pointer pointer;
+  typedef typename alloc_traits::const_pointer const_pointer;
+  typedef pointer iterator;
+  typedef const_pointer const_iterator;
+
+  allocator_type _alloc;
   pointer _begin;
   pointer _end;
   pointer _end_capacity;
+
+ public:
+  virtual ~vector_base(void) {}
+  iterator begin(void) = 0;
+};
+
+template <class T, class Allocator = std::allocator<T> >
+class vector : private vector_base<T, Allocator> {
+ private:
+  typedef vector_base<T, Allocator> _base;
+  typedef Allocator<T> _default_allocator;
 
  public:
   typedef T value_type;

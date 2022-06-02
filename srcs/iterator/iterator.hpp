@@ -5,9 +5,9 @@
 #include <iterator>
 
 #include "../config.hpp"
-#include "../iterator/advance.hpp"
-#include "../iterator/distance.hpp"
-#include "../iterator/iterator_traits.hpp"
+#include "./advance.hpp"
+#include "./distance.hpp"
+#include "./iterator_traits.hpp"
 
 _BEGIN_NAMESPACE_FT
 
@@ -37,12 +37,12 @@ class wrap_iterator {
   iterator_type _i;
 
  public:
-<<<<<<< HEAD
-  wrap_iterator(void) : _i {}
+  wrap_iterator(void) : _i() {}
   explicit wrap_iterator(const wrap_iterator& x) : _i(x.base()) {}
-  wrap_iterator(const wrap_iterator<U>& u) : current(u.base()) {}
+  template <class U>
+  wrap_iterator(const wrap_iterator<U>& u) : _i(u.base()) {}
   wrap_iterator operator=(const wrap_iterator& x) {
-    current = x.base();
+    _i = x.base();
     return *this;
   }
 
@@ -82,46 +82,49 @@ class wrap_iterator {
     return *this;
   }
   reference operator[](difference_type n) { return _i[n]; }
-  wrap_iterator<Iterator> operator+(
-      typename wrap_iterator<Iterator>::difference_type n,
-      wrap_iterator<Iterator> x) {
-    x += n;
-    return x;
-  }
-  difference_type operator-(const wrap_iterator<Iterator>& x,
-                            const wrap_iterator<Iterator>& y) {
-    return x.base() - y.base();
-  }
-  bool operator==(const wrap_iterator<Iterator>& x,
-                  const wrap_iterator<Iterator>& y) {
-    return x.base() == y.base();
-  }
-
-  bool operator<(const wrap_iterator<Iterator>& x,
-                 const wrap_iterator<Iterator>& y) {
-    return x.base() < y.base();
-  }
-  bool operator!=(const wrap_iterator<Iterator>& x,
-                  const wrap_iterator<Iterator>& y) {
-    return !(x == y);
-  }
-  bool operator>(const wrap_iterator<Iterator>& x,
-                 const wrap_iterator<Iterator>& y) {
-    return y < x;
-  }
-  bool operator>=(const wrap_iterator<Iterator>& x,
-                  const wrap_iterator<Iterator>& y) {
-    return !(x < y);
-  }
-  bool operator<=(const wrap_iterator<Iterator>& x,
-                  const wrap_iterator<Iterator>& y) {
-    return !(y < x);
-  }
-=======
-  wrap_iterator(void) : _i{};
-  wrap_iterator(const wrap_iterator<Iterator>& x)
->>>>>>> dev/iterator
 };
+template <class Iterator>
+wrap_iterator<Iterator> operator+(
+    typename wrap_iterator<Iterator>::difference_type n,
+    wrap_iterator<Iterator> x) {
+  x += n;
+  return x;
+}
+template <class Iterator>
+typename wrap_iterator<Iterator>::difference_type operator-(
+    const wrap_iterator<Iterator>& x, const wrap_iterator<Iterator>& y) {
+  return x.base() - y.base();
+}
+template <class Iterator>
+bool operator==(const wrap_iterator<Iterator>& x,
+                const wrap_iterator<Iterator>& y) {
+  return x.base() == y.base();
+}
+template <class Iterator>
+bool operator<(const wrap_iterator<Iterator>& x,
+               const wrap_iterator<Iterator>& y) {
+  return x.base() < y.base();
+}
+template <class Iterator>
+bool operator!=(const wrap_iterator<Iterator>& x,
+                const wrap_iterator<Iterator>& y) {
+  return !(x == y);
+}
+template <class Iterator>
+bool operator>(const wrap_iterator<Iterator>& x,
+               const wrap_iterator<Iterator>& y) {
+  return y < x;
+}
+template <class Iterator>
+bool operator>=(const wrap_iterator<Iterator>& x,
+                const wrap_iterator<Iterator>& y) {
+  return !(x < y);
+}
+template <class Iterator>
+bool operator<=(const wrap_iterator<Iterator>& x,
+                const wrap_iterator<Iterator>& y) {
+  return !(y < x);
+}
 /** c++ 20 부터는 인접 반복자(contiguous_iterator)가 추가되었습니다.
  * struct contiguous_iterator_tag	: public random_access_iterator_tag {};
  **/
