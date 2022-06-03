@@ -186,16 +186,76 @@ class vector : public vector_base<T, Allocator> {
   typedef ft::reverse_iterator<iterator> reverse_iterator;
   typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
 
+  // * Constructor
   vector(void) : _base() {}
   explicit vector(const Allocator &alloc) : _base(alloc) {}
   vector(size_type n) : _base(n) {}
   vector(size_type n, const value_type &x) : _base(n, x) {}
   vector(size_type n, const value_type &x, const allocator_type &alloc)
       : _base(n, x, alloc) {}
+  // * Destructor
+  ~vector(void) {}
+  // * Allocator
+  allocator_type get_allocator(void) const { return this->_alloc; }
+  // * Iterator
+  iterator make_iterator(pointer p) { return iterator(p); }
+  const_iterator make_iterator(const_pointer p) const {
+    return const_iterator(p);
+  }
+  iterator begin(void) { return make_iterator(this->_begin); }
+  const_iterator begin(void) const { return make_iterator(this->_begin); }
+  iterator end(void) { return make_iterator(this->_end); }
+  const_iterator end(void) const { return make_iterator(this->_end); }
+  reverse_iterator rbegin(void) { return reverse_iterator(begin()); }
+  const_reverse_iterator rbegin(void) const {
+    return const_reverse_iterator(begin());
+  }
+  reverse_iterator rend(void) { return reverse_iterator(end()); }
+  const_reverse_iterator rend(void) const { return reverse_iterator(end()); }
+  // * capacity
+  size_type size(void) const { return end() - begin(); }
+  size_type max_size(void) const { return get_allocator().max_size(); }
+  void resize(size_type n, value_type val = value_type()) {
+    size_type sz = size();
+    if (n > max_size())
+      throw(std::length_error("vector::resize"));
+    else if (sz > n)
+      for (; sz != n; sz--) get_allocator().destroy(this->_end--);
+    else
+      for (; sz != n; sz++) get_allocator().construct(this->_end++, val);
+  }
+  size_type capacity(void) const { return this->_end_capacity - begin(); }
+  bool empty(void) const { return size() == 0 ? true : false; }
+  void reserve(size_type n) {
+    if (n > max_size()) throw(std::length_error("vector::reserve"));
+    // - implement
+  }
 
-  typename _base::iterator make_iterator(pointer p) { return iterator(p); }
-  iterator begin() { return make_iterator(this->_begin); }
-
+  // * Element access
+  reference operator[](size_type n) { return *(begin() + n); }
+  const_reference operator[](size_type n) const { return *(begin() + n); }
+  reference at(size_type n) {
+    if (n >= size()) throw(std::out_of_range("vector::at"));
+    return *(begin() + n);
+  }
+  const_reference at(size_type n) const {
+    if (n >= size()) throw(std::out_of_range("vector::at"));
+    return *(begin() + n);
+  }
+  reference front(void) { return *(begin()); }
+  const_reference front(void) const { return *(begin()); }
+  reference back(void) { return *(end()); }
+  const_reference back(void) const { return *(end()); }
+  // * modifiers
+  void push_back(const T &x) {
+    // - implement
+  }
+  void pop_back(void) {
+    // - implement
+  }
+  iterator insert(iterator position, const T &x) {
+    // - implement
+  }
   // // * Default Constructor
   // explicit vector(const Allocator &alloc = Allocator())
   //     : _alloc(alloc), _begin(nullptr), _end(nullptr),
