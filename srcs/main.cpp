@@ -25,6 +25,14 @@ int main(void) {
   std::cout << *(a.begin()) << std::endl;
   std::cout << a.size() << std::endl;
   std::cout << a.max_size() << std::endl;
+  // a.clear();
+  std::cout << *(a.begin()) << std::endl;
+  std::cout << a.size() << std::endl;
+  std::cout << a.max_size() << std::endl;
+
+  std::cout << a.__bits_per_word << std::endl;
+
+  // a.destruct_at_end(a.begin());
   // std::vector<int> b;
   return 0;
 }

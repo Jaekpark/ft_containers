@@ -162,6 +162,17 @@ class vector_base {
     size_type n = _begin - _end;
     while (n--) _alloc.destroy(_end--);
   };
+
+  // * utility
+ public:
+  value_type *to_address(pointer p) { return p; }
+  void destruct_at_end(pointer new_end) {
+    pointer origin_end = this->_end;
+    while (new_end != origin_end)
+      alloc_traits::destroy(_alloc, to_address(--origin_end));
+    this->_end = new_end;
+  }
+  // size_type align_it(size_type new_size) { return new_size + }
 };
 
 template <class T, class Allocator = std::allocator<T> >
@@ -247,15 +258,18 @@ class vector : public vector_base<T, Allocator> {
   reference back(void) { return *(end()); }
   const_reference back(void) const { return *(end()); }
   // * modifiers
-  void push_back(const T &x) {
-    // - implement
-  }
-  void pop_back(void) {
-    // - implement
-  }
-  iterator insert(iterator position, const T &x) {
-    // - implement
-  }
+  static const unsigned __bits_per_word =
+      static_cast<unsigned>(sizeof(size_type) * FT_CHAR_BIT);
+  // void push_back(const T &x) {}                      // - impl
+  // void pop_back(void) {}                             // - impl
+  // iterator insert(iterator position, const T &x) {}  // - impl
+  // void insert(iterator position, size_type n, const T &x) {}
+  // template <class InputIterator>
+  // void insert(iterator position, InputIterator first, InputIterator last) {}
+  // iterator erase(iterator position) {}
+  // iterator erase(iterator position) {}
+  // void swap(vector<T, Allocator> &) {}
+  // void clear(void) { this->destruct_at_end(begin().base()); }
   // // * Default Constructor
   // explicit vector(const Allocator &alloc = Allocator())
   //     : _alloc(alloc), _begin(nullptr), _end(nullptr),
