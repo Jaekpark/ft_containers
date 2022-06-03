@@ -38,6 +38,7 @@ class wrap_iterator {
 
  public:
   wrap_iterator(void) : _i() {}
+  wrap_iterator(iterator_type x) : _i(x) {}
   explicit wrap_iterator(const wrap_iterator& x) : _i(x.base()) {}
   template <class U>
   wrap_iterator(const wrap_iterator<U>& u) : _i(u.base()) {}
@@ -46,7 +47,7 @@ class wrap_iterator {
     return *this;
   }
 
-  iterator_type base(void) { return _i; }
+  iterator_type base(void) const { return _i; }
   reference operator*(void) const { return *_i; }
   pointer operator->(void) const { return &(operator*()); }
   wrap_iterator& operator++() {

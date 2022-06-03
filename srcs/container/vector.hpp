@@ -193,7 +193,7 @@ class vector : public vector_base<T, Allocator> {
   vector(size_type n, const value_type &x, const allocator_type &alloc)
       : _base(n, x, alloc) {}
 
-  typename _base::iterator make_iterator(pointer p) { return iterator(p); }
+  iterator make_iterator(pointer p) { return iterator(p); }
   iterator begin() { return make_iterator(this->_begin); }
 
   // // * Default Constructor
