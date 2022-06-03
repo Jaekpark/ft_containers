@@ -13,8 +13,18 @@
 #endif
 
 int main(void) {
-  ft::vector<int> a(1, 5);
-  a.begin();
+  ft::vector<int> a(10, 5);
+  std::vector<int> b(10, 5);
+  std::cout << *(a.begin()) << std::endl;
+  std::cout << a.size() << std::endl;
+  std::cout << a.max_size() << std::endl;
+  std::cout << *(b.begin()) << std::endl;
+  std::cout << b.size() << std::endl;
+  std::cout << b.max_size() << std::endl;
+  a.resize(5, 10);
+  std::cout << *(a.begin()) << std::endl;
+  std::cout << a.size() << std::endl;
+  std::cout << a.max_size() << std::endl;
   // std::vector<int> b;
   return 0;
 }
