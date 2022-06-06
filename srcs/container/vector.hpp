@@ -197,6 +197,11 @@ class vector : public vector_base<T, Allocator> {
   typedef ft::reverse_iterator<iterator> reverse_iterator;
   typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
 
+  void _destruct_at_end(iterator new_end) {
+    pointer p = new_end.base();
+    _base::destruct_at_end(p);
+  }
+
   // * Constructor
   vector(void) : _base() {}
   explicit vector(const Allocator &alloc) : _base(alloc) {}
@@ -258,18 +263,64 @@ class vector : public vector_base<T, Allocator> {
   reference back(void) { return *(end()); }
   const_reference back(void) const { return *(end()); }
   // * modifiers
-  static const unsigned __bits_per_word =
+  void throw_length_error(void) const { throw(std::length_error("vector")); }
+  static const unsigned bits_per_word =
       static_cast<unsigned>(sizeof(size_type) * FT_CHAR_BIT);
+  size_type recommend(size_type new_size) const {
+    const size_type ms = max_size();
+    if (new_size > ms) this->throw_length_error();
+    const size_type cap = capacity();
+    if (cap >= ms / 2) return ms;
+    return std::max<size_type>(2 * cap, new_size);
+  }
+  void swap(vector &x) {
+    allocator_type temp_alloc = get_allocator();
+    pointer temp_begin = this->_begin;
+    pointer temp_end = this->_end;
+    pointer temp_cap = this->_end_capacity;
+
+    this->_alloc = x.get_allocator();
+    this->_begin = x._begin;
+    this->_end = x._end;
+    this->_end_capacity = x._end_capacity;
+
+    x._alloc = temp_alloc;
+    x._begin = temp_begin;
+    x._end = temp_end;
+    x._end_capacity = temp_cap;
+  }
   // void push_back(const T &x) {}                      // - impl
-  // void pop_back(void) {}                             // - impl
+  void pop_back(void) {
+    if (!empty()) this->destruct_at_end(this->_end - 1);
+  }  // - impl
   // iterator insert(iterator position, const T &x) {}  // - impl
   // void insert(iterator position, size_type n, const T &x) {}
   // template <class InputIterator>
   // void insert(iterator position, InputIterator first, InputIterator last) {}
-  // iterator erase(iterator position) {}
-  // iterator erase(iterator position) {}
+  iterator erase(iterator position) {
+    difference_type pos = position - this->begin();
+    pointer p = this->_begin + pos;
+    _destruct_at_end(copy(make_iterator(p + 1), end(), make_iterator(p)));
+    iterator r = make_iterator(p);
+    return r;
+  }
+  iterator erase(iterator first, iterator last) {
+    difference_type pos = first - begin();
+    pointer p = this->_begin + pos;
+    if (first != last)
+      _destruct_at_end(
+          copy(make_iterator(p + (last - first)), end(), make_iterator(p)));
+    iterator r = make_iterator(p);
+    return r;
+  }
+  template <class InputIterator>
+  iterator copy(InputIterator first, InputIterator last, iterator d_first) {
+    while (first != last) *d_first++ = *first++;
+    return d_first;
+  }
   // void swap(vector<T, Allocator> &) {}
-  // void clear(void) { this->destruct_at_end(begin().base()); }
+  void clear(void) { this->destruct_at_end(begin().base()); }
+
   // // * Default Constructor
   // explicit vector(const Allocator &alloc = Allocator())
   //     : _alloc(alloc), _begin(nullptr), _end(nullptr),
@@ -401,6 +452,11 @@ class vector : public vector_base<T, Allocator> {
   //   while (n--) _alloc.destroy(_end--);
   // };
 };
+
+template <class T, class Allocator>
+void swap(vector<T, Allocator> &x, vector<T, Allocator> &y) {
+  x.swap(y);
+}
 
 _END_NAMESPACE_FT
 

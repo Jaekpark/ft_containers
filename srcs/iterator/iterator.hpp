@@ -84,6 +84,7 @@ class wrap_iterator {
   }
   reference operator[](difference_type n) { return _i[n]; }
 };
+
 template <class Iterator>
 wrap_iterator<Iterator> operator+(
     typename wrap_iterator<Iterator>::difference_type n,
