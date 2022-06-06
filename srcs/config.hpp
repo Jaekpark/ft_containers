@@ -6,6 +6,8 @@
 #define _BEGIN_NAMESPACE_FT namespace ft {
 #define _END_NAMESPACE_FT }
 
+#define FT_CHAR_BIT 8
+
 #ifndef NAMESPACE
 #define NAMESPACE ft
 #endif
