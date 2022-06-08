@@ -19,11 +19,12 @@ int main(void) {
   start = clock();
   ft::vector<int> a;
   ft::vector<int> a_1(5, 77);
-
-  a.insert(a.begin(), 111);
-  a.insert(a.begin(), 2, 81);
-  a.insert(a.begin(), a_1.begin(), a_1.end());
-  // a.push_back(1);
+  bool is_valid = ft::is_convertible<ft::vector<int>::iterator,
+                                     ft::vector<int>::iterator>::value;
+  std::cout << is_valid << std::endl;
+  ft::vector<int>::iterator iter = a.begin();
+  std::cout << ft::is_iterator<ft::vector<int>::iterator>::value << std::endl;
+  a.assign(a_1.begin(), a_1.end());
   std::cout << "size : " << a.size() << std::endl;
   std::cout << "capacity : " << a.capacity() << std::endl;
   for (ft::vector<int>::iterator it = a.begin(); it != a.end(); it++) {
@@ -34,14 +35,15 @@ int main(void) {
   std::cout << "---------------" << std::endl;
 
   start = clock();
-  std::vector<int> b;
+
+  std::vector<int> b(10, 1);
   std::cout << "size : " << b.size() << std::endl;
   std::cout << "capacity : " << b.capacity() << std::endl;
-  std::vector<int>::iterator i = b.insert(b.begin(), 10);
+  // std::vector<int>::iterator i = b.insert(b.begin(), 10);
   for (std::vector<int>::iterator it1 = b.begin(); it1 != b.end(); it1++) {
     std::cout << *it1 << std::endl;
   }
-  std::cout << *i << std::endl;
+  // std::cout << *i << std::endl;
   std::cout << "size : " << b.size() << std::endl;
   std::cout << "capacity : " << b.capacity() << std::endl;
   end = clock();
