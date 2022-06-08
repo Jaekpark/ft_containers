@@ -5,4 +5,5 @@
 5. auto
 6. inline
 7. static_assert
-8. 
+8. glvalue vs xvalue vs rvalue
+9.  &&
