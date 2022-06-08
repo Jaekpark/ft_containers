@@ -18,8 +18,12 @@ int main(void) {
   clock_t start, end;
   start = clock();
   ft::vector<int> a;
+  ft::vector<int> a_1(5, 77);
 
-  a.push_back(1);
+  a.insert(a.begin(), 111);
+  a.insert(a.begin(), 2, 81);
+  a.insert(a.begin(), a_1.begin(), a_1.end());
+  // a.push_back(1);
   std::cout << "size : " << a.size() << std::endl;
   std::cout << "capacity : " << a.capacity() << std::endl;
   for (ft::vector<int>::iterator it = a.begin(); it != a.end(); it++) {

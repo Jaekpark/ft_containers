@@ -108,7 +108,6 @@ class vector_base {
       alloc_traits::destroy(_alloc, to_address(--origin_end));
     this->_end = new_end;
   }
-  // size_type align_it(size_type new_size) { return new_size + }
 };
 
 template <class T, class Allocator = std::allocator<T> >
@@ -224,7 +223,6 @@ class vector : public vector_base<T, Allocator> {
       this->_end = new_begin + sz;
       this->_end_capacity = new_begin + n;
     }
-    // - implement
   }
 
   // * Element access
@@ -268,11 +266,38 @@ class vector : public vector_base<T, Allocator> {
     if (!empty()) this->_destruct_at_end(this->_end - 1);
   }
   iterator insert(iterator position, const T &x) {
-    if (size() >= capacity()) reserve(size() + 1);
+    difference_type pos = position - begin();
+    if (size() >= capacity()) reserve(recommend(size() + 1));
+    pointer p = this->_begin + pos;
+    copy(make_iterator(p), end(), make_iterator(p + 1));
+    this->_alloc.construct(p, x);
+    this->_end++;
+    return make_iterator(p);
   }  // - impl
-  // void insert(iterator position, size_type n, const T &x) {}
-  // template <class InputIterator>
-  // void insert(iterator position, InputIterator first, InputIterator last) {}
+  void insert(iterator position, size_type n, const T &x) {
+    difference_type pos = position - begin();
+    if (size() + n > capacity()) reserve(recommend(size() + n));
+    pointer p = this->_begin + pos;
+    copy(make_iterator(p), end(), make_iterator(p + n));
+    while (n--) {
+      this->_alloc.construct(p++, x);
+      this->_end++;
+    }
+  }
+  template <class InputIterator>
+  void insert(iterator position, InputIterator first, InputIterator last,
+              typename ft::enable_if<!ft::is_integral<InputIterator>::value,
+                                     InputIterator>::type * = nullptr) {
+    difference_type pos = position - begin();
+    size_type n = last - first;
+    if (size() + n > capacity()) reserve(recommend(size() + n));
+    pointer p = this->_begin + pos;
+    copy(make_iterator(p), end(), make_iterator(p + n));
+    while (first != last) {
+      this->_alloc.construct(p++, *first++);
+      this->_end++;
+    }
+  }
   iterator erase(iterator position) {
     difference_type pos = position - this->begin();
     pointer p = this->_begin + pos;
