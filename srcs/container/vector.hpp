@@ -40,8 +40,15 @@ class vector_base {
   pointer _begin;
   pointer _end;
   pointer _end_capacity;
-
+  // * Member Functions
+  size_type _capacity(void) const { return _end_cap() - _begin; }
+  void clear(void) { _destruct_at_end(_begin); }
   // * Default Constructor
+  vector_base(void)
+      : _alloc(Allocator()),
+        _begin(nullptr),
+        _end(nullptr),
+        _end_capacity(nullptr) {}
   explicit vector_base(const Allocator &alloc = Allocator())
       : _alloc(alloc), _begin(nullptr), _end(nullptr), _end_capacity(nullptr) {}
   // * Fill Constructor
@@ -81,17 +88,10 @@ class vector_base {
   }
   // * Destructor
   ~vector_base(void) {
-    difference_type n = _begin - _end_capacity;
-    pointer _last_element = _end;
-    for (; _last_element != _begin; _last_element--)
-      _alloc.destroy(_last_element);
-    _alloc.deallocate(_begin, n);
-  }
-
-  // * Operator =
-  vector_base<T, Allocator> &operator=(const vector_base<T, Allocator> &x) {
-    (void)x;
-    return *this;
+    if (_begin != nullptr) {
+      clear();
+      alloc_traits::deallocate(_alloc(), _begin, _capacity());
+    }
   }
 
   // * utility
@@ -100,7 +100,6 @@ class vector_base {
   const allocator_type &_allocator(void) const { return this->_alloc; }
   pointer &_end_cap(void) { return this->_end_capacity; }
   const pointer &_end_cap(void) const { return this->_end_capacity; }
-  size_type _capacity(void) const { return _end_cap() - _begin; }
   value_type *to_address(pointer p) { return p; }
   void _destruct_at_end(pointer new_end) {
     pointer origin_end = this->_end;
@@ -150,7 +149,7 @@ class vector : public vector_base<T, Allocator> {
   const_iterator make_iterator(const_pointer p) const {
     return const_iterator(p);
   }
-  pointer _vallocate(size_type n, value_type val = value_type()) {
+  pointer _vallocate(size_type n, value_type &val = value_type()) {
     if (n > max_size()) this->throw_length_error();
     pointer p = _default_allocator().allocate(n);
     pointer temp = p;
@@ -174,16 +173,77 @@ class vector : public vector_base<T, Allocator> {
     while (first != last) *d_first++ = *first++;
     return d_first;
   }
+  template <class InputIterator>
+  void construct_with_range(
+      InputIterator first, InputIterator last,
+      typename ft::enable_if<!ft::is_integral<InputIterator>::value,
+                             InputIterator>::type * = nullptr) {
+    diffrence_type n = ft::distance(first, last);
+    this->_begin = this->_alloc.allocate(n);
+    this->_end = this->_begin;
+    this->_end_capacity = this->_begin + n;
+    while (n--) this->_alloc.construct(this->_end++, *first++);
+  }
+  template <class InputIterator>
+  void construct_with_range(
+      InputIterator first, InputIterator last, size_type &capacity,
+      typename ft::enable_if<!ft::is_integral<InputIterator>::value,
+                             InputIterator>::type * = nullptr) {
+    difference_type n = ft::distance(first, last);
+    this->_begin = this->_alloc.allocate(n);
+    this->_end = this->_begin;
+    this->_end_capacity = this->_begin + capacity;
+    while (n--) this->_alloc.construct(this->_end++, *first++);
+  }
 
   // * Constructor
-  vector(void) : _base() {}
-  explicit vector(const Allocator &alloc) : _base(alloc) {}
-  vector(size_type n) : _base(n) {}
-  vector(size_type n, const value_type &x) : _base(n, x) {}
-  vector(size_type n, const value_type &x, const allocator_type &alloc)
-      : _base(n, x, alloc) {}
+  // * Default Constructor
+  vector(void) {}
+  // explicit vector(const Allocator &alloc) : {}
+  // * Fill Constructor
+  explicit vector(size_type n, const value_type &val = value_type(),
+                  const Allocator &alloc = Allocator()) {
+    this->_alloc = alloc;
+    this->_begin = _vallocate(n, val);
+    this->_end = this->_begin + n;
+    this->_end_capacity = this->_end;
+  }
+  // * Range Constructor
+  template <class InputIterator>
+  vector(InputIterator first, InputIterator last,
+         const Allocator &alloc = Allocator(),
+         typename ft::enable_if<!ft::is_integral<InputIterator>::value,
+                                InputIterator>::type * = nullptr) {
+    construct_with_range(first, last);
+  }
+  // * Copy Constructor
+  explicit vector(const vector<T, Allocator> &x) {
+    construct_with_range(x.begin(), x.end(), x.capacity());
+  }
+  // * operator=
+  vector &operator=(const vector &x) {
+    assign(x.begin(), x.end());
+    return *this;
+  }
   // * Destructor
   ~vector(void) {}
+  // * assign
+  void assign(size_type n, const T &value) {
+    if (n >= capacity()) reserve(recommend(n));
+    clear();
+    while (n--) push_back(value);
+  };
+  template <class InputIterator>
+  void assign(InputIterator first, InputIterator last,
+              typename ft::enable_if<
+                  ft::is_random_access_iterator<typename ft::iterator_traits<
+                      InputIterator>::iterator_category>::value,
+                  InputIterator>::type * = nullptr) {
+    difference_type n = ft::distance(first, last);
+    if (static_cast<size_type>(n) >= capacity()) reserve(recommend(n));
+    clear();
+    for (; first != last; ++first) push_back(*first);
+  }
   // * Allocator
   allocator_type get_allocator(void) const { return this->_allocator(); }
   // * Iterator
