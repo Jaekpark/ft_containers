@@ -59,6 +59,32 @@ class binary_search_tree {
   /* -------------------------- DESTRUCTOR -------------------------- */
   ~binary_search_tree(void){};
   // * member functions
+  n_pointer create_bst_node(value_type &val, n_pointer parent = nullptr,
+                            n_pointer left = nullptr,
+                            n_pointer right = nullptr) {
+    n_pointer new_node = this->_alloc.allocate(1);
+    new_node.set_value(val);
+    new_node.set_parent_node(parent);
+    new_node.set_left_node(left);
+    new_node.set_right_node(right);
+    return new_node;
+  }
+  n_pointer insert(n_pointer node, value_type &val) {
+    if (!node) {
+      this->_sz++;
+      return create_bst_node(val);
+    }
+    if (val < node.get_value_ref()) {
+      n_pointer left = insert(node->left, val);
+      node.set_left_node(left);
+      left.set_parent_node(node);
+    } else if (val > node.get_value_ref()) {
+      n_pointer right = insert(node->right, val);
+      node.set_right_node(right);
+      right.set_parent_node(node);
+    }
+    return node;
+  }
   void destroy(n_pointer node) {
     if (node != nullptr) {
       destroy(static_cast<n_pointer>(node->_left));
@@ -216,9 +242,9 @@ _END_NAMESPACE_FT
         현재 노드 값이 삭제하고자 하는 노드 값보다
         작으면 왼쪽으로 크면 오른쪽 노드로 이동해서 탐색
         발견하면 자녀노드가 없을 경우 해당 노드의 엣지 해제
-        자녀노드가 1개 있을 경우 자신의 부모노드가 해당 자식 노드를 가리키도록
-변경 자녀노드가 2개 있을 경우 오른쪽 서브트리에서 제일 값이 작은 노드가 대체,
-        왼쪽 서브트리의 경우에는 가장 큰 값이 대체
+        자녀노드가 1개 있을 경우 자신의 부모노드가 해당 자식 노드를
+가리키도록 변경 자녀노드가 2개 있을 경우 오른쪽 서브트리에서 제일 값이 작은
+노드가 대체, 왼쪽 서브트리의 경우에는 가장 큰 값이 대체
 
 - search
         루트 노드에서 시작해 노드를 방문할때 마다 값 비교, 현재 노드보다

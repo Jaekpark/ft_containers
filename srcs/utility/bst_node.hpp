@@ -70,13 +70,25 @@ struct bst_node {
   /* ---------------------------------------------------------------- */
   value_type get_value(void) { return _value; }
   value_type &get_value_ref(void) { return _value; }
-  void set_value(const value_type &val) { this->_value = val; }
+  void set_value(value_type &val) { this->_value = val; }
   bst_node *get_parent_node(void) { return _parent; }
-  void set_parent_node(const bst_node &node) { this->_parent = node; }
+  void set_parent_node(bst_node *node) { this->_parent = node; }
   bst_node *get_left_node(void) { return _left; }
-  void set_left_node(const bst_node &node) { this->_left = node; }
+  void set_left_node(bst_node *node) { this->_left = node; }
   bst_node *get_right_node(void) { return _right; }
-  void set_right_node(const bst_node &node) { this->_right = node; }
+  void set_right_node(bst_node *node) { this->_right = node; }
+  bool has_parent(bst_node *node) {
+    if (node->_parent) return true;
+    return false;
+  }
+  bool has_left_child(bst_node *node) {
+    if (node->_left) return true;
+    return false;
+  }
+  bool has_right_child(bst_node *node) {
+    if (node->_right) return true;
+    return false;
+  }
 };
 
 /* ---------------------------------------------------------------- */

@@ -1,10 +1,11 @@
 #ifndef _FT_PAIR_HPP
 #define _FT_PAIR_HPP
 
+#include <utility>
+
 #include "../config.hpp"
 // namespace_start
 _BEGIN_NAMESPACE_FT
-
 template <class T1, class T2>
 struct pair {
  public:
@@ -28,6 +29,32 @@ struct pair {
     return *this;
   }
 };
+template <class T1, class T2>
+bool operator==(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs) {
+  return lhs.first == rhs.first && lhs.second == rhs.second;
+}
+template <class T1, class T2>
+bool operator!=(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs) {
+  return !(lhs == rhs);
+}
+template <class T1, class T2>
+bool operator<(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs) {
+  return lhs.first < rhs.first ||
+         (!(rhs.first < lhs.first) && lhs.second < rhs.second);
+}
+template <class T1, class T2>
+bool operator<=(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs) {
+  return !(rhs < lhs);
+}
+template <class T1, class T2>
+bool operator>(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs) {
+  return rhs < lhs;
+}
+template <class T1, class T2>
+bool operator>=(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs) {
+  return !(lhs < rhs);
+}
+
 // namespace_end
 _END_NAMESPACE_FT
 
