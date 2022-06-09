@@ -1,8 +1,9 @@
 #ifndef _FT_IS_INTEGRAL_HPP
 #define _FT_IS_INTEGRAL_HPP
 
-#include "../config.hpp"
 #include <type_traits>
+
+#include "../config.hpp"
 // namespace_start
 _BEGIN_NAMESPACE_FT
 
@@ -44,10 +45,12 @@ template <>
 struct is_integral<unsigned long int> : true_type {};
 template <>
 struct is_integral<unsigned long long int> : true_type {};
-// template <> (since c++11)
-// struct is_integral<char16_t> : true_type {};
-// template <> (since c++11)
-// struct is_integral<char32_t> : true_type {};
+/**
+ * template <> (since c++11)
+ * struct is_integral<char16_t> : true_type {};
+ * template <> (since c++11)
+ * struct is_integral<char32_t> : true_type {};
+ */
 
 _END_NAMESPACE_FT
 // namespace_end
