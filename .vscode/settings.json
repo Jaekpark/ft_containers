@@ -72,6 +72,9 @@
 		"__config_site": "cpp",
 		"version": "cpp",
 		"__undef_macros": "cpp",
-		"iomanip": "cpp"
+		"iomanip": "cpp",
+		"map": "cpp",
+		"set": "cpp",
+		"__tree": "cpp"
 	}
 }
