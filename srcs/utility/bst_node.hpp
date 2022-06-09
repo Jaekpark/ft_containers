@@ -42,7 +42,7 @@ struct bst_node {
 
   bst_node(const value_type &val, bst_node *parent = nullptr,
            bst_node *left = nullptr, bst_node *right = nullptr)
-      : _value(value), _parent(parent), _left(left), _right(right) {}
+      : _value(val), _parent(parent), _left(left), _right(right) {}
 
   /* ----------------------- COPY CONSTRUCTOR ----------------------- */
   bst_node(const bst_node &node)

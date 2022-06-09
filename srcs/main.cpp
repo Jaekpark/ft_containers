@@ -1,6 +1,7 @@
 #include <time.h>
 
 #include <algorithm>
+#include <cstdlib>
 #include <iostream>
 #include <iterator>
 #include <type_traits>
@@ -27,14 +28,44 @@ class print_container {
       std::cout << *it << std::endl;
   }
 };
+static int bst_index = 0;
+template <class T1, class T2, class Node, class Bst>
+void print_pair(Bst* bst, Node* node, ft::pair<T1, T2> pr) {
+  std::cout << "[" << ++bst_index << "] key : " << pr.first << "  |  ";
+  if (node == bst->get_root())
+    std::cout << "val : " << pr.second << "  <- this is root node."
+              << std::endl;
+  else
+    std::cout << "val : " << pr.second << std::endl;
+}
 
 int main(void) {
-  // ft::binary_search_tree<typename ft::pair<char, int>> bst;
-  char a = 'a';
-  int num = 10;
-  ft::pair<char, int> p = ft::make_pair(a, num);
-  std::cout << p.first << std::endl;
-  std::cout << p.second << std::endl;
+  srand(time(NULL));
+  ft::binary_search_tree<ft::pair<unsigned int, unsigned int> > bst;
+
+  int count = 50;
+  while (count--) {
+    srand(clock());
+    unsigned int num = rand() % 50;
+    unsigned int num1 = rand() % 50;
+    // std::cout << num << " " << num1 << std::endl;
+    ft::pair<unsigned int, unsigned int> p = ft::make_pair(num, num1);
+    if (!bst.get_root()) bst.set_root(bst.insert(bst.get_root(), p));
+    bst.insert(bst.get_root(), p);
+  }
+  std::cout << bst.get_size() << std::endl;
+  bst.preorder(bst.get_root(), print_pair);
+  // bst.inorder(bst.get_root(), print_pair);
+  // std::cout << bst.get_root()->get_value_ref().first << std::endl;
+  // std::cout << bst.get_root()->get_value_ref().second << std::endl;
+  // std::cout << bst.get_root()->get_right_node()->get_value_ref().first
+  //           << std::endl;
+  // std::cout << bst.get_root()->get_right_node()->get_value_ref().second
+  //           << std::endl;
+  // std::cout << bst.get_root()->get_left_node()->get_value_ref().first
+  //           << std::endl;
+  // std::cout << bst.get_root()->get_left_node()->get_value_ref().second
+  //           << std::endl;
 }
 
 // int main(void) {

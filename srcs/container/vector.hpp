@@ -375,8 +375,8 @@ template <class T, class Allocator>
 bool operator==(const vector<T, Allocator> &lhs,
                 const vector<T, Allocator> &rhs) {
   if (lhs.size() != rhs.size()) return false;
-  ft::vector<T>::iterator it_lhs = lhs.begin();
-  ft::vector<T>::iterator it_rhs = rhs.begin();
+  typename ft::vector<T, Allocator>::iterator it_lhs = lhs.begin();
+  typename ft::vector<T, Allocator>::iterator it_rhs = rhs.begin();
   while (it_lhs != lhs.end())
     if (it_rhs == rhs.end() || *it_lhs++ != *it_rhs++) return false;
   return true;

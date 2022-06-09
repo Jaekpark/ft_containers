@@ -2,6 +2,7 @@
 #define _FT_BINARY_SEARCH_TREE_HPP
 
 #include <functional>
+#include <iostream>
 #include <memory>
 
 #include "../config.hpp"
@@ -40,8 +41,8 @@ class binary_search_tree {
   typedef typename n_allocator_type::size_type n_size_type;
   typedef typename n_allocator_type::difference_type n_difference_type;
 
-  typedef ft::bst_iterator<n_pointer, compare> iterator;
-  typedef ft::bst_iterator<n_const_pointer, compare> const_iterator;
+  // typedef ft::bst_iterator<n_pointer, compare> iterator;
+  // typedef ft::bst_iterator<n_const_pointer, compare> const_iterator;
 
   /* ---------------------------------------------------------------- */
   /*                            ATTRIBUTES                            */
@@ -57,16 +58,19 @@ class binary_search_tree {
       : _sz(0), _alloc(alloc), _root(nullptr) {}
 
   /* -------------------------- DESTRUCTOR -------------------------- */
-  ~binary_search_tree(void){};
+  ~binary_search_tree(void) { destroy(_root); };
   // * member functions
+  n_size_type get_size(void) { return _sz; }
+  n_pointer get_root(void) { return _root; }
+  void set_root(n_pointer node) { this->_root = node; }
   n_pointer create_bst_node(value_type &val, n_pointer parent = nullptr,
                             n_pointer left = nullptr,
                             n_pointer right = nullptr) {
     n_pointer new_node = this->_alloc.allocate(1);
-    new_node.set_value(val);
-    new_node.set_parent_node(parent);
-    new_node.set_left_node(left);
-    new_node.set_right_node(right);
+    new_node->set_value(val);
+    new_node->set_parent_node(parent);
+    new_node->set_left_node(left);
+    new_node->set_right_node(right);
     return new_node;
   }
   n_pointer insert(n_pointer node, value_type &val) {
@@ -74,22 +78,42 @@ class binary_search_tree {
       this->_sz++;
       return create_bst_node(val);
     }
-    if (val < node.get_value_ref()) {
-      n_pointer left = insert(node->left, val);
-      node.set_left_node(left);
-      left.set_parent_node(node);
-    } else if (val > node.get_value_ref()) {
-      n_pointer right = insert(node->right, val);
-      node.set_right_node(right);
-      right.set_parent_node(node);
+    if (val < node->get_value_ref()) {
+      n_pointer left = insert(node->get_left_node(), val);
+      node->set_left_node(left);
+      left->set_parent_node(node);
+    } else if (val > node->get_value_ref()) {
+      n_pointer right = insert(node->get_right_node(), val);
+      node->set_right_node(right);
+      right->set_parent_node(node);
     }
     return node;
   }
+  void inorder(n_pointer node, void (*f)(tree *, n_pointer, T)) {
+    if (node) {
+      inorder(node->get_left_node(), f);
+      f(this, node, node->get_value_ref());
+      inorder(node->get_right_node(), f);
+    }
+  }
+  void preorder(n_pointer node, void (*f)(tree *, n_pointer, T)) {
+    if (node) {
+      f(this, node, node->get_value_ref());
+      preorder(node->get_left_node(), f);
+      preorder(node->get_right_node(), f);
+    }
+  }
+  void postorder(n_pointer node, void (*f)(tree *, n_pointer, T)) {
+    if (node) {
+      postorder(node->get_left_node(), f);
+      postorder(node->get_right_node(), f);
+      f(this, node, node->get_value_ref());
+    }
+  }
   void destroy(n_pointer node) {
     if (node != nullptr) {
-      destroy(static_cast<n_pointer>(node->_left));
-      destroy(static_cast<n_pointer>(node->_right));
-      allocator_type::destroy(allocator_type(), node->_value);
+      destroy(static_cast<n_pointer>(node->get_left_node()));
+      destroy(static_cast<n_pointer>(node->get_right_node()));
       _alloc.deallocate(node, 1);
     }
   }

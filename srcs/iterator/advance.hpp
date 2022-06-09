@@ -37,4 +37,5 @@ void advance(InputIterator& i, Distance n) {
 }
 
 _END_NAMESPACE_FT
+
 #endif

@@ -21,7 +21,7 @@ struct pair {
       : first(x), second(y) {}
   // copy_constructor
   // destructor
-  ~pair(void);
+  ~pair(void) {}
   pair& operator=(const pair& x) {
     if (*this == x) return *this;
     this->first = x.first;

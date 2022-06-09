@@ -3,8 +3,9 @@
 
 #include "../config.hpp"
 #include "./iterator_traits.hpp"
-// namespace_start
+
 _BEGIN_NAMESPACE_FT
+
 template <class InputIterator>
 typename ft::iterator_traits<InputIterator>::difference_type distance(
     InputIterator first, InputIterator last, ft::input_iterator_tag) {
@@ -26,6 +27,7 @@ typename ft::iterator_traits<InputIterator>::difference_type distance(
       first, last,
       typename ft::iterator_traits<InputIterator>::iterator_category());
 }
-// namespace_end
+
 _END_NAMESPACE_FT
+
 #endif
