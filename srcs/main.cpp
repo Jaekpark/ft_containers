@@ -26,7 +26,6 @@ class print_container {
 
 int main(void) {
   clock_t start, end;
-  std::lexicographical_compare;
   start = clock();
   ft::vector<int> a;
   ft::vector<int> a_1(5, 77);
