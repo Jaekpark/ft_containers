@@ -73,8 +73,7 @@
 		"version": "cpp",
 		"__undef_macros": "cpp",
 		"iomanip": "cpp",
-		"map": "cpp",
-		"set": "cpp",
-		"__tree": "cpp"
+		"__tree": "cpp",
+		"map": "cpp"
 	}
 }
