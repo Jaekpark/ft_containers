@@ -2,12 +2,10 @@
 #define FT_VECTOR_HPP
 
 #include <iostream>
-#include <iterator>
 #include <memory>
 #include <stdexcept>
-#include <string>
-#include <vector>
 
+#include "../algorithm/lexicographical_compare.hpp"
 #include "../config.hpp"
 #include "../iterator/iterator.hpp"
 #include "../iterator/iterator_traits.hpp"
@@ -26,8 +24,8 @@ class vector_base {
 
  protected:
   typedef T value_type;
-  typedef value_type &reference;
-  typedef const value_type &const_reference;
+  typedef typename allocator_type::reference reference;
+  typedef typename allocator_type::const_reference const_reference;
   typedef typename alloc_traits::difference_type difference_type;
   typedef typename alloc_traits::pointer pointer;
   typedef typename alloc_traits::const_pointer const_pointer;
@@ -75,17 +73,17 @@ class vector_base {
   }
 
   // * utility
- public:
-  void _copy_assign(const vector_base &x) {
-    if (_allocator() != x._allocator()) {
-      clear();
-      alloc_traits::deallocate(_alloc, _begin, _capacity());
-      _begin = nullptr;
-      _end = nullptr;
-      _end_capacity = nullptr;
-    }
-    _alloc = x._alloc;
-  }
+ protected:
+  // void _copy_assign(const vector_base &x) {
+  //   if (_allocator() != x._allocator()) {
+  //     clear();
+  //     alloc_traits::deallocate(_alloc, _begin, _capacity());
+  //     _begin = nullptr;
+  //     _end = nullptr;
+  //     _end_capacity = nullptr;
+  //   }
+  //   _alloc = x._alloc;
+  // }
   allocator_type &_allocator(void) { return this->_alloc; }
   const allocator_type &_allocator(void) const { return this->_alloc; }
   pointer &_end_cap(void) { return this->_end_capacity; }
@@ -104,12 +102,12 @@ class vector : public vector_base<T, Allocator> {
  private:
   typedef vector_base<T, Allocator> _base;
   typedef Allocator _default_allocator;
+  typedef vector self;
+  typedef typename _base::alloc_traits alloc_traits;
 
  public:
-  typedef vector self;
   typedef T value_type;
   typedef Allocator allocator_type;
-  typedef typename _base::alloc_traits alloc_traits;
   typedef typename _base::reference reference;
   typedef typename _base::const_reference const_reference;
   typedef typename _base::size_type size_type;
@@ -122,12 +120,13 @@ class vector : public vector_base<T, Allocator> {
   typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
 
   // * utility
+ private:
   void __destruct_at_end(iterator new_end) {
     _base::_destruct_at_end(new_end.base());
   }
-  void throw_length_error(void) const { throw(std::length_error("vector")); }
-  static const unsigned bits_per_word =
-      static_cast<unsigned>(sizeof(size_type) * FT_CHAR_BIT);
+  void throw_length_error(void) const {
+    throw(std::length_error("ft::vector"));
+  }
   size_type recommend(size_type new_size) const {
     const size_type ms = max_size();
     if (new_size > ms) this->throw_length_error();
@@ -159,7 +158,7 @@ class vector : public vector_base<T, Allocator> {
     }
   }
   template <typename Iter>
-  Iter copy(Iter first, Iter last, Iter d_first) {
+  Iter move_range(Iter first, Iter last, Iter d_first) {
     while (first != last) *d_first++ = *first++;
     return d_first;
   }
@@ -186,6 +185,7 @@ class vector : public vector_base<T, Allocator> {
     while (n--) this->_alloc.construct(this->_end++, *first++);
   }
 
+ public:
   // * Constructor
   // * Default Constructor
   vector(void) : _base() {}
@@ -270,7 +270,7 @@ class vector : public vector_base<T, Allocator> {
     else if (n > capacity()) {
       pointer new_begin = _vallocate(n);
       size_type sz = size();
-      copy(this->_begin, this->_end, new_begin);
+      move_range(this->_begin, this->_end, new_begin);
       _vdeallocate();
       this->_begin = new_begin;
       this->_end = new_begin + sz;
@@ -322,7 +322,7 @@ class vector : public vector_base<T, Allocator> {
     difference_type pos = position - begin();
     if (size() >= capacity()) reserve(recommend(size() + 1));
     pointer p = this->_begin + pos;
-    copy(make_iterator(p), end(), make_iterator(p + 1));
+    move_range(make_iterator(p), end(), make_iterator(p + 1));
     this->_alloc.construct(p, x);
     this->_end++;
     return make_iterator(p);
@@ -331,7 +331,7 @@ class vector : public vector_base<T, Allocator> {
     difference_type pos = position - begin();
     if (size() + n > capacity()) reserve(recommend(size() + n));
     pointer p = this->_begin + pos;
-    copy(make_iterator(p), end(), make_iterator(p + n));
+    move_range(make_iterator(p), end(), make_iterator(p + n));
     while (n--) {
       this->_alloc.construct(p++, x);
       this->_end++;
@@ -345,7 +345,7 @@ class vector : public vector_base<T, Allocator> {
     size_type n = last - first;
     if (size() + n > capacity()) reserve(recommend(size() + n));
     pointer p = this->_begin + pos;
-    copy(make_iterator(p), end(), make_iterator(p + n));
+    move_range(make_iterator(p), end(), make_iterator(p + n));
     while (first != last) {
       this->_alloc.construct(p++, *first++);
       this->_end++;
@@ -354,7 +354,8 @@ class vector : public vector_base<T, Allocator> {
   iterator erase(iterator position) {
     difference_type pos = position - this->begin();
     pointer p = this->_begin + pos;
-    __destruct_at_end(copy(make_iterator(p + 1), end(), make_iterator(p)));
+    __destruct_at_end(
+        move_range(make_iterator(p + 1), end(), make_iterator(p)));
     iterator r = make_iterator(p);
     return r;
   }
@@ -362,13 +363,50 @@ class vector : public vector_base<T, Allocator> {
     difference_type pos = first - begin();
     pointer p = this->_begin + pos;
     if (first != last)
-      __destruct_at_end(
-          copy(make_iterator(p + (last - first)), end(), make_iterator(p)));
+      __destruct_at_end(move_range(make_iterator(p + (last - first)), end(),
+                                   make_iterator(p)));
     iterator r = make_iterator(p);
     return r;
   }
   void clear(void) { __destruct_at_end(begin()); }
 };
+
+template <class T, class Allocator>
+bool operator==(const vector<T, Allocator> &lhs,
+                const vector<T, Allocator> &rhs) {
+  if (lhs.size() != rhs.size()) return false;
+  ft::vector<T>::iterator it_lhs = lhs.begin();
+  ft::vector<T>::iterator it_rhs = rhs.begin();
+  while (it_lhs != lhs.end())
+    if (it_rhs == rhs.end() || *it_lhs++ != *it_rhs++) return false;
+  return true;
+}
+template <class T, class Allocator>
+bool operator!=(const vector<T, Allocator> &lhs,
+                const vector<T, Allocator> &rhs) {
+  return !(lhs == rhs);
+}
+template <class T, class Allocator>
+bool operator<(const vector<T, Allocator> &lhs,
+               const vector<T, Allocator> &rhs) {
+  return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(),
+                                     rhs.end());
+}
+template <class T, class Allocator>
+bool operator<=(const vector<T, Allocator> &lhs,
+                const vector<T, Allocator> &rhs) {
+  return !(rhs < lhs);
+}
+template <class T, class Allocator>
+bool operator>(const vector<T, Allocator> &lhs,
+               const vector<T, Allocator> &rhs) {
+  return (rhs < lhs);
+}
+template <class T, class Allocator>
+bool operator>=(const vector<T, Allocator> &lhs,
+                const vector<T, Allocator> &rhs) {
+  return !(lhs < rhs);
+}
 template <class T, class Allocator>
 void swap(vector<T, Allocator> &x, vector<T, Allocator> &y) {
   x.swap(y);
