@@ -8,6 +8,8 @@
 #include "../iterator/iterator.hpp"
 #include "../iterator/iterator_traits.hpp"
 #include "../iterator/reverse_iterator.hpp"
+#include "../utility/binary_search_tree.hpp"
+#include "../utility/bst_node.hpp"
 #include "../utility/make_pair.hpp"
 #include "../utility/pair.hpp"
 
@@ -30,6 +32,7 @@ class map {
   typedef typename allocator_type::difference_type difference_type;
 
   typedef ft::reserve_iterator<iterator> reserve_iterator;
+  typedef ft::reserve_iterator<const_iterator> reserve_iterator;
 
   // default_constructor
   explicit map(void);
