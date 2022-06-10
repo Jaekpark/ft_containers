@@ -1,6 +1,15 @@
 #ifndef _FT_BST_NODE_HPP
 #define _FT_BST_NODE_HPP
 
+#define ROOT_NO_CHILD 1
+#define ROOT_HAS_LEFT 2
+#define ROOT_HAS_RIGHT 3
+#define ROOT_HAS_BOTH 4
+#define HAS_PARENT_NO_CHILD 5
+#define HAS_PARENT_AND_LEFT 6
+#define HAS_PARENT_AND_RIGHT 7
+#define HAS_PARENT_AND_BOTH 8
+
 #include <memory>
 
 #include "../config.hpp"
@@ -15,6 +24,7 @@ struct bst_node {
  public:
   typedef T value_type;
   typedef Allocator allocator_type;
+  typedef typename allocator_type::size_type size_type;
   typedef typename allocator_type::reference reference;
   typedef typename allocator_type::const_reference const_reference;
   typedef typename allocator_type::pointer pointer;
@@ -70,7 +80,7 @@ struct bst_node {
   /* ---------------------------------------------------------------- */
   value_type get_value(void) { return _value; }
   value_type &get_value_ref(void) { return _value; }
-  void set_value(value_type &val) { this->_value = val; }
+  void set_value(value_type val) { this->_value = val; }
   bst_node *get_parent_node(void) { return _parent; }
   void set_parent_node(bst_node *node) { this->_parent = node; }
   bst_node *get_left_node(void) { return _left; }
@@ -89,8 +99,60 @@ struct bst_node {
     if (node->_right) return true;
     return false;
   }
+  bool has_no_child(bst_node *node) {
+    if (!node->has_left_child(node) && !node->has_right_child(node))
+      return true;
+    return false;
+  }
+  bool is_left_child(bst_node *node) {
+    if (node == node->_parent->_left) return true;
+    return false;
+  }
+  bool is_right_child(bst_node *node) {
+    if (node == node->_parent->right) return true;
+    return false;
+  }
+  int node_relation(bool parent, bool left, bool right) {
+    if (!parent) {
+      if (!left && !right)
+        return ROOT_NO_CHILD;
+      else if (left && right)
+        return ROOT_HAS_BOTH;
+      else if (left && !right)
+        return ROOT_HAS_LEFT;
+      else if (!left && right)
+        return ROOT_HAS_RIGHT;
+    } else {
+      if (!left && !right)
+        return HAS_PARENT_NO_CHILD;
+      else if (left && right)
+        return HAS_PARENT_AND_BOTH;
+      else if (left && !right)
+        return HAS_PARENT_AND_LEFT;
+      else if (!left && right)
+        return HAS_PARENT_AND_RIGHT;
+    }
+    return 0;
+  }
+  size_type get_size_right_subtree(bst_node *node) {
+    size_type n = 0;
+    bst_node *r_subtree = node->_right;
+    while (r_subtree) {
+      r_subtree = r_subtree->_right;
+      n++;
+    }
+    return n;
+  };
+  size_type get_size_left_subtree(bst_node *node) {
+    size_type n = 0;
+    bst_node *l_subtree = node->_left;
+    while (l_subtree) {
+      l_subtree = l_subtree->_left;
+      n++;
+    }
+    return n;
+  };
 };
-
 /* ---------------------------------------------------------------- */
 /*                         RELATION OPERATOR                        */
 /* ---------------------------------------------------------------- */

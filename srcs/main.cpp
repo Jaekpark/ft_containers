@@ -4,6 +4,9 @@
 #include <cstdlib>
 #include <iostream>
 #include <iterator>
+#include <map>
+#include <queue>
+#include <string>
 #include <type_traits>
 #include <vector>
 
@@ -16,6 +19,7 @@
 #include "utility/make_pair.hpp"
 #include "utility/pair.hpp"
 
+#define COUNT 10;
 #ifndef NAMESPACE
 #define NAMESPACE ft
 #endif
@@ -28,22 +32,82 @@ class print_container {
       std::cout << *it << std::endl;
   }
 };
-static int bst_index = 0;
+
+int bst_index = 0;
 template <class T1, class T2, class Node, class Bst>
 void print_pair(Bst* bst, Node* node, ft::pair<T1, T2> pr) {
   std::cout << "[" << ++bst_index << "] key : " << pr.first << "  |  ";
-  if (node == bst->get_root())
-    std::cout << "val : " << pr.second << "  <- this is root node."
-              << std::endl;
+  std::cout << "val : " << pr.second;
+  if (node->get_parent_node())
+    std::cout << "  | [parent key] : "
+              << node->get_parent_node()->get_value_ref().first;
   else
-    std::cout << "val : " << pr.second << std::endl;
+    std::cout << "  | [has no parent]";
+  if (node->get_left_node())
+    std::cout << "  | [left child key] : "
+              << node->get_left_node()->get_value_ref().first;
+  else
+    std::cout << "  | [no left child]";
+  if (node->get_right_node())
+    std::cout << "  | [right child key] : "
+              << node->get_right_node()->get_value_ref().first;
+  else
+    std::cout << "  | [no right child]";
+  if (node == bst->get_root()) std::cout << "  <- this is root node.";
+  std::cout << std::endl;
+}
+
+template <class Node>
+void print2DUtil(Node* root, int space) {
+  if (root == NULL) return;
+
+  space += 10;
+
+  print2DUtil(root->get_right_node(), space);
+
+  std::cout << std::endl;
+  for (int i = 10; i < space; i++) {
+    std::cout << " ";
+  }
+
+  std::cout << root->get_value_ref().first << std::endl;
+
+  print2DUtil(root->get_left_node(), space);
+}
+
+template <class Node>
+void printBT(const std::string& prefix, Node* node, bool isLeft) {
+  if (node != nullptr) {
+    std::cout << prefix;
+
+    std::cout << (isLeft ? "├──" : "└──");
+
+    // print the value of the node
+    std::cout << node->get_value_ref().first << std::endl;
+
+    // enter the next tree level - left and right branch
+    printBT(prefix + (isLeft ? "│   " : "    "), node->get_left_node(), true);
+    printBT(prefix + (isLeft ? "│   " : "    "), node->get_right_node(), false);
+  }
+}
+
+template <class Node>
+void printBST(Node* node) {
+  printBT("", node, false);
+}
+
+// pass the root node of your binary tree
+template <class Node>
+void print2D(Node* root) {
+  int num = 0;
+  print2DUtil(root, num);
 }
 
 int main(void) {
   srand(time(NULL));
   ft::binary_search_tree<ft::pair<unsigned int, unsigned int> > bst;
 
-  int count = 50;
+  int count = 20;
   while (count--) {
     srand(clock());
     unsigned int num = rand() % 50;
@@ -53,8 +117,20 @@ int main(void) {
     if (!bst.get_root()) bst.set_root(bst.insert(bst.get_root(), p));
     bst.insert(bst.get_root(), p);
   }
-  std::cout << bst.get_size() << std::endl;
-  bst.preorder(bst.get_root(), print_pair);
+  print2D(bst.get_root());
+  // printBST(bst.get_root());
+  // bst.inorder(bst.get_root(), print_pair);
+  bst.delete_node(bst.get_root()->get_left_node());
+  print2D(bst.get_root());
+  // printBST(bst.get_root());
+  // std::cout << bst.get_size() << std::endl;
+  // std::cout << bst.min(bst.get_root())->get_value_ref().first << std::endl;
+  // std::cout << bst.max(bst.get_root())->get_value_ref().first << std::endl;
+  // std::cout << bst.successor(bst.get_root())->get_value_ref().first
+  //           << std::endl;
+  // std::cout << bst.predecessor(bst.get_root())->get_value_ref().first
+  //           << std::endl;
+  // bst.inorder(bst.get_root(), print_pair);
   // bst.inorder(bst.get_root(), print_pair);
   // std::cout << bst.get_root()->get_value_ref().first << std::endl;
   // std::cout << bst.get_root()->get_value_ref().second << std::endl;
