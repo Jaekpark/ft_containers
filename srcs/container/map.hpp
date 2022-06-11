@@ -1,6 +1,7 @@
 #ifndef _FT_MAP_HPP
 #define _FT_MAP_HPP
 
+#include <functional>
 #include <memory>
 
 #include "../algorithm/equal.hpp"
@@ -19,6 +20,7 @@
 #include "../utility/make_pair.hpp"
 #include "../utility/nullptr_t.hpp"
 #include "../utility/pair.hpp"
+#include "../utility/utility.hpp"
 
 _BEGIN_NAMESPACE_FT
 // namespace_start
@@ -46,20 +48,17 @@ class map {
   typedef ft::bst_const_iterator<node_type> const_iterator;
   typedef ft::reverse_iterator<iterator> reverse_iterator;
   typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
-  class value_compare {
+  class value_compare
+      : public ft::binary_function<value_type, value_type, bool> {
     friend class map;
 
    protected:
     key_compare comp;
-    value_compare(Compare c) : comp(c) {}
+    value_compare(const key_compare& compare) : comp(compare) {}
 
    public:
-    typedef bool result_type;
-    typedef value_type first_argument_type;
-    typedef value_type second_argument_type;
-
     bool operator()(const value_type& x, const value_type& y) const {
-      return comp(x.first, y.first);
+      return (comp(x.first, y.first));
     }
   };
 
@@ -144,19 +143,18 @@ class map {
   /* ---------------------------------------------------------------- */
 
   mapped_type& operator[](const key_type& k) {
-    return (*((this->insert(ft::make_pair(k, mapped_type()))).first)).second;
+    iterator tmp = this->find(k);
 
-    // iterator tmp = this->find(k);
-
-    // if (tmp == this->end()) this->insert(ft::make_pair(k, mapped_type()));
-    // tmp = this->find(k);
-    // return ((*tmp).second);
-    // n_pointer target = _bst.find(_bst.get_root(), k);
-    // if (target && target != end()._base())
-    //   return target->get_value_ref().second;
-    // value_type val = ft::make_pair<key_type, mapped_type>(k, mapped_type());
-    // return _bst.insert(_bst.get_root(), val)->get_value_ref().second;
+    if (tmp == this->end()) this->insert(ft::make_pair(k, mapped_type()));
+    tmp = this->find(k);
+    return ((*tmp).second);
+    n_pointer target = _bst.find(_bst.get_root(), k);
+    if (target && target != end()._base())
+      return target->get_value_ref().second;
+    value_type val = ft::make_pair<key_type, mapped_type>(k, mapped_type());
+    return _bst.insert(_bst.get_root(), val)->get_value_ref().second;
   }
+
   /* ---------------------------------------------------------------- */
   /*                             MODIFIERS                            */
   /* ---------------------------------------------------------------- */

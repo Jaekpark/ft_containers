@@ -92,7 +92,7 @@ class binary_search_tree {
   void set_size(n_size_type new_sz) { this->_sz = new_sz; }
   n_size_type get_max_size() const { return _alloc.max_size(); }
   n_pointer get_root(void) const { return _root; }
-  n_pointer get_last(void) { return _last; }
+  n_pointer get_last(void) const { return _last; }
   void set_root(n_pointer node) { this->_root = node; }
   void set_last(n_pointer node) { this->_last = node; }
   int get_depth(n_pointer start, n_pointer target, int depth) {
@@ -290,7 +290,7 @@ class binary_search_tree {
       parent->set_right_node(child);
     if (child) child->set_parent_node(parent);
   }
-  n_pointer min(n_pointer node) {
+  n_pointer min(n_pointer node) const {
     if (!node) return ft_nullptr;
     if (!node->get_left_node()) {
       return node;
@@ -315,6 +315,5 @@ class binary_search_tree {
     return node;
   }
 };
-
 _END_NAMESPACE_FT
 #endif

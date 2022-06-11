@@ -2,7 +2,7 @@ INCS				=	iterator/iterator.hpp iterator/iterator_traits.hpp iterator/reverse_it
 						type_traits/is_integral.hpp type_traits/enable_if.hpp iterator/advance.hpp iterator/distance.hpp\
 						utility/binary_search_tree.hpp utility/bst_node.hpp utility/pair.hpp utility/make_pair.hpp \
 						iterator/bst_iterator.hpp type_traits/remove_const.hpp iterator/bst_const_iterator.hpp container/stack.hpp \
-						 tester/tester.hpp
+						utility/utility.hpp
 
 SRCS				=	main.cpp
 OBJS				= 	$(patsubst %.cpp, %.o, $(SRCS_FILE))

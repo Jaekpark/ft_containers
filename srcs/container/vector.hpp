@@ -4,7 +4,6 @@
 #include <iostream>
 #include <memory>
 #include <stdexcept>
-#include <vector>
 
 #include "../algorithm/equal.hpp"
 #include "../algorithm/lexicographical_compare.hpp"
@@ -264,8 +263,8 @@ class vector : public vector_base<T, Allocator> {
   }
   reference front(void) { return *(begin()); }
   const_reference front(void) const { return *(begin()); }
-  reference back(void) { return *(--end()); }
-  const_reference back(void) const { return *(end()); }
+  reference back(void) { return *(end() - 1); }
+  const_reference back(void) const { return *(end() - 1); }
   // * modifiers
 
   void swap(vector &x) {

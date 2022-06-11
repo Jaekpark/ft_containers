@@ -2,10 +2,11 @@
 
 #include <algorithm>
 #include <cstdlib>
+#include <functional>
 #include <iostream>
 #include <iterator>
 #include <map>
-#include <queue>
+#include <stack>
 #include <string>
 #include <type_traits>
 #include <utility>
@@ -22,6 +23,7 @@
 #include "utility/make_pair.hpp"
 #include "utility/nullptr_t.hpp"
 #include "utility/pair.hpp"
+#include "utility/utility.hpp"
 
 #ifndef NAMESPACE
 #define NAMESPACE ft
@@ -333,10 +335,10 @@ template <class T>
 void print_map(T& map) {
   typename T::iterator beg = map.begin();
   typename T::iterator end = map.end();
-  if (map.empty()) {
-    std::cout << "!!!!!!!!! empty map !!!!!!!!" << std::endl;
-    return;
-  }
+  // if (map.empty()) {
+  //   std::cout << "!!!!!!!!! empty map !!!!!!!!" << std::endl;
+  //   return;
+  // }
   while (beg != end) {
     std::cout << "[" << beg->first << " " << beg->second << "] ";
     beg++;
@@ -512,14 +514,14 @@ template <class T>
 void map_access_test(T& map) {
   std::cout << "[ map access test]" << std::endl;
   map['a'] = 1;
-  // map['b'] = 2;
-  // map['c'] = 3;
-  // map['z'] = 5;
-  // map['f'] = 23;
-  // map['g'] = 13;
-  // map['x'] = 124;
+  map['b'] = 2;
+  map['c'] = 3;
+  map['z'] = 5;
+  map['f'] = 23;
+  map['g'] = 13;
+  map['x'] = 124;
   print_map(map);
-  // map_capa_test(map);
+  map_capa_test(map);
   std::cout << std::endl;
 }
 
@@ -604,10 +606,75 @@ void map_test() {
   map_clear_test(m);
   std::cout << "__STD" << std::endl;
   map_clear_test(_m);
-  std::cout << "__FT" << std::endl;
-  map_access_test(m);
-  std::cout << "__STD" << std::endl;
-  map_access_test(_m);
+
+  ft::map<char, int> alice;
+  std::map<char, int> _alice;
+  cnt = 10;
+  while (cnt--) {
+    srand(clock());
+    char key1 = rand() % range + 97;
+    int value1 = rand() % 30;
+    ft::pair<char, int> p11 = ft::make_pair<char, int>(key1, value1);
+    std::pair<char, int> _p11 = std::make_pair<char, int>(key1, value1);
+    alice.insert(p11);
+    _alice.insert(_p11);
+  }
+
+  cnt = 10;
+  ft::map<char, int> bob;
+  std::map<char, int> _bob;
+  while (cnt--) {
+    srand(clock());
+    char key1 = rand() % range + 97;
+    int value1 = rand() % 30;
+    ft::pair<char, int> p11 = ft::make_pair<char, int>(key1, value1);
+    std::pair<char, int> _p11 = std::make_pair<char, int>(key1, value1);
+    bob.insert(p11);
+    _bob.insert(_p11);
+  }
+
+  print_map(alice);
+  print_map(_alice);
+  print_map(bob);
+  print_map(_bob);
+  std::cout << std::boolalpha;
+
+  // // Compare non equal containers
+  std::cout << "alice == bob returns " << (alice == bob) << '\n';
+  std::cout << "alice != bob returns " << (alice != bob) << '\n';
+  std::cout << "alice <  bob returns " << (alice < bob) << '\n';
+  std::cout << "alice <= bob returns " << (alice <= bob) << '\n';
+  std::cout << "alice >  bob returns " << (alice > bob) << '\n';
+  std::cout << "alice >= bob returns " << (alice >= bob) << '\n';
+
+  // std::cout << '\n';
+
+  // // Compare equal containers
+  std::cout << "_alice == _bob returns " << (_alice == _bob) << '\n';
+  std::cout << "_alice != _bob returns " << (_alice != _bob) << '\n';
+  std::cout << "_alice <  _bob returns " << (_alice < _bob) << '\n';
+  std::cout << "_alice <= _bob returns " << (_alice <= _bob) << '\n';
+  std::cout << "_alice >  _bob returns " << (_alice > _bob) << '\n';
+  std::cout << "_alice >= _bob returns " << (_alice >= _bob) << '\n';
+  system("leaks a.out");
+}
+
+void stack_test() {
+  ft::stack<int> a;
+  std::stack<int> b;
+
+  std::cout << a.empty() << std::endl;
+  std::cout << b.empty() << std::endl;
+  a.push(10);
+  b.push(10);
+  a.push(9);
+  b.push(9);
+  a.push(8);
+  b.push(8);
+  std::cout << a.size() << std::endl;
+  std::cout << b.size() << std::endl;
+  std::cout << a.top() << std::endl;
+  std::cout << b.top() << std::endl;
   system("leaks a.out");
 }
 
@@ -616,4 +683,5 @@ int main(void) {
   vector_rv();
   vector_relation();
   map_test();
+  stack_test();
 }

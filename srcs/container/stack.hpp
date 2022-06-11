@@ -2,6 +2,7 @@
 #define _FT_STACK_HPP
 
 #include "../config.hpp"
+#include "../utility/nullptr_t.hpp"
 #include "./vector.hpp"
 
 _BEGIN_NAMESPACE_FT

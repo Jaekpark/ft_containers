@@ -2,6 +2,9 @@
 #define _FT_CONFIG_HPP
 
 #include <cstddef>
+#include <functional>
+#include <iostream>
+#include <memory>
 
 #define _BEGIN_NAMESPACE_FT namespace ft {
 #define _END_NAMESPACE_FT }
