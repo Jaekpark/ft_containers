@@ -6,7 +6,10 @@
 #include <memory>
 
 #include "../config.hpp"
+#include "../iterator/bst_const_iterator.hpp"
+#include "../iterator/bst_iterator.hpp"
 #include "../utility/bst_node.hpp"
+#include "../utility/nullptr_t.hpp"
 
 _BEGIN_NAMESPACE_FT
 template <class T, class Compare = std::less<T>, class Node = ft::bst_node<T>,
@@ -23,7 +26,10 @@ class binary_search_tree {
   typedef tree *tree_pointer;
 
   typedef T value_type;
+  typedef const T const_value_type;
   typedef Allocator allocator_type;
+  typedef typename value_type::first_type key_type;
+  typedef typename value_type::second_type mapped_type;
   typedef typename Allocator::reference reference;
   typedef typename Allocator::const_reference const_reference;
   typedef typename Allocator::pointer pointer;
@@ -37,12 +43,11 @@ class binary_search_tree {
   typedef typename n_allocator_type::reference n_reference;
   typedef typename n_allocator_type::const_reference n_const_reference;
   typedef typename n_allocator_type::pointer n_pointer;
-  typedef typename n_allocator_type::const_pointer n_const_node_pointer;
+  typedef typename n_allocator_type::const_pointer n_const_pointer;
   typedef typename n_allocator_type::size_type n_size_type;
   typedef typename n_allocator_type::difference_type n_difference_type;
-
-  // typedef ft::bst_iterator<n_pointer, compare> iterator;
-  // typedef ft::bst_iterator<n_const_pointer, compare> const_iterator;
+  typedef ft::bst_iterator<Node> iterator;
+  typedef ft::bst_const_iterator<Node> const_iterator;
 
   /* ---------------------------------------------------------------- */
   /*                            ATTRIBUTES                            */
@@ -51,18 +56,45 @@ class binary_search_tree {
   n_size_type _sz;          // Number of nodes in this bst
   n_allocator_type _alloc;  // Allocator for bst_node
   n_pointer _root;          // A pointer variable pointing to root node
+  n_pointer _last;          // A pointer variable pointing to last node
 
  public:
   /* ---------------------- DEFAULT CONSTRUCTOR --------------------- */
   binary_search_tree(const n_allocator_type &alloc = n_allocator_type())
-      : _sz(0), _alloc(alloc), _root(nullptr) {}
+      : _sz(0),
+        _alloc(alloc),
+        _root(ft_nullptr),
+        _last(create_node(const_value_type())) {}
 
   /* -------------------------- DESTRUCTOR -------------------------- */
-  ~binary_search_tree(void) { destroy(_root); };
+  ~binary_search_tree(void) {
+    if (_sz) destroy(_root);
+    if (_last) deallocate_node(_last);
+  };
   // * member functions
-  n_size_type get_size(void) { return _sz; }
-  n_pointer get_root(void) { return _root; }
+  void swap(tree &x) {
+    n_size_type sz_tmp = _sz;
+    n_allocator_type alloc_tmp = _alloc;
+    n_pointer root_tmp = _root;
+    n_pointer last_tmp = _last;
+
+    _sz = x._sz;
+    _alloc = x._alloc;
+    _root = x._root;
+    _last = x._last;
+
+    x._sz = sz_tmp;
+    x._alloc = alloc_tmp;
+    x._root = root_tmp;
+    x._last = last_tmp;
+  }
+  n_size_type get_size(void) const { return _sz; }
+  void set_size(n_size_type new_sz) { this->_sz = new_sz; }
+  n_size_type get_max_size() const { return _alloc.max_size(); }
+  n_pointer get_root(void) const { return _root; }
+  n_pointer get_last(void) { return _last; }
   void set_root(n_pointer node) { this->_root = node; }
+  void set_last(n_pointer node) { this->_last = node; }
   int get_depth(n_pointer start, n_pointer target, int depth) {
     if (!start || !target) return -1;
     if (start == target) return depth;
@@ -70,33 +102,55 @@ class binary_search_tree {
       return get_depth(start->get_right_node(), target, ++depth);
     return get_depth(start->get_left_node(), target, ++depth);
   }
-  n_pointer find(n_pointer start, value_type &val) {
-    if (!start || start->get_value_ref() == val) return start;
-    if (start->get_value_ref() < val) return find(start->get_right_node(), val);
+  n_pointer find(n_pointer start, const value_type &val) {
+    if (!start)
+      return _last;
+    else if (start->get_value_ref() == val)
+      return start;
+    else if (start->get_value_ref() < val)
+      return find(start->get_right_node(), val);
     return find(start->get_left_node(), val);
   }
-  n_pointer create_node(value_type &val, n_pointer parent = nullptr,
-                        n_pointer left = nullptr, n_pointer right = nullptr) {
+  n_pointer find(n_pointer start, const key_type &k) {
+    if (!start)
+      return _last;
+    else if (start->get_value_ref().first == k)
+      return start;
+    else if (start->get_value_ref().first < k)
+      return find(start->get_right_node(), k);
+    return find(start->get_left_node(), k);
+  }
+  n_pointer create_node(const value_type &val, n_pointer parent = ft_nullptr,
+                        n_pointer left = ft_nullptr,
+                        n_pointer right = ft_nullptr) {
     n_pointer new_node = this->_alloc.allocate(1);
     new_node->set_value(val);
     new_node->set_parent_node(parent);
     new_node->set_left_node(left);
     new_node->set_right_node(right);
+    new_node->set_last_node(this->_last);
     return new_node;
   }
-  n_pointer insert(n_pointer node, value_type &val) {
-    if (!node) {
-      this->_sz++;
+  n_pointer insert(n_pointer node, const value_type &val) {
+    if (!node && _sz) {
+      this->_sz++;  // note : 확인
       return create_node(val);
+    } else if (!node && !_sz) {
+      this->_sz++;
+      _root = create_node(val);
+      _last->set_parent_node(_root);
+      return _root;
     }
     if (val.first < node->get_value_ref().first) {
       n_pointer left = insert(node->get_left_node(), val);
       node->set_left_node(left);
       left->set_parent_node(node);
+      _last->set_parent_node(max(_root));
     } else if (val.first > node->get_value_ref().first) {
       n_pointer right = insert(node->get_right_node(), val);
       node->set_right_node(right);
       right->set_parent_node(node);
+      _last->set_parent_node(max(_root));
     }
     return node;
   }
@@ -128,8 +182,15 @@ class binary_search_tree {
       f(this, node, node->get_value_ref());
     }
   }
+  void preorder_count(n_pointer node, const key_type &k, size_t &count) const {
+    if (node) {
+      if (node->get_value_ref().first == k) ++count;
+      preorder_count(node->get_left_node(), k, count);
+      preorder_count(node->get_right_node(), k, count);
+    }
+  }
   void destroy(n_pointer node) {
-    if (node != nullptr) {
+    if (node) {
       destroy(static_cast<n_pointer>(node->get_left_node()));
       destroy(static_cast<n_pointer>(node->get_right_node()));
       _alloc.deallocate(node, 1);
@@ -139,7 +200,7 @@ class binary_search_tree {
     if (node) _alloc.deallocate(node, 1);
   }
   void delete_node(n_pointer node) {
-    if (node) {
+    if (node && node != _last) {
       int cond = node->node_relation(node->has_parent(node),
                                      node->has_left_child(node),
                                      node->has_right_child(node));
@@ -189,18 +250,24 @@ class binary_search_tree {
       _root = node->get_left_node();
     else if (!parent && !node_has_left_child)
       _root = node->get_right_node();
-    _root->set_parent_node(nullptr);
-    deallocate_node(node);
+    _root->set_parent_node(ft_nullptr);
+    if (node) {
+      deallocate_node(node);
+      this->_sz--;
+    }
   }
   void delete_node_has_no_child(n_pointer node) {
     n_pointer parent = node->get_parent_node();
     if (parent) {
       if (node->is_left_child(node))
-        set_relation(parent, nullptr, true);
+        set_relation(parent, ft_nullptr, true);
       else
-        set_relation(parent, nullptr, false);
+        set_relation(parent, ft_nullptr, false);
     }
-    deallocate_node(node);
+    if (node) {
+      deallocate_node(node);
+      this->_sz--;
+    }
   }
   void delete_node_has_both_child(n_pointer node) {
     n_size_type l_subtree = 0;
@@ -209,13 +276,12 @@ class binary_search_tree {
     traversal(node->get_right_node(), r_subtree);
     n_pointer target = successor(node);
     if (l_subtree > r_subtree) target = predecessor(node);
-    std::cout << "l_sub : " << l_subtree << std::endl;
-    std::cout << "r_sub : " << r_subtree << std::endl;
     node->set_value(target->get_value());
     if (target->has_no_child(target))
       delete_node_has_no_child(target);
     else
       delete_node_has_one_child(target, target->has_left_child(target));
+    // this->_sz--;
   }
   void set_relation(n_pointer parent, n_pointer child, bool left) {
     if (left)
@@ -225,14 +291,14 @@ class binary_search_tree {
     if (child) child->set_parent_node(parent);
   }
   n_pointer min(n_pointer node) {
-    if (!node) return nullptr;
+    if (!node) return ft_nullptr;
     if (!node->get_left_node()) {
       return node;
     }
     return min(node->get_left_node());
   }
   n_pointer max(n_pointer node) {
-    if (!node) return nullptr;
+    if (!node) return ft_nullptr;
     if (!node->get_right_node()) {
       return node;
     }

@@ -6,7 +6,6 @@
 #define _BEGIN_NAMESPACE_FT namespace ft {
 #define _END_NAMESPACE_FT }
 
-#define FT_CHAR_BIT 8
 #define INPUT_ITER 1
 #define OUTPUT_ITER 2
 #define FORWARD_ITER 3

@@ -23,7 +23,6 @@ struct pair {
   // destructor
   ~pair(void) {}
   pair& operator=(const pair& x) {
-    if (*this == x) return *this;
     this->first = x.first;
     this->second = x.second;
     return *this;

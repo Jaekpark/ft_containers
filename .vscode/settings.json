@@ -74,6 +74,17 @@
 		"__undef_macros": "cpp",
 		"iomanip": "cpp",
 		"__tree": "cpp",
-		"map": "cpp"
+		"map": "cpp",
+		"deque": "cpp",
+		"queue": "cpp",
+		"stack": "cpp",
+		"list": "cpp",
+		"random": "cpp",
+		"filesystem": "cpp",
+		"set": "cpp",
+		"csignal": "cpp",
+		"fstream": "cpp",
+		"numeric": "cpp",
+		"__availability": "cpp"
 	}
 }

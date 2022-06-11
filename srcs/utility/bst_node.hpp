@@ -13,6 +13,7 @@
 #include <memory>
 
 #include "../config.hpp"
+#include "../utility/nullptr_t.hpp"
 
 _BEGIN_NAMESPACE_FT
 template <class T, class Allocator = std::allocator<T> >
@@ -24,7 +25,9 @@ struct bst_node {
  public:
   typedef T value_type;
   typedef Allocator allocator_type;
+  typedef ft::bidirectional_iterator_tag iterator_category;
   typedef typename allocator_type::size_type size_type;
+  typedef typename allocator_type::difference_type difference_type;
   typedef typename allocator_type::reference reference;
   typedef typename allocator_type::const_reference const_reference;
   typedef typename allocator_type::pointer pointer;
@@ -39,27 +42,34 @@ struct bst_node {
   bst_node *_parent;
   bst_node *_left;
   bst_node *_right;
+  bst_node *_last;
 
  public:
   /* ---------------------- DEFAULT CONSTRUCTOR --------------------- */
   bst_node(void)
-      : _value(), _parent(nullptr), _left(nullptr), _right(nullptr) {}
+      : _value(),
+        _parent(ft_nullptr),
+        _left(ft_nullptr),
+        _right(ft_nullptr),
+        _last(ft_nullptr) {}
 
   /* -------------------- CONSTRUCTOR OVERLOADING ------------------- */
-  bst_node(bst_node *parent = nullptr, bst_node *left = nullptr,
-           bst_node *right = nullptr)
-      : _value(), _parent(parent), _left(left), _right(right) {}
+  bst_node(bst_node *parent = ft_nullptr, bst_node *left = ft_nullptr,
+           bst_node *right = ft_nullptr, bst_node *last = ft_nullptr)
+      : _value(), _parent(parent), _left(left), _right(right), _last(last) {}
 
-  bst_node(const value_type &val, bst_node *parent = nullptr,
-           bst_node *left = nullptr, bst_node *right = nullptr)
-      : _value(val), _parent(parent), _left(left), _right(right) {}
+  bst_node(const value_type &val, bst_node *parent = ft_nullptr,
+           bst_node *left = ft_nullptr, bst_node *right = ft_nullptr,
+           bst_node *last = ft_nullptr)
+      : _value(val), _parent(parent), _left(left), _right(right), _last(last) {}
 
   /* ----------------------- COPY CONSTRUCTOR ----------------------- */
   bst_node(const bst_node &node)
       : _value(node.get_value()),
         _parent(node.get_parent_node()),
         _left(node.get_left_node()),
-        _right(node.get_right_node()) {}
+        _right(node.get_right_node()),
+        _last(node.get_last_node()) {}
 
   /* ---------------- ASSIGNMENT OPERATOR OVERLOADING --------------- */
   bst_node &operator=(const bst_node &node) {
@@ -68,6 +78,7 @@ struct bst_node {
       set_parent_node(node.get_parent_node());
       set_left_node(node.get_left_node());
       set_right_node(node.get_right_node());
+      set_last_node(node.get_last_node());
     }
     return *this;
   }
@@ -80,6 +91,7 @@ struct bst_node {
   /* ---------------------------------------------------------------- */
   value_type get_value(void) { return _value; }
   value_type &get_value_ref(void) { return _value; }
+  value_type *get_value_ptr(void) { return &_value; }
   void set_value(value_type val) { this->_value = val; }
   bst_node *get_parent_node(void) { return _parent; }
   void set_parent_node(bst_node *node) { this->_parent = node; }
@@ -87,6 +99,47 @@ struct bst_node {
   void set_left_node(bst_node *node) { this->_left = node; }
   bst_node *get_right_node(void) { return _right; }
   void set_right_node(bst_node *node) { this->_right = node; }
+  bst_node *get_last_node(void) { return _last; }
+  void set_last_node(bst_node *node) { this->_last = node; }
+  bst_node *go_to_root_node(bst_node *start) {
+    if (!start->_parent) return start;
+    return go_to_root_node(start->_parent);
+  }
+  bst_node *min(bst_node *node) {
+    if (!node) return ft_nullptr;
+    if (!node->get_left_node()) {
+      return node;
+    }
+    return min(node->get_left_node());
+  }
+  bst_node *max(bst_node *node) {
+    if (!node) return ft_nullptr;
+    if (!node->get_right_node()) {
+      return node;
+    }
+    return max(node->get_right_node());
+  }
+  bst_node *successor(bst_node *node) {
+    if (node->_right) return min(node->_right);
+    bst_node *parent = node->_parent;
+    bst_node *tmp = node;
+    while (parent && tmp == parent->_right) {
+      tmp = parent;
+      parent = parent->_parent;
+    }
+    return parent;
+  }
+  bst_node *predecessor(bst_node *node) {
+    // if (node == _last) return max();
+    if (node->_left) return max(node->_left);
+    bst_node *parent = node->_parent;
+    bst_node *tmp = node;
+    while (parent && tmp == parent->_left) {
+      tmp = parent;
+      parent = parent->_parent;
+    }
+    return parent;
+  }
   bool has_parent(bst_node *node) {
     if (node->_parent) return true;
     return false;
@@ -151,7 +204,7 @@ struct bst_node {
       n++;
     }
     return n;
-  };
+  }
 };
 /* ---------------------------------------------------------------- */
 /*                         RELATION OPERATOR                        */

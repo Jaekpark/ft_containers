@@ -46,7 +46,9 @@ class wrap_iterator {
     _i = x.base();
     return *this;
   }
+  ~wrap_iterator(void) {}
 
+ public:
   iterator_type base(void) const { return _i; }
   reference operator*(void) const { return *_i; }
   pointer operator->(void) const { return &(operator*()); }
