@@ -457,7 +457,7 @@ void print_map_rv(T& map) {
   if (map.empty()) {
     std::cout << "!!!!!!!!! empty map !!!!!!!!" << std::endl;
     return;
-  }
+  } else
   while (beg != end) {
     std::cout << "[" << beg->first << " " << beg->second << "] ";
     beg++;

@@ -1,8 +1,8 @@
-INCS				=	iterator/iterator.hpp iterator/iterator_traits.hpp iterator/reverse_iterator.hpp container/vector.hpp \
-						type_traits/is_integral.hpp type_traits/enable_if.hpp iterator/advance.hpp iterator/distance.hpp\
-						utility/binary_search_tree.hpp utility/bst_node.hpp utility/pair.hpp utility/make_pair.hpp \
-						iterator/bst_iterator.hpp type_traits/remove_const.hpp iterator/bst_const_iterator.hpp container/stack.hpp \
-						utility/utility.hpp
+INCS				=	algorithm/equal.hpp algorithm/lexicographical_compare.hpp container/map.hpp container/stack.hpp container/vector.hpp \
+						iterator/advance.hpp iterator/bst_const_iterator.hpp iterator/bst_iterator.hpp iterator/distance.hpp iterator/iterator_traits.hpp \
+						iterator/iterator.hpp iterator/reverse_iterator.hpp \
+						type_traits/enable_if.hpp type_traits/is_integral.hpp type_traits/remove_const.hpp utility/binary_search_tree.hpp utility/bst_node.hpp \
+						utility/make_pair.hpp utility/nullptr_t utility/pair.hpp utility/utility.hpp
 
 SRCS				=	main.cpp
 OBJS				= 	$(patsubst %.cpp, %.o, $(SRCS_FILE))
@@ -10,7 +10,7 @@ SRCS_DIR			=	./
 OBJS_DIR			=	./
 INCS_DIR			=	./
 
-SRCS_FILE			=		$(addprefix $(SRCS_DIR), $(SRCS))
+SRCS_FILE			=	$(addprefix $(SRCS_DIR), $(SRCS))
 OBJS_FILE			= 	$(addprefix $(OBJS_DIR), $(notdir $(OBJS)))
 INCS_FILE			= 	$(addprefix $(INCS_DIR), $(INCS))
 
