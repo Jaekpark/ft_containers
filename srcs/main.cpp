@@ -3,9 +3,11 @@
 #include <algorithm>
 #include <cstdlib>
 #include <functional>
+#include <iomanip>
 #include <iostream>
 #include <iterator>
 #include <map>
+#include <sstream>
 #include <stack>
 #include <string>
 #include <type_traits>
@@ -25,56 +27,107 @@
 #include "utility/pair.hpp"
 #include "utility/utility.hpp"
 
+#define LINE_LENGTH 100
+#define TYPE_WIDTH 15
 #ifndef NAMESPACE
 #define NAMESPACE ft
 #endif
 
-template <class T1, class T2, class Node, class Bst>
-void print_pair(Bst* bst, Node* node, ft::pair<T1, T2> pr) {
-  int bst_index = 0;
-  std::cout << "[" << ++bst_index << "] key : " << pr.first << "  |  ";
-  std::cout << "val : " << pr.second;
-  if (node->get_parent_node())
-    std::cout << "  | [parent key] : "
-              << node->get_parent_node()->get_value_ref().first;
-  else
-    std::cout << "  | [has no parent]";
-  if (node->get_left_node())
-    std::cout << "  | [left child key] : "
-              << node->get_left_node()->get_value_ref().first;
-  else
-    std::cout << "  | [no left child]";
-  if (node->get_right_node())
-    std::cout << "  | [right child key] : "
-              << node->get_right_node()->get_value_ref().first;
-  else
-    std::cout << "  | [no right child]";
-  if (node == bst->get_root()) std::cout << "  <- this is root node.";
+// template <class T1, class T2, class Node, class Bst>
+// void print_pair(Bst* bst, Node* node, ft::pair<T1, T2> pr) {
+//   int bst_index = 0;
+//   std::cout << "[" << ++bst_index << "] key : " << pr.first << "  |  ";
+//   std::cout << "val : " << pr.second;
+//   if (node->get_parent_node())
+//     std::cout << "  | [parent key] : "
+//               << node->get_parent_node()->get_value_ref().first;
+//   else
+//     std::cout << "  | [has no parent]";
+//   if (node->get_left_node())
+//     std::cout << "  | [left child key] : "
+//               << node->get_left_node()->get_value_ref().first;
+//   else
+//     std::cout << "  | [no left child]";
+//   if (node->get_right_node())
+//     std::cout << "  | [right child key] : "
+//               << node->get_right_node()->get_value_ref().first;
+//   else
+//     std::cout << "  | [no right child]";
+//   if (node == bst->get_root()) std::cout << "  <- this is root node.";
+//   std::cout << std::endl;
+// }
+
+// template <class Node>
+// void print2DUtil(Node* root, int space) {
+//   if (root == NULL) return;
+
+//   space += 10;
+
+//   print2DUtil(root->get_right_node(), space);
+
+//   std::cout << std::endl;
+//   for (int i = 10; i < space; i++) {
+//     std::cout << " ";
+//   }
+
+//   std::cout << root->get_value_ref().first << std::endl;
+
+//   print2DUtil(root->get_left_node(), space);
+// }
+
+// template <class Node>
+// void print2D(Node* root) {
+//   int num = 0;
+//   print2DUtil(root, num);
+// }
+
+void print_header(std::string title, size_t line_len = LINE_LENGTH,
+                  char divider = '-') {
+  size_t len = title.length();
+  std::transform(title.begin(), title.end(), title.begin(), ::toupper);
+  std::cout << std::setw(line_len) << std::setfill(divider) << "" << std::endl;
+  std::cout << std::setw(line_len / 2 + (len / 2)) << std::setfill(' ') << title
+            << std::endl;
+  std::cout << std::setw(line_len) << std::setfill(divider) << "" << std::endl;
+  std::cout << std::setfill(' ');
   std::cout << std::endl;
 }
 
-template <class Node>
-void print2DUtil(Node* root, int space) {
-  if (root == NULL) return;
-
-  space += 10;
-
-  print2DUtil(root->get_right_node(), space);
-
-  std::cout << std::endl;
-  for (int i = 10; i < space; i++) {
-    std::cout << " ";
-  }
-
-  std::cout << root->get_value_ref().first << std::endl;
-
-  print2DUtil(root->get_left_node(), space);
+void print_line(std::string msg, size_t line_len = LINE_LENGTH) {
+  size_t len = msg.length();
+  std::transform(msg.begin(), msg.end(), msg.begin(), ::toupper);
+  std::cout << std::setw(line_len / 2 + (len / 2)) << msg << std::endl;
 }
 
-template <class Node>
-void print2D(Node* root) {
-  int num = 0;
-  print2DUtil(root, num);
+void print_log(std::string log) {
+  std::cout << std::endl << "# " << log << std::endl << std::endl;
+}
+
+void print_type(std::string type, size_t width = TYPE_WIDTH) {
+  std::cout << "[";
+  std::cout << std::setw(width) << type;
+  std::cout << " ] : ";
+}
+
+void print_namespace(bool is_ft) {
+  if (is_ft)
+    print_header("FT", 80, '-');
+  else
+    print_header("STD", 80, '-');
+}
+
+void print_test_name(std::string name, size_t line_len = LINE_LENGTH) {
+  size_t len = name.length();
+  std::transform(name.begin(), name.end(), name.begin(), ::toupper);
+  std::cout << "/*";
+  std::cout << std::setw((line_len / 2 - (len / 2)) - 2) << std::setfill('-')
+            << "";
+  std::cout << name;
+  std::cout << std::setw((line_len / 2 - (len / 2)) - 2) << std::setfill('-')
+            << "";
+  std::cout << "*/" << std::endl;
+  std::cout << std::setfill(' ');
+  std::cout << std::endl;
 }
 
 template <class T>
@@ -82,6 +135,7 @@ void print_element(T& vector) {
   int index = 0;
   typename T::iterator beg = vector.begin();
   typename T::iterator end = vector.end();
+  print_type("elements");
   if (vector.size() > 0) {
     while (beg != end) {
       std::cout << "[" << index << "] ";
@@ -91,76 +145,106 @@ void print_element(T& vector) {
     }
     std::cout << std::endl;
   } else if (vector.size() == 0)
-    std::cout << "!!!! empty !!!!" << std::endl;
+    std::cout << "empty" << std::endl;
+  std::cout << std::endl;
+}
+
+void print_divider(size_t line_len = LINE_LENGTH, char divider = '-') {
+  std::cout << std::setfill(' ') << std::endl;
+  std::cout << std::setw(line_len) << std::setfill(divider) << "" << std::endl;
+  std::cout << std::setfill(' ') << std::endl;
+}
+template <class T>
+void print_vector_capacity(T& vector) {
+  std::stringstream ss;
+  if (!vector.empty()) {
+    ss << "at[" << vector.size() / 2 << "]";
+    print_type(ss.str());
+    std::cout << vector.at(vector.size() / 2) << std::endl;
+  }
+  /* ----------------------------- FRONT ---------------------------- */
+  print_type("front");
+  std::cout << vector.front() << std::endl;
+  /* ----------------------------- BACK ----------------------------- */
+  print_type("back");
+  std::cout << vector.back() << std::endl;
+  /* ----------------------------- SIZE ----------------------------- */
+  print_type("size");
+  std::cout << vector.size() << std::endl;
+  /* --------------------------- CAPACITY --------------------------- */
+  print_type("capacity");
+  std::cout << vector.capacity() << std::endl;
+  /* --------------------------- MAX_SIZE --------------------------- */
+  print_type("max_size");
+  std::cout << vector.max_size() << std::endl;
+  /* ----------------------------- EMPTY ---------------------------- */
+  print_type("is_empty");
+  std::cout << vector.empty() << std::endl;
+  /* ---------------------------------------------------------------- */
 }
 
 template <class T>
 void print_vector(T& vector) {
   time_t _start, _end;
-
   _start = clock();
   T back_up(vector);
   typename T::iterator beg = vector.begin();
-  // typename T::iterator end = vector.end();
-  std::cout << "---------------------" << std::endl;
+  print_divider();
   if (beg.base()) {
+    print_log("default");
     print_element(vector);
-    if (vector.size() > 2) {
-      std::cout << "pop_back() last element : " << vector.back() << std::endl;
+    print_vector_capacity(vector);
+    if (vector.size() > 1) {
+      print_log("pop_back() last element");
       /* --------------------------- POP_BACK --------------------------- */
       vector.pop_back();
       print_element(vector);
+      print_vector_capacity(vector);
     }
   }
-  /* ------------------------------ AT ------------------------------ */
-  std::cout << "at[" << vector.size() / 2
-            << "] : " << vector.at(vector.size() / 2) << std::endl;
   /* ---------------------------- INSERT ---------------------------- */
-  std::cout << "insert 5, 777 element before begin()" << std::endl;
+  print_log("insert 5, 777 elements before begin()");
   vector.insert(vector.begin(), 5, 777);
   print_element(vector);
-  std::cout << "insert 1, 777 element before end()" << std::endl;
+  print_vector_capacity(vector);
+  print_log("insert 1, 777 elements before end()");
   vector.insert(vector.end(), 777);
   print_element(vector);
-  std::cout << "range insert other object before begin()" << std::endl;
+  print_vector_capacity(vector);
+  print_log("range insert other object before begin()");
   vector.insert(vector.begin(), back_up.begin(), back_up.end());
   print_element(vector);
-  /* ----------------------------- FRONT ---------------------------- */
-  std::cout << "front : " << vector.front() << std::endl;
-  /* ----------------------------- BACK ----------------------------- */
-  std::cout << "back : " << vector.back() << std::endl;
-
-  /* ----------------------------- SIZE ----------------------------- */
-  std::cout << "size : " << vector.size() << std::endl;
-  /* --------------------------- CAPACITY --------------------------- */
-  std::cout << "capacity : " << vector.capacity() << std::endl;
-  /* --------------------------- MAX_SIZE --------------------------- */
-  std::cout << "max_size : " << vector.max_size() << std::endl;
-  /* ----------------------------- EMPTY ---------------------------- */
-  std::cout << "is_empty : " << vector.empty() << std::endl;
-  std::cout << "# reserve (now capacity * 2)" << std::endl;
-  std::cout << "before cap : " << vector.capacity() << std::endl;
+  print_vector_capacity(vector);
+  print_log("reserve (now capacity * 2)");
+  print_type("before cap");
+  std::cout << vector.capacity() << std::endl;
+  print_type("after cap");
   vector.reserve(vector.capacity() * 2);
-  std::cout << "after cap : " << vector.capacity() << std::endl;
-  std::cout << "# erase first element" << std::endl;
+  std::cout << vector.capacity() << std::endl;
+  print_log("erase first element");
   vector.erase(vector.begin());
   print_element(vector);
-  std::cout << "# range erase -> erase begin to end" << std::endl;
+  print_vector_capacity(vector);
+  print_log("range erase -> erase begin to end");
   vector.erase(vector.begin(), vector.end());
   print_element(vector);
-  std::cout << "# swap with back_up vector" << std::endl;
+  print_vector_capacity(vector);
+  print_log("swap with back_up vector");
   vector.swap(back_up);
   print_element(vector);
-  std::cout << "# clear this vector" << std::endl;
+  print_vector_capacity(vector);
+  print_log("clear this vector");
   vector.clear();
   print_element(vector);
+  print_vector_capacity(vector);
   _end = clock();
-  std::cout << "# time report" << std::endl;
+  print_log("time report");
+  print_type("time");
   std::cout << _end - _start << "ms" << std::endl;
-  std::cout << "---------------------" << std::endl;
 }
 
 void vector_test() {
+  print_header("vector");
   /* ------------------------ CONSTRUCT TEST ------------------------ */
   int count = 20;
   ft::vector<int> one(10, 1);
@@ -181,40 +265,36 @@ void vector_test() {
   ft::vector<int> three_copy(three);
   std::vector<int> three_origin_copy(three_origin);
   /* ------------------------- PRINT result ------------------------- */
-  std::cout << "***************************" << std::endl;
-  std::cout << "(test 1)" << std::endl;
-  std::cout << "_________________FT" << std::endl;
+  print_test_name("vector member functions");
+  print_divider();
+  print_line("case 1 : FT");
   print_vector(one);
-  std::cout << "_________________STD" << std::endl;
+  print_divider();
+  print_line("case 1 : STD");
   print_vector(one_origin);
-  std::cout << "***************************" << std::endl;
-  std::cout << "***************************" << std::endl;
-  std::cout << "(test 2)" << std::endl;
-  std::cout << "_________________FT" << std::endl;
+  print_divider();
+  print_line("case 2 : FT");
   print_vector(two);
-  std::cout << "_________________STD" << std::endl;
+  print_divider();
+  print_line("case 2 : STD");
   print_vector(two_origin);
-  std::cout << "***************************" << std::endl;
-  std::cout << "***************************" << std::endl;
-  std::cout << "(test 3)" << std::endl;
-  std::cout << "_________________FT" << std::endl;
+  print_divider();
+  print_line("case 3 : FT");
   print_vector(three);
-  std::cout << "_________________STD" << std::endl;
+  print_divider();
+  print_line("case 3 : STD");
   print_vector(three_origin);
-  std::cout << "***************************" << std::endl;
-  std::cout << "***************************" << std::endl;
-  std::cout << "(test 4)" << std::endl;
-  std::cout << "_________________FT" << std::endl;
+  print_divider();
+  print_line("case 4 : FT");
   print_vector(three_copy);
-  std::cout << "_________________STD" << std::endl;
+  print_divider();
+  print_line("case 4 : STD");
   print_vector(three_origin_copy);
-  std::cout << "***************************" << std::endl;
-  system("leaks a.out");
 }
 
 void vector_rv() {
-  std::cout << "----------------------------------" << std::endl;
-  std::cout << "__________vector reverse iterator" << std::endl;
+  print_divider();
+  print_test_name("vector reverse iterator");
   int count = 20;
   ft::vector<int> v;
   std::vector<int> _v;
@@ -230,39 +310,36 @@ void vector_rv() {
   ft::vector<int>::iterator itv = v.begin();
   std::vector<int>::reverse_iterator rv1 = _v.rbegin();
   std::vector<int>::iterator itv1 = _v.begin();
-  std::cout << "__FT" << std::endl;
-  std::cout << "Reverse" << std::endl;
-
+  print_log("reverse iterator");
   while (rv != v.rend()) {
     std::cout << *rv << " ";
     rv++;
   }
   std::cout << std::endl;
-  std::cout << "Normal" << std::endl;
+  print_log("normal iterator");
   while (itv != v.end()) {
     std::cout << *itv << " ";
     itv++;
   }
   std::cout << std::endl;
-  std::cout << "__STD" << std::endl;
-  std::cout << "Reverse" << std::endl;
+  print_log("reverse iterator");
   while (rv1 != _v.rend()) {
     std::cout << *rv1 << " ";
     rv1++;
   }
   std::cout << std::endl;
-  std::cout << "Normal" << std::endl;
+  print_log("normal iterator");
   while (itv1 != _v.end()) {
     std::cout << *itv1 << " ";
     itv1++;
   }
   std::cout << std::endl;
-  std::cout << "---------------------------------" << std::endl;
+  print_divider();
 }
 void vector_relation() {
   time_t _start, _end;
-  std::cout << "----------------------------------" << std::endl;
-  std::cout << "__________vector relation operator" << std::endl;
+  print_divider();
+  print_test_name("vector relation operator");
   int count = 20;
   ft::vector<int> v;
   ft::vector<int> v_comp;
@@ -280,55 +357,83 @@ void vector_relation() {
   ft::vector<int> t(10, 1);
   std::vector<int> _t(10, 1);
   _start = clock();
-  std::cout << "__FT" << std::endl;
-  std::cout << "v     : ";
+  print_line("FT");
+  print_divider();
+  print_type("v");
   print_element(v);
-  std::cout << "v_comp: ";
+  print_type("v_comp");
   print_element(v_comp);
-  std::cout << "t     : ";
+  print_type("t");
   print_element(t);
-  std::cout << "v == v_comp : " << (v == v_comp) << std::endl;
-  std::cout << "v != v_comp : " << (v != v_comp) << std::endl;
-  std::cout << "v <  v_comp : " << (v < v_comp) << std::endl;
-  std::cout << "v <= v_comp : " << (v <= v_comp) << std::endl;
-  std::cout << "v >  v_comp : " << (v > v_comp) << std::endl;
-  std::cout << "v >= v_comp : " << (v >= v_comp) << std::endl;
-  std::cout << "-------------------------" << std::endl;
-  std::cout << "t == v_comp : " << (t == v_comp) << std::endl;
-  std::cout << "t != v_comp : " << (t != v_comp) << std::endl;
-  std::cout << "t <  v_comp : " << (t < v_comp) << std::endl;
-  std::cout << "t <= v_comp : " << (t <= v_comp) << std::endl;
-  std::cout << "t >  v_comp : " << (t > v_comp) << std::endl;
-  std::cout << "t >= v_comp : " << (t >= v_comp) << std::endl;
+  print_type("v == v_comp");
+  std::cout << (v == v_comp) << std::endl;
+  print_type("v != v_comp");
+  std::cout << (v != v_comp) << std::endl;
+  print_type("v <  v_comp");
+  std::cout << (v < v_comp) << std::endl;
+  print_type("v <= v_comp");
+  std::cout << (v <= v_comp) << std::endl;
+  print_type("v >  v_comp");
+  std::cout << (v > v_comp) << std::endl;
+  print_type("v >= v_comp");
+  std::cout << (v >= v_comp) << std::endl;
+  print_divider();
+  print_type("t == v_comp");
+  std::cout << (t == v_comp) << std::endl;
+  print_type("t != v_comp");
+  std::cout << (t != v_comp) << std::endl;
+  print_type("t <  v_comp");
+  std::cout << (t < v_comp) << std::endl;
+  print_type("t <= v_comp");
+  std::cout << (t <= v_comp) << std::endl;
+  print_type("t >  v_comp");
+  std::cout << (t > v_comp) << std::endl;
+  print_type("t >= v_comp");
+  std::cout << (t >= v_comp) << std::endl;
   _end = clock();
-  std::cout << "# time report" << std::endl;
+  print_log("time report");
+  print_type("time");
   std::cout << _end - _start << "ms" << std::endl;
-  std::cout << "-------------------------" << std::endl;
+  print_divider();
   _start = clock();
-  std::cout << "__STD" << std::endl;
-  std::cout << "_v     : ";
+  print_line("STD");
+  print_divider();
+  print_type("_v");
   print_element(_v);
-  std::cout << "_v_comp: ";
+  print_type("_v_comp");
   print_element(_v_comp);
-  std::cout << "_t     : ";
+  print_type("_t");
   print_element(_t);
-  std::cout << "_v == _v_comp : " << (_v == _v_comp) << std::endl;
-  std::cout << "_v != _v_comp : " << (_v != _v_comp) << std::endl;
-  std::cout << "_v <  _v_comp : " << (_v < _v_comp) << std::endl;
-  std::cout << "_v <= _v_comp : " << (_v <= _v_comp) << std::endl;
-  std::cout << "_v >  _v_comp : " << (_v > _v_comp) << std::endl;
-  std::cout << "_v >= _v_comp : " << (_v >= _v_comp) << std::endl;
-  std::cout << "-------------------------" << std::endl;
-  std::cout << "_t == _v_comp : " << (_t == _v_comp) << std::endl;
-  std::cout << "_t != _v_comp : " << (_t != _v_comp) << std::endl;
-  std::cout << "_t <  _v_comp : " << (_t < _v_comp) << std::endl;
-  std::cout << "_t <= _v_comp : " << (_t <= _v_comp) << std::endl;
-  std::cout << "_t >  _v_comp : " << (_t > _v_comp) << std::endl;
-  std::cout << "_t >= _v_comp : " << (_t >= _v_comp) << std::endl;
+  print_type("_v == _v_comp");
+  std::cout << (_v == _v_comp) << std::endl;
+  print_type("_v != _v_comp");
+  std::cout << (_v != _v_comp) << std::endl;
+  print_type("_v <  _v_comp");
+  std::cout << (_v < _v_comp) << std::endl;
+  print_type("_v <= _v_comp");
+  std::cout << (_v <= _v_comp) << std::endl;
+  print_type("_v >  _v_comp");
+  std::cout << (_v > _v_comp) << std::endl;
+  print_type("_v >= _v_comp");
+  std::cout << (_v >= _v_comp) << std::endl;
+  print_divider();
+  print_type("_t == _v_comp");
+  std::cout << (_t == _v_comp) << std::endl;
+  print_type("_t != _v_comp");
+  std::cout << (_t != _v_comp) << std::endl;
+  print_type("_t <  _v_comp");
+  std::cout << (_t < _v_comp) << std::endl;
+  print_type("_t <= _v_comp");
+  std::cout << (_t <= _v_comp) << std::endl;
+  print_type("_t >  _v_comp");
+  std::cout << (_t > _v_comp) << std::endl;
+  print_type("_t >= _v_comp");
+  std::cout << (_t >= _v_comp) << std::endl;
   _end = clock();
-  std::cout << "# time report" << std::endl;
+  print_log("time report");
+  print_type("time");
   std::cout << _end - _start << "ms" << std::endl;
-  std::cout << "-------------------------" << std::endl;
+  print_divider();
 }
 
 template <class T>
@@ -682,6 +787,9 @@ int main(void) {
   vector_test();
   vector_rv();
   vector_relation();
-  map_test();
-  stack_test();
+  // map_test();
+  // stack_test();
+  // print_header("vector", 80, '=');
+  // print_namespace(1);
+  // print_test_name("vector insert");
 }
