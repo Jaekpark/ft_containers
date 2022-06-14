@@ -4,7 +4,7 @@ This is a project to re-implement some `C++ STL Containers` to understand them.
 
 Some requirements for this project are as follow:
 
-Re-implement
+Re-implement (The documents below are written in Korean.)
 
 + [`std::vector`](documents/vector.md)
 + [`std::map`](documents/map.md)
