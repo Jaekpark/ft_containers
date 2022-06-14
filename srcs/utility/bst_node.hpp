@@ -10,8 +10,6 @@
 #define HAS_PARENT_AND_RIGHT 7
 #define HAS_PARENT_AND_BOTH 8
 
-#include <memory>
-
 #include "../config.hpp"
 #include "../utility/nullptr_t.hpp"
 

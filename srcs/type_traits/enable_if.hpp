@@ -1,6 +1,5 @@
 #ifndef _FT_ENABLE_IF_HPP
 #define _FT_ENABLE_IF_HPP
-#include <type_traits>
 
 #include "../config.hpp"
 #include "../type_traits/is_integral.hpp"
@@ -9,7 +8,9 @@ _BEGIN_NAMESPACE_FT
 template <bool, class T = void>
 struct enable_if {};
 template <class T>
-struct enable_if<true, T> { typedef T type; };
+struct enable_if<true, T> {
+  typedef T type;
+};
 // namespace_end
 _END_NAMESPACE_FT
 

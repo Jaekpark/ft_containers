@@ -1,7 +1,6 @@
 #ifndef FT_VECTOR_HPP
 #define FT_VECTOR_HPP
 
-#include <iostream>
 #include <memory>
 #include <stdexcept>
 

@@ -205,11 +205,6 @@ class map {
   }
   void erase(iterator first, iterator last) {
     while (first != last) this->erase((*(first++)).first);
-    // while (first != last) {
-    //   iterator target(first);
-    //   ++first;
-    //   if (target._base() != end()._base()) erase(target);
-    // }
   }
 
   void swap(map& x) {

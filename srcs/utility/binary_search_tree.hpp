@@ -2,7 +2,6 @@
 #define _FT_BINARY_SEARCH_TREE_HPP
 
 #include <functional>
-#include <iostream>
 #include <memory>
 
 #include "../config.hpp"

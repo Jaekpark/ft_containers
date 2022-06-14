@@ -1,8 +1,6 @@
 #ifndef _FT_PAIR_HPP
 #define _FT_PAIR_HPP
 
-#include <utility>
-
 #include "../config.hpp"
 // namespace_start
 _BEGIN_NAMESPACE_FT

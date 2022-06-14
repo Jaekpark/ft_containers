@@ -1,6 +1,5 @@
 #ifndef _FT_REVERSE_ITERATOR_HPP
 #define _FT_REVERSE_ITERATOR_HPP
-#include <iterator>
 
 #include "../config.hpp"
 #include "../iterator/iterator.hpp"

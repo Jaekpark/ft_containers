@@ -1,8 +1,6 @@
 #ifndef _FT_IS_INTEGRAL_HPP
 #define _FT_IS_INTEGRAL_HPP
 
-#include <type_traits>
-
 #include "../config.hpp"
 // namespace_start
 _BEGIN_NAMESPACE_FT

@@ -29,6 +29,8 @@
 
 #define LINE_LENGTH 100
 #define TYPE_WIDTH 15
+#define FT_TYPE 1
+#define STD_TYPE 0
 #ifndef NAMESPACE
 #define NAMESPACE ft
 #endif
@@ -111,9 +113,9 @@ void print_type(std::string type, size_t width = TYPE_WIDTH) {
 
 void print_namespace(bool is_ft) {
   if (is_ft)
-    print_header("FT", 80, '-');
+    print_header("FT", LINE_LENGTH, '-');
   else
-    print_header("STD", 80, '-');
+    print_header("STD", LINE_LENGTH, '-');
 }
 
 void print_test_name(std::string name, size_t line_len = LINE_LENGTH) {
@@ -441,13 +443,14 @@ template <class T>
 void print_map(T& map) {
   typename T::iterator beg = map.begin();
   typename T::iterator end = map.end();
-  // if (map.empty()) {
-  //   std::cout << "!!!!!!!!! empty map !!!!!!!!" << std::endl;
-  //   return;
-  // }
-  while (beg != end) {
-    std::cout << "[" << beg->first << " " << beg->second << "] ";
-    beg++;
+  if (map.empty()) {
+    std::cout << "!!!!!!!!! empty map !!!!!!!!" << std::endl;
+    return;
+  } else {
+    while (beg != end) {
+      std::cout << "[" << beg->first << " " << beg->second << "] ";
+      beg++;
+    }
   }
   std::cout << std::endl;
 }
@@ -503,6 +506,7 @@ void map_count_test(T& map, typename T::key_type key) {
   time_t start, end;
   start = clock();
   typename T::size_type sz = map.count(key);
+  print_map(map);
   print_type("count key");
   std::cout << key << std::endl;
   print_type("result");
@@ -515,11 +519,11 @@ void map_count_test(T& map, typename T::key_type key) {
 
 template <class T>
 void map_bound_test(T& map, typename T::key_type key) {
-  std::cout << "[Bound Test]" << std::endl;
   std::cout << std::endl;
   time_t start, end;
   start = clock();
   typename T::iterator it = map.lower_bound(key);
+  print_map(map);
   if (it != map.end()) {
     print_type("bound key");
     std::cout << key << std::endl;
@@ -536,7 +540,7 @@ void map_bound_test(T& map, typename T::key_type key) {
     print_type("bound key");
     std::cout << key << std::endl;
     print_type("upper");
-    std::cout << it->first << std::endl;
+    std::cout << itu->first << std::endl;
   } else {
     print_type("bound key");
     std::cout << key << std::endl;
@@ -576,18 +580,18 @@ template <class T>
 void map_erase_test(T& map, typename T::key_type key) {
   time_t start, end;
   start = clock();
-  std::cout << "# before erase" << std::endl;
+  print_log("before erase");
   print_map(map);
   map_capa_test(map);
-  std::cout << "# case 1: erase begin()" << std::endl;
+  print_log("case 1 :erase begin()");
   map.erase(map.begin());
   print_map(map);
   map_capa_test(map);
-  std::cout << "# case 2: erase with key" << std::endl;
+  print_log("case 2 : erase with key");
   map.erase(key);
   print_map(map);
   map_capa_test(map);
-  std::cout << "# case 3: erase with range begin() to end()" << std::endl;
+  print_log("case 3 : erase with range begin() to end()");
   map.erase(map.begin(), map.end());
   print_map(map);
   map_capa_test(map);
@@ -600,13 +604,13 @@ template <class T>
 void map_swap_test(T& m1, T& m2) {
   time_t start, end;
   start = clock();
-  std::cout << "____before swap" << std::endl;
+  print_log("before swap");
   print_map(m1);
   map_capa_test(m1);
   print_map(m2);
   map_capa_test(m2);
   m1.swap(m2);
-  std::cout << "____after swap" << std::endl;
+  print_log("after swap");
   print_map(m1);
   map_capa_test(m1);
   print_map(m2);
@@ -620,20 +624,23 @@ template <class T>
 void map_clear_test(T& map) {
   time_t start, end;
   start = clock();
-  std::cout << "____before clear" << std::endl;
+  print_log("before clear");
   print_map(map);
   map_capa_test(map);
   map.clear();
-  std::cout << "____after clear" << std::endl;
+  print_log("after clear");
   print_map(map);
   map_capa_test(map);
   end = clock();
-  std::cout << "[ time ] : " << end - start << std::endl;
+  print_type("time");
+  std::cout << end - start << std::endl;
 }
 
 template <class T>
 void map_access_test(T& map) {
-  std::cout << "[ map access test]" << std::endl;
+  time_t start, end;
+  start = clock();
+  print_log("insert elements with operator[]");
   map['a'] = 1;
   map['b'] = 2;
   map['c'] = 3;
@@ -643,6 +650,25 @@ void map_access_test(T& map) {
   map['x'] = 124;
   print_map(map);
   map_capa_test(map);
+  print_log("fix element with operator[]  : ('a' 1) -> ('a' 111)");
+  map['a'] = 111;
+  print_map(map);
+  map_capa_test(map);
+  print_log("fix element with operator[] : ('f' 23) -> ('f' 7777)");
+  map['f'] = 7777;
+  print_map(map);
+  map_capa_test(map);
+  print_log("insert a element with operator[] : ('k' 123456)");
+  map['k'] = 123456;
+  print_map(map);
+  map_capa_test(map);
+  print_log("insert a element with operator[] : ('d' -9999)");
+  map['d'] = -9999;
+  print_map(map);
+  map_capa_test(map);
+  end = clock();
+  print_type("time");
+  std::cout << end - start << "ms" << std::endl;
   std::cout << std::endl;
 }
 
@@ -685,55 +711,57 @@ void map_test() {
   srand(clock());
   char target = rand() % range + 97;
   print_test_name("map find test");
-  print_line("FT");
-  print_divider();
+  print_namespace(FT_TYPE);
   map_find_test(m, target);
-  print_line("STD");
-  print_divider();
+  print_namespace(STD_TYPE);
   map_find_test(_m, target);
   print_test_name("map count test");
-  print_line("FT");
+  print_namespace(FT_TYPE);
   map_count_test(m, target);
-  print_line("STD");
+  print_namespace(STD_TYPE);
   map_count_test(_m, target);
   print_test_name("map bound test");
-  print_line("FT");
+  print_namespace(FT_TYPE);
   map_bound_test(m, target);
-  print_line("STD");
+  print_namespace(STD_TYPE);
   map_bound_test(_m, target);
   print_test_name("map equal range test");
   ft::pair<ft::map<char, int>::iterator, ft::map<char, int>::iterator> er;
   er = m.equal_range(target);
-  print_line("FT");
+  print_namespace(FT_TYPE);
   if (er.first != m.end()) {
+    print_type("lower bound");
     std::cout << er.first->first << " , " << er.first->second << std::endl;
+    print_type("upper bound");
     std::cout << er.second->first << " , " << er.second->second << std::endl;
   } else {
     std::cout << "not found" << std::endl;
   }
   std::pair<std::map<char, int>::iterator, std::map<char, int>::iterator> _er;
   _er = _m.equal_range(target);
-  print_line("STD");
+  print_namespace(STD_TYPE);
   if (_er.first != _m.end()) {
+    print_type("lower bound");
     std::cout << _er.first->first << " , " << _er.first->second << std::endl;
+    print_type("upper bound");
     std::cout << _er.second->first << " , " << _er.second->second << std::endl;
   } else {
     std::cout << "not found" << std::endl;
   }
   print_test_name("map erase test");
-  print_line("FT");
+  print_namespace(FT_TYPE);
   map_erase_test(m, target);
-  print_line("STD");
+  print_namespace(STD_TYPE);
   map_erase_test(_m, target);
   print_test_name("map swap test");
-  print_line("FT");
+  print_namespace(FT_TYPE);
   map_swap_test(m, m1);
-  print_line("STD");
+  print_namespace(STD_TYPE);
   map_swap_test(_m, _m1);
   print_test_name("map clear test");
-  print_line("FT");
+  print_namespace(FT_TYPE);
   map_clear_test(m);
-  print_line("STD");
+  print_namespace(STD_TYPE);
   map_clear_test(_m);
 
   ft::map<char, int> alice;
@@ -762,59 +790,152 @@ void map_test() {
     bob.insert(p11);
     _bob.insert(_p11);
   }
-
+  print_type("alice(ft)");
   print_map(alice);
+  print_type("_alice(std)");
   print_map(_alice);
+  print_type("bob(ft)");
   print_map(bob);
+  print_type("_bob(std)");
   print_map(_bob);
   std::cout << std::boolalpha;
-
-  // // Compare non equal containers
+  print_namespace(FT_TYPE);
   std::cout << "alice == bob returns " << (alice == bob) << '\n';
   std::cout << "alice != bob returns " << (alice != bob) << '\n';
   std::cout << "alice <  bob returns " << (alice < bob) << '\n';
   std::cout << "alice <= bob returns " << (alice <= bob) << '\n';
   std::cout << "alice >  bob returns " << (alice > bob) << '\n';
   std::cout << "alice >= bob returns " << (alice >= bob) << '\n';
-
-  // std::cout << '\n';
-
-  // // Compare equal containers
+  print_namespace(STD_TYPE);
   std::cout << "_alice == _bob returns " << (_alice == _bob) << '\n';
   std::cout << "_alice != _bob returns " << (_alice != _bob) << '\n';
   std::cout << "_alice <  _bob returns " << (_alice < _bob) << '\n';
   std::cout << "_alice <= _bob returns " << (_alice <= _bob) << '\n';
   std::cout << "_alice >  _bob returns " << (_alice > _bob) << '\n';
   std::cout << "_alice >= _bob returns " << (_alice >= _bob) << '\n';
-  system("leaks a.out");
+
+  ft::map<char, int> ac;
+  std::map<char, int> _ac;
+  print_test_name("map access element test");
+  print_namespace(FT_TYPE);
+  map_access_test(ac);
+  print_namespace(STD_TYPE);
+  map_access_test(_ac);
+}
+
+template <class T>
+void stack_capa_test(T& stack) {
+  print_type("empty");
+  std::cout << stack.empty() << std::endl;
+  print_type("size");
+  std::cout << stack.size() << std::endl;
+}
+
+template <class T>
+void stack_top_test(T& stack) {
+  print_type("top");
+  if (stack.empty())
+    std::cout << "stack is empty" << std::endl;
+  else
+    std::cout << stack.top() << std::endl;
+}
+
+template <class T>
+void stack_push_test(T& stack, typename T::value_type val) {
+  std::stringstream ss;
+  ss << "stack push test : push " << val;
+  std::cout << ss.str() << std::endl;
+  stack.push(val);
+  stack_top_test(stack);
+}
+
+template <class T>
+void stack_pop_test(T& stack) {
+  if (stack.empty()) {
+    print_type("pop");
+    std::cout << "can't pop, stack is empty" << std::endl;
+  } else {
+    print_type("before pop");
+    stack_top_test(stack);
+    stack.pop();
+    print_type("after pop");
+    stack_top_test(stack);
+  }
+}
+
+template <class T>
+void stack_relation(T& s1, T& s2) {
+  print_test_name("stack relation operator");
+  std::cout << std::boolalpha;
+  print_type("s1 == s2");
+  std::cout << (s1 == s2) << std::endl;
+  print_type("s1 != s2");
+  std::cout << (s1 != s2) << std::endl;
+  print_type("s1 <  s2");
+  std::cout << (s1 < s2) << std::endl;
+  print_type("s1 <= s2");
+  std::cout << (s1 <= s2) << std::endl;
+  print_type("s1 >  s2");
+  std::cout << (s1 > s2) << std::endl;
+  print_type("s1 >= s2");
+  std::cout << (s1 >= s2) << std::endl;
 }
 
 void stack_test() {
-  ft::stack<int> a;
-  std::stack<int> b;
-
-  std::cout << a.empty() << std::endl;
-  std::cout << b.empty() << std::endl;
-  a.push(10);
-  b.push(10);
-  a.push(9);
-  b.push(9);
-  a.push(8);
-  b.push(8);
-  std::cout << a.size() << std::endl;
-  std::cout << b.size() << std::endl;
-  std::cout << a.top() << std::endl;
-  std::cout << b.top() << std::endl;
-  system("leaks a.out");
+  int cnt = 30;
+  print_header("STACK");
+  srand(clock());
+  ft::stack<int> st;
+  std::stack<int> _st;
+  print_test_name("stack size and empty before push");
+  print_namespace(FT_TYPE);
+  stack_capa_test(st);
+  stack_top_test(st);
+  print_namespace(STD_TYPE);
+  stack_capa_test(_st);
+  stack_top_test(_st);
+  print_divider();
+  print_test_name("stack push test");
+  while (cnt--) {
+    int value = rand() % 1000;
+    print_type("FT");
+    stack_push_test(st, value);
+    print_type("STD");
+    stack_push_test(_st, value);
+    print_divider();
+  }
+  ft::stack<int> copy(st);
+  std::stack<int> _copy(_st);
+  print_namespace(FT_TYPE);
+  stack_relation(st, copy);
+  print_namespace(STD_TYPE);
+  stack_relation(_st, _copy);
+  print_namespace(FT_TYPE);
+  stack_top_test(st);
+  stack_capa_test(st);
+  print_namespace(STD_TYPE);
+  stack_top_test(_st);
+  stack_capa_test(_st);
+  print_divider();
+  cnt = st.size();
+  print_test_name("stack pop test");
+  while (cnt--) {
+    print_type("FT");
+    std::cout << std::endl;
+    stack_pop_test(st);
+    print_type("STD");
+    std::cout << std::endl;
+    stack_pop_test(_st);
+    print_divider();
+  }
+  stack_capa_test(st);
+  stack_capa_test(_st);
 }
 
 int main(void) {
-  // vector_test();
-  // vector_rv();
-  // vector_relation();
+  vector_test();
+  vector_rv();
+  vector_relation();
   map_test();
-  // stack_test();
-  // print_header("vector", 80, '=');
-  // print_namespace(1);
-  // print_test_name("vector insert");
+  stack_test();
 }
