@@ -404,6 +404,7 @@ void vector_relation() {
   print_element(_v_comp);
   print_type("_t");
   print_element(_t);
+  std::cout << std::boolalpha;
   print_type("_v == _v_comp");
   std::cout << (_v == _v_comp) << std::endl;
   print_type("_v != _v_comp");
@@ -450,6 +451,7 @@ void print_map(T& map) {
   }
   std::cout << std::endl;
 }
+
 template <class T>
 void print_map_rv(T& map) {
   typename T::reverse_iterator beg = map.rbegin();
@@ -458,10 +460,10 @@ void print_map_rv(T& map) {
     std::cout << "!!!!!!!!! empty map !!!!!!!!" << std::endl;
     return;
   } else
-  while (beg != end) {
-    std::cout << "[" << beg->first << " " << beg->second << "] ";
-    beg++;
-  }
+    while (beg != end) {
+      std::cout << "[" << beg->first << " " << beg->second << "] ";
+      beg++;
+    }
   std::cout << std::endl;
 }
 
@@ -479,30 +481,35 @@ void map_insert_test(T& map, int cnt) {
   }
   print_map(map);
   _end = clock();
-  std::cout << "# time report" << std::endl;
+  print_type("time");
   std::cout << _end - _start << "ms" << std::endl;
   std::cout << std::endl;
 }
 
 template <class T>
 void map_capa_test(T& map) {
-  std::cout << "[ empty    ] : " << map.empty() << std::endl;
-  std::cout << "[ size     ] : " << map.size() << std::endl;
-  std::cout << "[ max size ] : " << map.max_size() << std::endl;
+  print_type("empty");
+  std::cout << map.empty() << std::endl;
+  print_type("size");
+  std::cout << map.size() << std::endl;
+  print_type("max size");
+  std::cout << map.max_size() << std::endl;
   std::cout << std::endl;
 }
 
 template <class T>
 void map_count_test(T& map, typename T::key_type key) {
-  std::cout << "[Count Test]" << std::endl;
   std::cout << std::endl;
   time_t start, end;
   start = clock();
   typename T::size_type sz = map.count(key);
-  std::cout << "[ count key ] : " << key << std::endl;
-  std::cout << "[ result    ] : " << sz << std::endl;
+  print_type("count key");
+  std::cout << key << std::endl;
+  print_type("result");
+  std::cout << sz << std::endl;
   end = clock();
-  std::cout << "[ time      ] : " << end - start << "ms" << std::endl;
+  print_type("time");
+  std::cout << end - start << "ms" << std::endl;
   std::cout << std::endl;
 }
 
@@ -514,44 +521,54 @@ void map_bound_test(T& map, typename T::key_type key) {
   start = clock();
   typename T::iterator it = map.lower_bound(key);
   if (it != map.end()) {
-    std::cout << "[ bound key ] : " << key << std::endl;
-    std::cout << "[ lower     ] : " << it->first << std::endl;
+    print_type("bound key");
+    std::cout << key << std::endl;
+    print_type("lower");
+    std::cout << it->first << std::endl;
   } else {
-    std::cout << "[ bound key ] : " << key << std::endl;
-    std::cout << "[ lower    ] : "
-              << "can't find" << std::endl;
+    print_type("bound key");
+    std::cout << key << std::endl;
+    print_type("lower");
+    std::cout << "not found" << std::endl;
   }
   typename T::iterator itu = map.upper_bound(key);
   if (itu != map.end()) {
-    std::cout << "[ bound key ] : " << key << std::endl;
-    std::cout << "[ upper     ] : " << it->first << std::endl;
+    print_type("bound key");
+    std::cout << key << std::endl;
+    print_type("upper");
+    std::cout << it->first << std::endl;
   } else {
-    std::cout << "[ bound key ] : " << key << std::endl;
-    std::cout << "[ upper    ] : "
-              << "can't find" << std::endl;
+    print_type("bound key");
+    std::cout << key << std::endl;
+    print_type("upper");
+    std::cout << "not found" << std::endl;
   };
   end = clock();
-  std::cout << "[ time      ] : " << end - start << "ms" << std::endl;
+  print_type("time");
+  std::cout << end - start << "ms" << std::endl;
   std::cout << std::endl;
 }
 
 template <class T>
 void map_find_test(T& map, typename T::key_type key) {
-  std::cout << "[Find Test]" << std::endl;
   std::cout << std::endl;
   time_t start, end;
   start = clock();
   typename T::iterator it = map.find(key);
   if (it != map.end()) {
-    std::cout << "[ find key ] : " << key << std::endl;
-    std::cout << "[ result   ] : " << it->first << " , " << it->second
-              << std::endl;
+    print_type("find key");
+    std::cout << key << std::endl;
+    print_type("result");
+    std::cout << it->first << " , " << it->second << std::endl;
   } else {
-    std::cout << "[ find key ] : " << key << std::endl;
-    std::cout << "[ result   ] : not found" << std::endl;
+    print_type("find key");
+    std::cout << key << std::endl;
+    print_type("result");
+    std::cout << "not found " << std::endl;
   }
   end = clock();
-  std::cout << "[ time     ] : " << end - start << "ms" << std::endl;
+  print_type("time");
+  std::cout << end - start << "ms" << std::endl;
   std::cout << std::endl;
 }
 
@@ -559,7 +576,6 @@ template <class T>
 void map_erase_test(T& map, typename T::key_type key) {
   time_t start, end;
   start = clock();
-  std::cout << "[ Erase Test ]" << std::endl;
   std::cout << "# before erase" << std::endl;
   print_map(map);
   map_capa_test(map);
@@ -576,14 +592,14 @@ void map_erase_test(T& map, typename T::key_type key) {
   print_map(map);
   map_capa_test(map);
   end = clock();
-  std::cout << "[ time ] : " << end - start << std::endl;
+  print_type("time");
+  std::cout << end - start << "ms" << std::endl;
 }
 
 template <class T>
 void map_swap_test(T& m1, T& m2) {
   time_t start, end;
   start = clock();
-  std::cout << "[Swap test]" << std::endl;
   std::cout << "____before swap" << std::endl;
   print_map(m1);
   map_capa_test(m1);
@@ -596,14 +612,14 @@ void map_swap_test(T& m1, T& m2) {
   print_map(m2);
   map_capa_test(m2);
   end = clock();
-  std::cout << "[ time ] : " << end - start << std::endl;
+  print_type("time");
+  std::cout << end - start << "ms" << std::endl;
 }
 
 template <class T>
 void map_clear_test(T& map) {
   time_t start, end;
   start = clock();
-  std::cout << "[clear test]" << std::endl;
   std::cout << "____before clear" << std::endl;
   print_map(map);
   map_capa_test(map);
@@ -631,11 +647,12 @@ void map_access_test(T& map) {
 }
 
 void map_test() {
+  print_header("map");
   int cnt = 10;
   int range = 122 - 97 + 1;
   ft::map<char, int> m;
   std::map<char, int> _m;
-  std::cout << "[ same value insert ]" << std::endl;
+  print_test_name("insert same value");
   while (cnt--) {
     srand(clock());
     char key = rand() % range + 97;
@@ -645,45 +662,49 @@ void map_test() {
     m.insert(p);
     _m.insert(_p);
   }
-  std::cout << "FT  : ";
+  print_type("FT");
   print_map(m);
   std::cout << std::endl;
   map_capa_test(m);
-  std::cout << "STD : ";
+  print_type("STD");
   print_map(_m);
   std::cout << std::endl;
   map_capa_test(_m);
-  std::cout << std::endl << "[ print with reverse_iterator ]" << std::endl;
-  std::cout << "FT  : ";
+  print_test_name("print with reverse iterator");
+  print_type("FT");
   print_map_rv(m);
-  std::cout << "STD : ";
+  print_type("STD");
   print_map_rv(_m);
-  std::cout << std::endl << "[ diff value insert ]" << std::endl;
+  print_test_name("insert diff value");
   ft::map<char, int> m1;
   std::map<char, int> _m1;
-  std::cout << "FT  : ";
+  print_type("FT");
   map_insert_test(m1, 20);
-  std::cout << "STD : ";
+  print_type("STD");
   map_insert_test(_m1, 20);
   srand(clock());
   char target = rand() % range + 97;
-  std::cout << "__FT" << std::endl;
+  print_test_name("map find test");
+  print_line("FT");
+  print_divider();
   map_find_test(m, target);
-  std::cout << "__STD" << std::endl;
+  print_line("STD");
+  print_divider();
   map_find_test(_m, target);
-  std::cout << "__FT" << std::endl;
+  print_test_name("map count test");
+  print_line("FT");
   map_count_test(m, target);
-  std::cout << "__STD" << std::endl;
+  print_line("STD");
   map_count_test(_m, target);
-  std::cout << "__FT" << std::endl;
+  print_test_name("map bound test");
+  print_line("FT");
   map_bound_test(m, target);
-  std::cout << "__STD" << std::endl;
+  print_line("STD");
   map_bound_test(_m, target);
-
-  std::cout << "[ equal range test ]" << std::endl;
+  print_test_name("map equal range test");
   ft::pair<ft::map<char, int>::iterator, ft::map<char, int>::iterator> er;
   er = m.equal_range(target);
-  std::cout << "__FT" << std::endl;
+  print_line("FT");
   if (er.first != m.end()) {
     std::cout << er.first->first << " , " << er.first->second << std::endl;
     std::cout << er.second->first << " , " << er.second->second << std::endl;
@@ -692,24 +713,27 @@ void map_test() {
   }
   std::pair<std::map<char, int>::iterator, std::map<char, int>::iterator> _er;
   _er = _m.equal_range(target);
-  std::cout << "__STD" << std::endl;
+  print_line("STD");
   if (_er.first != _m.end()) {
     std::cout << _er.first->first << " , " << _er.first->second << std::endl;
     std::cout << _er.second->first << " , " << _er.second->second << std::endl;
   } else {
     std::cout << "not found" << std::endl;
   }
-  std::cout << "__FT" << std::endl;
+  print_test_name("map erase test");
+  print_line("FT");
   map_erase_test(m, target);
-  std::cout << "__STD" << std::endl;
+  print_line("STD");
   map_erase_test(_m, target);
-  std::cout << "__FT" << std::endl;
+  print_test_name("map swap test");
+  print_line("FT");
   map_swap_test(m, m1);
-  std::cout << "__STD" << std::endl;
+  print_line("STD");
   map_swap_test(_m, _m1);
-  std::cout << "__FT" << std::endl;
+  print_test_name("map clear test");
+  print_line("FT");
   map_clear_test(m);
-  std::cout << "__STD" << std::endl;
+  print_line("STD");
   map_clear_test(_m);
 
   ft::map<char, int> alice;
@@ -725,6 +749,7 @@ void map_test() {
     _alice.insert(_p11);
   }
 
+  print_test_name("map relation operator");
   cnt = 10;
   ft::map<char, int> bob;
   std::map<char, int> _bob;
@@ -784,10 +809,10 @@ void stack_test() {
 }
 
 int main(void) {
-  vector_test();
-  vector_rv();
-  vector_relation();
-  // map_test();
+  // vector_test();
+  // vector_rv();
+  // vector_relation();
+  map_test();
   // stack_test();
   // print_header("vector", 80, '=');
   // print_namespace(1);
