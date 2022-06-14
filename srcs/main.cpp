@@ -367,6 +367,7 @@ void vector_relation() {
   print_element(v_comp);
   print_type("t");
   print_element(t);
+  std::cout << std::boolalpha;
   print_type("v == v_comp");
   std::cout << (v == v_comp) << std::endl;
   print_type("v != v_comp");
@@ -938,4 +939,6 @@ int main(void) {
   vector_relation();
   map_test();
   stack_test();
+  print_divider();
+  system("leaks a.out");
 }
