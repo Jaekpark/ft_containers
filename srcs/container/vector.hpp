@@ -152,7 +152,7 @@ class vector : public vector_base<T, Allocator> {
       typename ft::enable_if<!ft::is_integral<InputIterator>::value,
                              InputIterator>::type * = ft_nullptr) {
     difference_type n = ft::distance(first, last);
-    this->_begin = this->_alloc.allocate(n);
+    this->_begin = this->_alloc.allocate(capacity);
     this->_end = this->_begin;
     this->_end_capacity = this->_begin + capacity;
     while (n--) this->_alloc.construct(this->_end++, *first++);
@@ -181,9 +181,7 @@ class vector : public vector_base<T, Allocator> {
     construct_with_range(first, last);
   }
   // * Copy Constructor
-  vector(const vector &x) {
-    construct_with_range(x.begin(), x.end(), x.capacity());
-  }
+  vector(const vector &x) { construct_with_range(x.begin(), x.end()); }
   // * operator=
   vector &operator=(const vector &x) {
     clear();
