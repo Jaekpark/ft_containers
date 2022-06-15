@@ -1,15 +1,18 @@
 # Summary
 
+![subject_score](images/subject_evaluatuon_result.jpeg)
+
 This is a project to re-implement some `C++ STL Containers` to understand them.
 
 Some requirements for this project are as follow:
 
 Re-implement (The documents below are written in Korean.)
 
+### Mandatory
+
 + [`std::vector`](documents/vector.md)
 + [`std::map`](documents/map.md)
 + [`std::stack`](documents/stack.md)
-+ [`std::set`](documents/set.md)
 + [`std::iterators_traits`](documents/reverse_iterator.md)
 + [`std::reverse_iterator`](documents/iterator_traits.md)
 + [`std::enable_if`](documents/enable_if.md)
@@ -17,6 +20,10 @@ Re-implement (The documents below are written in Korean.)
 + [`std::equal`](documents/equal.md) and/or [`std::lexicographical_compare`](documents/lexicographical_compare.md)
 + [`std::pair`](documents/pair.md)
 + [`std::make_pair`](documents/make_pair.md)
+
+### Bonus
+
++ [`std::set`](documents/set.md)
 
 # What is STL? <sup>[1]
 

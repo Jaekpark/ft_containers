@@ -19,6 +19,11 @@
 ---
 # `std::map`, 맵 컨테이너란?
 
+> Maps are associative containers that store elements formed by a combination of a key value and a mapped value, following a specific order.<sup>[1]
+
+**맵(map)**이란 `키(key)`와 `값(value)`의 조합으로 이루어진 데이터를 특정 순서로 저장하는 `연관 컨테이너(associate container)` 입니다.
+
+<img src="./images/map_node.png">
 
 
 # `std::map` 클래스
