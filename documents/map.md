@@ -91,11 +91,11 @@ public:
 	class value_compare {
 			friend class map;
 	protected:
-		key_compare	comp;
+		key_compare		comp;
 
 		value_compare(key_compare c);
 	public:
-		typedef bool	result_type;
+		typedef bool		result_type;
 		typedef value_type	first_argument_type;
 		typedef value_type	second_argument_type;
 		bool operator()(const value_type& x, const value_type& y) const;
@@ -105,7 +105,7 @@ public:
 	map(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type());
 	template <class InputIterator>
 		map(InputIterator first, InputIterator last,
-		const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type());
+			const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type());
 	map(const map& x);
 	// destructor
 	~map();
