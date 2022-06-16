@@ -131,15 +131,15 @@ public:
 	// element access
 	mapped_type& operator[](const key_type& key);
 	// modifiers
-	pair<iterator, bool> insert(const key_type& key);
-	iterator insert(iterator position, const key_type& key);
+	pair<iterator, bool>	insert(const key_type& key);
+	iterator		insert(iterator position, const key_type& key);
 	template <class InputIterator>
-	void insert(InputIterator first, InputIterator last);
-	void erase(iterator position);
-	size_type erase(const key_type& key);
-	void erase(iterator first, iterator last);
-	void swap(map& x);
-	void clear();
+	void	insert(InputIterator first, InputIterator last);
+	void		erase(iterator position);
+	size_type	erase(const key_type& key);
+	void	erase(iterator first, iterator last);
+	void	swap(map& x);
+	void	clear();
 	// observers
 	key_compare key_comp() const;
 	value_compare value_comp() const;
