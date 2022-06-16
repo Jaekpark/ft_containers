@@ -82,10 +82,10 @@ public:
 	typedef typename allocator_type::const_pointer		const_pointer;
 	typedef typename allocator_type::size_type		size_type;
 	typedef typename allocator_type::difference_type	difference_type;
-	typedef implementation iterator;
-	typedef implementation const_iterator;
-	typedef std::reverse_iterator<iterator> reverse_iterator;
-	typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
+	typedef implementation			iterator;
+	typedef implementation			const_iterator;
+	typedef std::reverse_iterator<iterator>	reverse_iterator;
+	typedef std::reverse_iterator<const_iterator>	const_reverse_iterator;
 
 	// value_compare
 	class value_compare {
