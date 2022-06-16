@@ -84,7 +84,7 @@ public:
 	typedef typename allocator_type::difference_type	difference_type;
 	typedef implementation					iterator;
 	typedef implementation					const_iterator;
-	typedef std::reverse_iterator<iterator>		reverse_iterator;
+	typedef std::reverse_iterator<iterator>			reverse_iterator;
 	typedef std::reverse_iterator<const_iterator>		const_reverse_iterator;
 
 	// value_compare
