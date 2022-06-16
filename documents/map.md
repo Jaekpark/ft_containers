@@ -4,6 +4,7 @@
 
 ### [1. `std::map`, 맵 컨테이너란?]
 ### [2. `std::map` 클래스]
++ [개요(Synopsis)](#개요synopsis)
 + [멤버 타입 (Member types)]
 + [멤버 함수 (Member functions)]
     + [OCF (Orthodox Canonical Form)]
@@ -61,7 +62,7 @@
 + `Allocator`
 
 	메모리 할당 객체입니다. 기본적으로 `std::allocator`가 사용됩니다. 맵 컨테이너는 `std::pair<const Key, T>` 타입의 객체를 원소로 사용하므로 해당 타입이 메모리 할당 객체의 템플릿 매개변수로 전달됩니다.
-
+---
 ## 개요(Synopsis)
 
 ```c++
