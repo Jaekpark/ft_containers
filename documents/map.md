@@ -44,7 +44,7 @@
  `맵(map)` 클래스는 다음과 같은 클래스 템플릿으로 정의되어 있습니다.
 
  ```c++
- template <class Key, class T, class Compare = std::less<T>, class Allocator = std::allocator<std::pair<const Key, T> > >
+ template <class Key, class T, class Compare = std::less<Key>, class Allocator = std::allocator<std::pair<const Key, T> > >
  class map
  ```
 + `Key`
@@ -186,19 +186,39 @@ void swap(map<Key, T, Compare, Allocator>& lhs, map<Key, T, Compare, Allocator>&
 ---
 ## 멤버 타입(Member types)<sup>[1][2]
 
-```c++
-// map Synopsis
-
-
-```
-
-
+| member type            | definition                                       | note                                                                                       |
+| ---------------------- | ------------------------------------------------ | ------------------------------------------------------------------------------------------ |
+| key_type               | 첫 번째 템플릿 매개변수 `Key`                    | 노드의 `key` 자료 타입을 말합니다.                                                         |
+| mapped_type            | 두 번째 템플릿 매개변수 `T`                      | `key`와 쌍을 이루는 노드의 `value` 자료 타입을 말합니다.                                   |
+| value_type             | `key`와 `value` 쌍으로 구성된 데이터 묶음입니다. | `std::pair<Key, T>`를 말합니다.                                                            |
+| key_compare            | 세 번째 템플릿 매개변수 `Compare`                | 노드간 비교를 위한 객체로 기본적으로는 `std::less<Key>` 객체를 의미합니다.                 |
+| value_compare          | 노드간 비교를 위한 `중첩 함수 클래스` 입니다.    | [value_compare]()                                                                          |
+| allocator_type         | 네 번째 템플릿 매개변수 `Allocator`              | 메모리 할당 객체, 기본적으로 `std::allocator<value_type>` 을 말합니다.                     |
+| reference              | `allocator_type::reference`                      | 참조자 타입 정의입니다. `value_type&`, `std::pair<Key, T>&`를 의미합니다.                  |
+| const_reference        | `allocator_type::const_reference`                | 상수 참조자 타입 정의입니다. `const value_type&`, `const std::pair<Key, T>&`를 의미합니다. |
+| pointer                | `allocator_type::pointer`                        | 포인터 타입 정의입니다. `value_type *`, `std::pair<Key, T> *`를 의미합니다.                |
+| const_pointer          | `allocator_type::const_pointer`                  | 상수 포인터 타입입니다. `const value_type *`, `const std::pair<Key, T> *`를 의미합니다.    |
+| iterator               | 맵 원소에 접근 가능한 반복자 입니다.             | `value_type`에 접근 가능한 `양방향 반복자(bindirectional iterator)`입니다.                 |
+| const_iterator         | 맵 원소에 접근 가능한 상수 반복자입니다.         | `iterator`와 마찬가지로 `양방향 반복자`의 성질을 갖습니다.                                 |
+| reverse_iterator       | `std::reverse_iterator<iterator>`                | `역방향 반복자` 입니다.                                                                    |
+| const_reverse_iterator | `std::reverse_iterator<const_iterator>`          | 상수 역방향 반복자입니다.                                                                  |
+| difference_type        | 부호 있는 정수 타입                              | 일반적으로 `std::ptrdiff_t`를 의미합니다.                                                  |
+| size_type              | 부호 없는 정수 타입                              | 일반적으로 `std::size_t`를 의미합니다.                                                     |
 ---
 ## 멤버 함수(Member Function)
 
 ### OCF(Orthodox Canoical Form)
-
 #### 생성자 (Constructor)
+```c++
+	// default
+	map(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type());
+	// range
+	template <class InputIterator>
+	map(InputIterator first, InputIterator last,
+		const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type());
+	// copy
+	map(const map& x);
+```
 
 #### 소멸자 (Destructor)
   
