@@ -90,15 +90,16 @@ public:
 
 	// value_compare
 	class value_compare {
-			friend class map;
+		friend class map;
 	protected:
 		key_compare		comp;
-
 		value_compare(key_compare c);
 	public:
 		typedef bool		result_type;
 		typedef value_type	first_argument_type;
 		typedef value_type	second_argument_type;
+
+		// operator()
 		bool operator()(const value_type& x, const value_type& y) const;
 	};
 
