@@ -119,9 +119,9 @@ public:
 	const_iterator		begin() const;
 	iterator		end();
 	const_iterator		end() const;
-	reverse_iterator		rbegin();
-	const_reverse_iterator		rbegin() const;
-	reverse_iterator			rend();
+	reverse_iterator	rbegin();
+	const_reverse_iterator	rbegin() const;
+	reverse_iterator		rend();
 	reverse_const_iterator	rend() const;
 	// capacity
 	bool empty() const;
