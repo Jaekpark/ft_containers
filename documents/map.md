@@ -149,13 +149,13 @@ public:
 	value_compare	value_comp() const;
 
 	// operations
-	iterator			find(const key_type& key);
-	const_iterator			find(const key_type& key) const;
-	size_type			count(const key_type& key) const;
-	iterator			lower_bound(const key_type& key);
-	const_iterator			lower_bound(const key_type& key) const;
-	iterator			upper_bound(const key_type& key);
-	const_iterator			upper_bound(const key_type& key) const;
+	iterator				find(const key_type& key);
+	const_iterator				find(const key_type& key) const;
+	size_type				count(const key_type& key) const;
+	iterator				lower_bound(const key_type& key);
+	const_iterator				lower_bound(const key_type& key) const;
+	iterator				upper_bound(const key_type& key);
+	const_iterator				upper_bound(const key_type& key) const;
 	pair<iterator, iterator>		equal_range(const key_type& key);
 	pair<const_iterator, const_iterator>	equal_range(const key_type& key) const;
 
