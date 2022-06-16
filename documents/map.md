@@ -104,7 +104,7 @@ public:
 	// constructor
 	map(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type());
 	template <class InputIterator>
-		map(InputIterator first, InputIterator last,
+	map(InputIterator first, InputIterator last,
 			const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type());
 	map(const map& x);
 	// destructor
@@ -115,10 +115,10 @@ public:
 	// member functions
 
 	// iterators
-	iterator begin();
-	const_iterator begin() const;
-	iterator end();
-	const_iterator end() const;
+	iterator		begin();
+	const_iterator	begin() const;
+	iterator		end();
+	const_iterator	end() const;
 	reverse_iterator rbegin();
 	const_reverse_iterator rbegin() const;
 	reverse_iterator rend();
