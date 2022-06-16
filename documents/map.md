@@ -122,12 +122,12 @@ public:
 	const_iterator		end() const;
 	reverse_iterator	rbegin();
 	const_reverse_iterator	rbegin() const;
-	reverse_iterator		rend();
+	reverse_iterator	rend();
 	reverse_const_iterator	rend() const;
 	// capacity
-	bool empty() const;
-	size_type size() const;
-	size_type max_size() const;
+	bool		empty() const;
+	size_type	size() const;
+	size_type	max_size() const;
 	// element access
 	mapped_type& operator[](const key_type& key);
 	// modifiers
