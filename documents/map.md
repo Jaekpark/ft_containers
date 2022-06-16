@@ -210,14 +210,14 @@ void swap(map<Key, T, Compare, Allocator>& lhs, map<Key, T, Compare, Allocator>&
 ### OCF(Orthodox Canoical Form)
 #### 생성자 (Constructor)
 ```c++
-	// default
-	map(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type());
-	// range
-	template <class InputIterator>
-	map(InputIterator first, InputIterator last,
-		const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type());
-	// copy
-	map(const map& x);
+// default
+map(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type());
+// range
+template <class InputIterator>
+map(InputIterator first, InputIterator last,
+	const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type());
+// copy
+map(const map& x);
 ```
 
 #### 소멸자 (Destructor)
