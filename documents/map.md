@@ -178,12 +178,13 @@ template <class Key, class T, class Compare, class Allocator>
 bool operator<=(const map<Key, T, Compare, Allocator>& lhs, const map<Key, T, Compare, Allocator>& rhs);
 template <class Key, class T, class Compare, class Allocator>
 bool operator>=(const map<Key, T, Compare, Allocator>& lhs, const map<Key, T, Compare, Allocator>& rhs);
+
 // specializes the std::swap
 template <class Key, class T, class Compare, class Allocator>
 void swap(map<Key, T, Compare, Allocator>& lhs, map<Key, T, Compare, Allocator>& rhs);
 ```
 ---
-## 멤버 타입(Member types)
+## 멤버 타입(Member types)<sup>[1][2]
 
 ```c++
 // map Synopsis
