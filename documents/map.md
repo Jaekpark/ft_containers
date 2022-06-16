@@ -71,11 +71,11 @@ template <class Key, class T, class Compare = std::less<T>, class Allocator = st
 class map {
 public:
 	// type alias
-	typedef Key 												key_type;
-	typedef T 													mapped_type;
-	typedef std::pair<key_type, mapped_type> value_type;
-	typedef Compare key_compare;
-	typedef Allocator allocator_type;
+	typedef Key 									key_type;
+	typedef T 										mapped_type;
+	typedef std::pair<key_type, mapped_type>		value_type;
+	typedef Compare 								key_compare;
+	typedef Allocator						 		allocator_type;
 	typedef typename allocator_type::reference reference;
 	typedef typename allocator_type::const_reference const_reference;
 	typedef typename allocator_type::pointer pointer;
