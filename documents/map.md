@@ -67,7 +67,8 @@
 
 ```c++
 //Map synopsis
-template <class Key, class T, class Compare = std::less<T>, class Allocator = std::allocator<std::pair<const Key, T> > >
+template <class Key, class T,class Compare = std::less<T>,
+	class Allocator = std::allocator<std::pair<const Key, T> > >
 class map {
 public:
 	// type alias
