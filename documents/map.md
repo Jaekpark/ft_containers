@@ -5,7 +5,7 @@
 ### [1. `std::map`, 맵 컨테이너란?]
 ### [2. `std::map` 클래스]
 + [개요(Synopsis)](#개요synopsis)
-+ [멤버 타입 (Member types)](#멤버-타입member-typessup12)
++ [멤버 타입 (Member types)](#멤버-타입member-types)
 + [멤버 함수 (Member functions)]
     + [OCF (Orthodox Canonical Form)]
     + [Iterator]
