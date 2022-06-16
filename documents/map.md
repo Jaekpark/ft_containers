@@ -126,9 +126,9 @@ public:
 	reverse_const_iterator	rend() const;
 
 	// capacity
-	bool		empty() const;
-	size_type	size() const;
-	size_type	max_size() const;
+	bool			empty() const;
+	size_type		size() const;
+	size_type		max_size() const;
 
 	// element access
 	mapped_type& operator[](const key_type& key);
@@ -145,8 +145,8 @@ public:
 	void			clear();
 
 	// observers
-	key_compare	key_comp() const;
-	value_compare	value_comp() const;
+	key_compare		key_comp() const;
+	value_compare		value_comp() const;
 
 	// operations
 	iterator				find(const key_type& key);
@@ -160,7 +160,7 @@ public:
 	pair<const_iterator, const_iterator>	equal_range(const key_type& key) const;
 
 	// allocator
-	allocator_type&	get_allocator();
+	allocator_type&		get_allocator();
 };
 // non-member functions
 
