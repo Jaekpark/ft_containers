@@ -105,7 +105,7 @@ public:
 	map(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type());
 	template <class InputIterator>
 	map(InputIterator first, InputIterator last,
-			const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type());
+		const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type());
 	map(const map& x);
 	// destructor
 	~map();
@@ -116,13 +116,13 @@ public:
 
 	// iterators
 	iterator		begin();
-	const_iterator	begin() const;
+	const_iterator		begin() const;
 	iterator		end();
-	const_iterator	end() const;
-	reverse_iterator rbegin();
-	const_reverse_iterator rbegin() const;
-	reverse_iterator rend();
-	reverse_const_iterator rend() const;
+	const_iterator		end() const;
+	reverse_iterator		rbegin();
+	const_reverse_iterator		rbegin() const;
+	reverse_iterator			rend();
+	reverse_const_iterator	rend() const;
 	// capacity
 	bool empty() const;
 	size_type size() const;
