@@ -37,10 +37,15 @@
 
 > `트리(tree)`구조나 `이진 탐색 트리(binary search tree)`에 대해 잘 모르시는 경우 [이 문서](tree.md)를 참고하시기 바랍니다.
 
-`트리(tree)` 구조란
 
 # `std::map` 클래스
 
+ `맵(map)` 클래스는 다음과 같은 클래스 템플릿으로 정의되어 있습니다.
+
+ ```c++
+ template <class Key, class T, class Compare = std::less<T>, class Allocator = std::allocator<std::pair<const Key, T> > >
+ class map
+ ```
 + `Key`
 
 + `T`
