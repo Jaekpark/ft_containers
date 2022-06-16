@@ -6,7 +6,7 @@
 ### [2. `std::map` 클래스]
 + [개요(Synopsis)](#개요synopsis)
 + [멤버 타입 (Member types)](#멤버-타입member-types12)
-+ [멤버 함수 (Member functions)]
++ [멤버 함수 (Member functions)](#멤버-함수member-function)
     + [OCF (Orthodox Canonical Form)]
     + [Iterator]
     + [capacity]
