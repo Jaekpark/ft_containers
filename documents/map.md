@@ -537,6 +537,8 @@ void swap(std::map<Key, T Compare, Alloc>& lhs, std::map<Key, T, Compare, Alloc>
 
 `std::swap`의 맵 컨테이너용 템플릿 특수화입니다. 두 컨테이너의 모든 구성요소를 바꾸는 함수입니다.
 
+---
+
 ## Reference
 
 | index                                                | title                                                       | author       | last modified | accessed      | url status |
