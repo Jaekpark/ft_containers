@@ -255,6 +255,22 @@ const_iterator	end() const;
 ```
 컨테이너의 종료위치를 참조하는 `양방향 반복자`를 반환합니다. 이 때 컨테이너의 종료위치란 마지막 원소의 바로 다음 위치를 의미합니다. 맵 컨테이너의 `Compare` 객체가 `std::less`인 경우 `end() - 1` 위치의 원소는 컨테이너의 최대값 `key` 노드입니다.
 
+
+`rbegin` : 컨테이너의 역방향 반복자 시작 지점 반환.
+
+**prototype**
+```c++
+reverse_iterator rbegin();
+const_reverse_iterator rbegin() const;
+```
+
+`rend` : 컨테이너의 역방향 반복자 종료 지점 반환.
+
+**prototype**
+```c++
+reverse_iterator rend();
+const_reverse_iterator rend() const;
+```
 ---
 ### Capacity
 #### `empty` : 컨테이너가 비어있는지 확인.
@@ -303,7 +319,7 @@ mapped_type& operator[](const key_type& key);
 ---
 ### Modifiers
 
-#### insert : 새로운 원소를 삽입.
+#### `insert` : 새로운 원소를 삽입.
 
 **prototype**
 ```c++
@@ -329,7 +345,7 @@ void insert(InputIterator first, InputIterator last);
 
 	참조 가능한 객체의 특정 범위의 원소를 삽입하는 함수 입니다. 매개변수로 들어오는 `first` 부터 `last` 까지의 범위내에 있는 원소들을 새롭게 삽입합니다. 동일한 키의 노드가 이미 존재하지 않는 경우에만 새롭게 노드를 추가합니다.
 
-#### erase : 원소 삭제.
+#### `erase` : 원소 삭제.
 
 **prototype**
 ```c++
@@ -355,7 +371,7 @@ void erase(iterator first, iterator last);
 
 	매개변수 `first` 부터 `last`까지를 범위로 해당 범위 내의 원소를 삭제합니다. 해당 반복자들이 역참조가 불가능할 경우 `undefined behavior`가 발생합니다.
 
-#### swap : 컨테이너의 콘텐츠 교환.
+#### `swap` : 컨테이너의 콘텐츠 교환.
 
 **prototype**
 ```c++
@@ -364,7 +380,7 @@ void swap(map& x);
 
 동일한 타입을 갖는 두 컨테이너의 `구성 요소(contents)`를 서로 바꿔주는 함수 입니다.
 
-#### clear : 컨테이너 원소 전체 삭제.
+#### `clear` : 컨테이너 원소 전체 삭제.
 
 **prototype**
 ```c++
