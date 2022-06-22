@@ -459,7 +459,53 @@ allocator_type get_allocator() const;
 ## 비-멤버 함수 (Non-menber Function)
 ---
 ### relation operators
+
+**prototype**
+```c++
+// operator ==
+template <class Key, class T, class Compare, class Alloc>
+bool operator==(const std::map<Key, T, Compare, Alloc>& lhs, const std::map<Key, T, Compare, Alloc>& rhs);
+// operator !=
+template <class Key, class T, class Compare, class Alloc>
+bool operator!=(const std::map<Key, T, Compare, Alloc>& lhs, const std::map<Key, T, Compare, Alloc>& rhs);
+// operator <
+template <class Key, class T, class Compare, class Alloc>
+bool operator<(const std::map<Key, T, Compare, Alloc>& lhs, const std::map<Key, T, Compare, Alloc>& rhs);
+// operator >
+template <class Key, class T, class Compare, class Alloc>
+bool operator>(const std::map<Key, T, Compare, Alloc>& lhs, const std::map<Key, T, Compare, Alloc>& rhs);
+// operator <=
+template <class Key, class T, class Compare, class Alloc>
+bool operator<=(const std::map<Key, T, Compare, Alloc>& lhs, const std::map<Key, T, Compare, Alloc>& rhs);
+// operator >=
+template <class Key, class T, class Compare, class Alloc>
+bool operator>=(const std::map<Key, T, Compare, Alloc>& lhs, const std::map<Key, T, Compare, Alloc>& rhs);
+```
+
+1. `operator==`, `operator!=`
+
+	매개변수로 들어오는 두 맵 컨테이너가 같은지 확인합니다. 맵 컨테이너가 같은 조건은 `원소의 개수(size)`가 같고, `모든 원소의 값이 동일`한 경우 동일한 경우 입니다.
+
+2. `operator<`, `operator>`, `operator>=`, `operator<=`
+
+	두 컨테이너의 대소를 비교합니다. `std::lexicopraphical_compare` 객체를 사용해 두 컨테이너의 원소들을 비교합니다.
+
 ---
 ### std::swap
+
+`std::swap` 맵 컨테이너 템플릿 특수화
+
+**prototype**
+```c++
+template <class Key, class T, class Compare, class Alloc>
+void swap(std::map<Key, T Compare, Alloc>& lhs, std::map<Key, T, Compare, Alloc>& rhs);
+```
+
+`std::swap`의 맵 컨테이너용 템플릿 특수화입니다. 두 컨테이너의 모든 구성요소를 바꾸는 함수입니다.
+
 ## Reference
 
+| index                                                | title                                                       | author       | last modified | accessed      | url status |
+| ---------------------------------------------------- | ----------------------------------------------------------- | ------------ | ------------- | ------------- | ---------- |
+| [1](https://en.cppreference.com/w/cpp/container/map) | [std::map](https://en.cppreference.com/w/cpp/container/map) | cppreference | 26 Jan, 2022  | 22 June, 2022 | ok         |
+| [2](https://www.cplusplus.com/reference/map/map/)    | [std::map](https://www.cplusplus.com/reference/map/map/)    | cplusplus    | unknown       | 22 June, 2022 | ok         |
