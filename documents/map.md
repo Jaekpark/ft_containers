@@ -236,6 +236,8 @@ map& operator=(const map& x);
 
 #### begin & end
 
+![iterator](https://upload.cppreference.com/mwiki/images/1/1b/range-begin-end.svg)
+
 `begin` : 컨테이너의 첫 번째 원소를 참조하는 반복자를 반환.
 
 **prototype**
@@ -255,6 +257,7 @@ const_iterator	end() const;
 ```
 컨테이너의 종료위치를 참조하는 `양방향 반복자`를 반환합니다. 이 때 컨테이너의 종료위치란 마지막 원소의 바로 다음 위치를 의미합니다. 맵 컨테이너의 `Compare` 객체가 `std::less`인 경우 `end() - 1` 위치의 원소는 컨테이너의 최대값 `key` 노드입니다.
 
+![reverse_iterator](https://upload.cppreference.com/mwiki/images/3/39/range-rbegin-rend.svg)
 
 `rbegin` : 컨테이너의 역방향 반복자 시작 지점 반환.
 
@@ -264,6 +267,8 @@ reverse_iterator rbegin();
 const_reverse_iterator rbegin() const;
 ```
 
+컨테이너의 역방향 반복자를 반환합니다. `rbegin()`은 컨테이너의 마지막 원소를 참조하는 역방향 반복자를 반환합니다. 마지막 원소는 `end()`가 참조하는 `past-the-last`의 전 위치(-1)와 같습니다. 
+
 `rend` : 컨테이너의 역방향 반복자 종료 지점 반환.
 
 **prototype**
@@ -271,6 +276,8 @@ const_reverse_iterator rbegin() const;
 reverse_iterator rend();
 const_reverse_iterator rend() const;
 ```
+
+컨테이너의 역방향 반복자를 반환합니다. `rend()`는 `begin()`이 참조하는 컨테이너의 첫 번째 원소를 마지막 원소로 참조하고 마지막 원소 다음 위치의 빈 공간을 참조하는 `past-the-last` 반복자를 반환합니다.
 
 ---
 ### Capacity
@@ -458,7 +465,17 @@ const_iterator upper_bound(const key_type& key);
 
 기본적으로 매개변수로 들어오는 `key`를 초과하는 값이 처음 나오는 위치를 참조하는 반복자를 반환합니다. 조건에 부합하는 원소가 없는 경우에는 `end()`를 반환합니다.
 
-#### `equal_range` : 
+#### `equal_range` : 특정 `key` 조건을 만족하는 범위를 반환.
+
+**prototype**
+```c++
+std::pair<iterator, iterator> equal_range(const key_type& key);
+std::pair<const_iterator, const_iterator> equal_range(const key_type& key);
+```
+
+매개변수로 들어오는 `key` 값을 대상으로 컨테이너의 원소를 탐색 한 후, `lower_bound`와 `upper_bound`의 쌍으로 이루어진 데이터를 반환합니다.
+
+반환 값 `pair`의 `first`는 `lower_bound` 원소를 참조하는 반복자, `second`는 `upper_bound` 원소를 참조하는 반복자입니다.
 
 ---
 ### Allocator
