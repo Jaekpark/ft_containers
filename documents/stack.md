@@ -198,27 +198,27 @@ void pop();
 **prototype**
 ```c++
 template <class T1, class C1>
-friend bool operator==(const stack<T1, C1>& lhs, const stack<T1, C1>& rhs);
+bool operator==(const stack<T1, C1>& lhs, const stack<T1, C1>& rhs);
 template <class T1, class C1>
-friend bool operator!=(const stack<T1, C1>& lhs, const stack<T1, C1>& rhs);
+bool operator!=(const stack<T1, C1>& lhs, const stack<T1, C1>& rhs);
 template <class T1, class C1>
-friend bool operator<(const stack<T1, C1>& lhs, const stack<T1, C1>& rhs);
+bool operator<(const stack<T1, C1>& lhs, const stack<T1, C1>& rhs);
 template <class T1, class C1>
-friend bool operator<=(const stack<T1, C1>& lhs, const stack<T1, C1>& rhs);
+bool operator<=(const stack<T1, C1>& lhs, const stack<T1, C1>& rhs);
 template <class T1, class C1>
-friend bool operator>(const stack<T1, C1>& lhs, const stack<T1, C1>& rhs);
+bool operator>(const stack<T1, C1>& lhs, const stack<T1, C1>& rhs);
 template <class T1, class C1>
-friend bool operator>=(const stack<T1, C1>& lhs, const stack<T1, C1>& rhs);
+bool operator>=(const stack<T1, C1>& lhs, const stack<T1, C1>& rhs);
 ```
+
+스택 컨테이너의 관계 연산자 오버로딩 입니다. 내재된 `Container`의 연산자 오버로딩을 사용합니다.
 
 ## Reference
 
-| index                                                                                                         | title                                                                                                                                                                   | author                            | last modified | accessed     | url status |
-| ------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- | ------------- | ------------ | ---------- |
-| [1](https://computerhistory.org/blog/programming-the-eniac-an-example-of-why-computer-history-is-hard/)       | [PROGRAMMING THE ENIAC: AN EXAMPLE OF WHY COMPUTER HISTORY IS HARD](https://computerhistory.org/blog/programming-the-eniac-an-example-of-why-computer-history-is-hard/) | Leonard J. Shustek                | May 18, 2016  | May 06, 2022 | ok         |
-| [2](https://www.electronics-tutorials.ws/binary/bin_1.html)                                                   | [Binary Numbers](https://www.electronics-tutorials.ws/binary/bin_1.html)                                                                                                | electronics-tutorials.ws          | Dec 05, 2021  | May 06, 2022 | ok         |
-| [3](https://en.wikipedia.org/wiki/Abstraction_(computer_science))                                             | [Abstraction](https://en.wikipedia.org/wiki/Abstraction_(computer_science))                                                                                             | wikipedia                         | Jan 21, 2022  | May 06, 2022 | ok         |
-| [4](http://www.ee.ic.ac.uk/pcheung/teaching/DE1_EE/Lectures/Topic%2014%20-%20How%20CPU%20works%20(notes).pdf) | [How CPU works](http://www.ee.ic.ac.uk/pcheung/teaching/DE1_EE/Lectures/Topic%2014%20-%20How%20CPU%20works%20(notes).pdf)                                               | Impreial College, Peter YK Cheung | June 9, 2020  | May 6, 2022  | ok         |
+| index                                                  | title                                                           | author       | last modified | accessed      | url status |
+| ------------------------------------------------------ | --------------------------------------------------------------- | ------------ | ------------- | ------------- | ---------- |
+| [1](https://en.cppreference.com/w/cpp/container/stack) | [std::stack](https://en.cppreference.com/w/cpp/container/stack) | cppreference | 20 Dec, 2021  | 22 June, 2022 | ok         |
+| [2](https://www.cplusplus.com/reference/stack/stack/)  | [std::stack](https://www.cplusplus.com/reference/stack/stack/)  | cplusplus    | unknown       | 22 June, 2022 | ok         |
 
 
 
