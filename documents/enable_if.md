@@ -78,9 +78,44 @@ public:
 
 # 템플릿 메타 프로그래밍(Template meta programming - TMP)
 
-`C++`에서 일반화 프로그래밍은 `템플릿(template)` 키워드를 사용해 다양한 `타입`에 컴파일러가 대응 할 수 있도록 하는 프로그래밍 방식이라고 설명했습니다.
+앞서 `C++`에서 일반화 프로그래밍은 `템플릿(template)` 키워드를 사용해 다양한 `타입`에 컴파일러가 대응 할 수 있도록 하는 프로그래밍 방식이라고 설명했습니다. 이 때 `타입`은 일반적으로 어떤 객체에 어떠한 데이터를 저장할건지를 나타내는 형식으로 사용됩니다. `int, char, double, string 등`의 자료형이 대표적인 예시라고 할 수 있습니다. 이 때의 `타입` 자체는 어떤 특정한 값을 지니지 않습니다.
 
+하지만 템플릿을 사용할 때, `반드시 특정 자료형만을 템플릿 매개변수로 사용해야 하는 것은 아닙니다.` 템플릿으로 선언된 타입 또한 활용할 수 있습니다. 이 때 템플릿으로 선언된 타입은 `객체를 생성하지 않더라도 특정 값을 가질 수 있고`, 이 타입을 템플릿 매개변수로 활용해 프로그래밍을 할 수 있습니다. 타입은 `컴파일 타임에 확정`되어야만 하므로 템플릿을 활용해 컴파일 타임 생성되는 코드로 프로그래밍 하는 것을 `템플릿 메타 프로그래밍(Template meta programming)`이라고 합니다.
 
+이해하기 쉽도록 `int`형 데이터 `10`을 출력하는 예시를 일반화 프로그래밍과 TMP를 사용한 예시를 들어보겠습니다.
+
++ generic programming
+
+	```c++
+	template <class T>
+	struct something {
+		T value;
+		something(T v = 0) : value(v) {}
+	};
+
+	int main() {
+		something<int> a(10); // something<int> 타입의 a객체 생성
+  	std::cout << a.value << std::endl; // result : 10;
+	}
+	```
+
+### integral_constant
+
+```c++
+template <class T, T v>
+struct integral_constant {
+	static const T value = v;
+	typedef T value_type;
+	typedef integral_constant type;
+	operator value_type() { return value; }
+	const value_type operator()() const { return value; }
+}
+
+typedef integral_constant<bool, true> true_type;
+typedef integral_constant<bool, false> false_type;
+```
+
+위의 클래스 템플릿은 
 
 # Reference
 
