@@ -1,0 +1,88 @@
+# 일반화 프로그래밍(Generic Programming)
+
+`일반화 프로그래밍`이란 컴퓨터 프로그래밍의 한 유형으로, 특정 객체(인터페이스, 클래스, 메소드 등)의 타입이 작성 단계에서 정해지지 않고, 후에 제공되는 `파라미터의 타입에 따라 그에 맞게 인스턴스화` 되도록 프로그램을 작성하는 것입니다.
+
+`c++`에서 일반화 프로그래밍은 `템플릿(template)`을 이용해 이루어 집니다.
+
+```c++
+// 함수 템플릿
+template <typename T>
+T add(T t1, T t2) { return t1 + t2; }
+
+// 클래스 템플릿
+template <class T>
+class Calculator {
+public:
+	T add(T t1, T t2) { return t1 + t2; }
+	T sub(T t1, T t2) {	return t1 - t2; }
+	T mul(T t1, T t2) { return t1 * t2; }
+	T div(T t1, T t2) { return t1 / t2; }
+};
+```
+
+> 위의 예시에서 함수 템플릿 `add`는 템플릿 매개변수가 `typename`으로 선언되어있고, 클래스 템플릿 `Calculator`는 `class`로 선언되어 있습니다. 템플릿 매개변수를 선언할 때 사용하는 `typename`과 `class`는 동일한 의미를 같습니다. 하지만 `typename` 키워드 템플릿 매개변수가 아닌 곳에서 사용 될 때는 별도의 기능을 가지고 있습니다.
+
+위의 예시처럼 `template` 키워드와 선언과 함께 `<typename T>` 혹은 `<class T>`와 같은 형식으로 `템플릿 매개변수`를 선언하고 이를 `int, char`와 같은 자료형의 타입처럼 사용할 수 있습니다.
+
+위의 예시에서 템플릿 매개변수 `T`는 사용자가 원하는 타입에 따라 컴파일 단계에서 컴파일러가 해당 타입으로 치환시킨 새로운 함수 혹은 클래스를 생성하게 됩니다.
+
+```c++
+// <typename T = int>
+add<int>(a, b);
+
+T add(T t1, T t2) { return t1 + t2; }
+// compile
+int add(int t1, int t2) { return t1 + t2; }
+```
+```c++
+// <class T = int>
+Calculator<int> calc;
+```
+```c++
+// Compile
+class Calculator {
+public:
+	int add(int t1, int t2) { return t1 + t2; }
+	int sub(int t1, int t2) {	return t1 - t2; }
+	int mul(int t1, int t2) { return t1 * t2; }
+	int div(int t1, int t2) { return t1 / t2; }
+}
+```
+
+위의 예시처럼 작성된 `Calculator` 클래스 템플릿은 `+, -, *, /` 연산이 가능한 모든 타입에 대응 할 수 있습니다.
+
+이처럼 템플릿을 사용한 일반화 프로그래밍은 `코드의 효율성`을 높이기 위해 사용합니다. 특정 알고리즘이나 구현하고자 하는 객체를 템플릿으로 작성하면 다양한 타입에 따라 컴파일러가 객체를 생성해주기 때문에 프로그래머가 직접 인스턴스를 추가 작성하거나 오버로딩 할 필요가 없어지기 때문에 `코드의 재사용성`을 크게 높여줍니다.
+
+템플릿 매개변수는 필요에 따라 2개 이상을 선언해 다양하게 이용 할 수 있습니다.
+
+```c++
+template <class T1, class T2>
+class pair {
+public:
+	T1 first;
+	T2 second;
+};
+```
+```c++
+pair<char, int> p;
+```
+```c++
+// compile
+// <class T1 = char, class T2 = int>
+class pair {
+public:
+ char first;
+ int second;
+};
+```
+
+# 템플릿 메타 프로그래밍(Template meta programming - TMP)
+
+`C++`에서 일반화 프로그래밍은 `템플릿(template)` 키워드를 사용해 다양한 `타입`에 컴파일러가 대응 할 수 있도록 하는 프로그래밍 방식이라고 설명했습니다.
+
+
+
+# Reference
+
+https://www.definitions.net/definition/generic+programming Unknown
+https://www.geeksforgeeks.org/generics-in-c/ 01 APR, 2019
