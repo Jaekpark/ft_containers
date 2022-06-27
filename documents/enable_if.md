@@ -94,9 +94,57 @@ public:
 	};
 
 	int main() {
-		something<int> a(10); // something<int> 타입의 a객체 생성
-  	std::cout << a.value << std::endl; // result : 10;
+		something<int> a(10); // 런타임에 something<int> 타입의 a객체 생성
+  	std::cout << a.value << std::endl; // 출력 결과 : 10
 	}
+	```
+
+	위의 코드에서는 `프로그램 실행시(런타임)`에 `something<int>` 타입의 객체 `a`가 생성됩니다. 이 때 생성자 매개변수로 `10`이 전달되고, `a` 객체의 멤버 변수 `value`는 `10`으로 초기화 됩니다. `객체의 생성은 런타임에 이루어지고` 생성된 객체는 별도의 메모리 해제가 이루어지지 않는한 콜 스택 혹은 프로그램과 수명을 함께 하기 때문에, 이 과정은 프로그램 실행시에 이루어지고, `런타임 오버헤드가 발생`합니다.
+
++ TMP
+
+	```c++
+	template <class T, T v>
+	struct something {
+		static const T value = v;
+	};
+
+	int main() {
+		typedef something<int, 10> value_t; // 컴파일 타임에 타입 정의
+		std::cout << value_t::value << std::endl; // 출력 결과 : 10
+	}
+	```
+
+	위의 코드에서 `something`은 템플릿 매개변수로 타입 `T`와 `T` 타입의 값 `v`를 받습니다. 그리고 `v`는 `something` 멤버 변수 `value`의 값으로 초기화 됩니다. 따라서 템플릿 매개변수 `int`와 `10`을 전달 받은 `value_t`를 `정의(typedef)`하게 되면 해당 타입을 참조해 `10`이라는 값을 얻을 수 있고, `타입은 컴파일 과정에서 확정`되기 때문에 이 과정은 모두 컴파일 과정에서 이루어집니다. 이 경우, `컴파일 시간이 증가` 할 수 있지만, 런타임 오버헤드는 줄일 수 있습니다.
+
++ TMP의 다양한 예시
+
+	```c++
+	// 템플릿의 재귀적 활용 : factorial 계산하기
+	template <int N>
+	struct factorial {
+		static const int result = N * factorial<N - 1>::result;
+	};
+	// 재귀 탈출 조건, 템플릿 특수화(template specialization)
+	template <>
+	struct factorial<1> {
+		static const int result = 1;
+	};
+	```
+
+	```c++
+	// 템플릿의 재귀적 활용 : 유클리드 호제법을 사용한 최대 공약수, 최소 공배수 구하기
+	template <int X, int Y>
+	struct euclidean {
+		static const int gcd = euclidean<Y, X % Y>::gcd; // 최대 공약수
+		static const int lcm = (X * Y) / gcd; // 최소 공배수
+	};
+
+	// 재귀 탈출 조건
+	template <int X>
+	struct euclidean<X, 0> {
+		static const int gcd = X;
+	};
 	```
 
 ### integral_constant

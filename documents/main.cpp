@@ -31,7 +31,24 @@ struct something {
   something(T v = 0) : value(v) {}
 };
 
+template <long X, long Y>
+struct Euclidean {
+  static const long gcd = Euclidean<Y, X % Y>::gcd;
+  static const long lcm = (X * Y) / gcd;
+};
+
+template <long X>
+struct Euclidean<X, 0> {
+  static const long gcd = X;
+};
+
 int main() {
   something<int> a(10);
   cout << a.value << endl;
+
+  typedef Euclidean<2345234, 2344> euc_t;
+  cout << euc_t::lcm << endl;
+
+  long mul = 2345234L * 2344L;
+  cout << mul / 2 << endl;
 }
