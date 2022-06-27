@@ -13,10 +13,10 @@ T add(T t1, T t2) { return t1 + t2; }
 template <class T>
 class Calculator {
 public:
-	T add(T t1, T t2) { return t1 + t2; }
-	T sub(T t1, T t2) {	return t1 - t2; }
-	T mul(T t1, T t2) { return t1 * t2; }
-	T div(T t1, T t2) { return t1 / t2; }
+  T add(T t1, T t2) { return t1 + t2; }
+  T sub(T t1, T t2) {	return t1 - t2; }
+  T mul(T t1, T t2) { return t1 * t2; }
+  T div(T t1, T t2) { return t1 / t2; }
 };
 ```
 
