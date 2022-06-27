@@ -43,7 +43,7 @@ Calculator<int> calc;
 class Calculator {
 public:
   int add(int t1, int t2) { return t1 + t2; }
-  int sub(int t1, int t2) {	return t1 - t2; }
+  int sub(int t1, int t2) { return t1 - t2; }
   int mul(int t1, int t2) { return t1 * t2; }
   int div(int t1, int t2) { return t1 / t2; }
 }
