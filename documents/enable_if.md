@@ -178,23 +178,40 @@ struct boolean {
 결론적으로 (2)번 처럼 템플릿 메타 프로그래밍에서 함수는 아니지만 마치 함수처럼 사용 하는 템플릿 클래스들을 `템플릿 메타 함수(template meta function)`라고 합니다.
 
 
-## integral_constant
+# `integral_constant`
+
+`TMP`는 C++ 표준 라이브러리에서도 다양하게 쓰이고 있습니다. 이 중 `integral_constant`는 정수 상수값을 타입으로 활용할 수 있도록 해주는 `템플릿 메타 함수`입니다. 일반적으로 `bool` 타입 값을 활용해 `참, 거짓`을 상수값으로 활용 할 때 자주 사용됩니다.
+
+> 
+
+`<type_traits>` 헤더에 정의 및 구현이 선언되어 있고, 내부적으로 `integral_constant<bool, true>` 타입을 `true_type`으로 정의하고, `intergral_constant<bool, false>` 타입을 `false_type`으로 정의해 `alias`들을 제공하고 있습니다.
+
+**prototype**
 
 ```c++
 template <class T, T v>
 struct integral_constant {
-	static const T value = v;
+	static constexpr T value = v;
 	typedef T value_type;
-	typedef integral_constant type;
-	operator value_type() { return value; }
-	const value_type operator()() const { return value; }
+	typedef integral_constant<T, v> type;
+	constexpr operator value_type() { return value; }
 }
 
 typedef integral_constant<bool, true> true_type;
 typedef integral_constant<bool, false> false_type;
 ```
 
-`TMP`는 C++ 표준 라이브러리에서도 다양하게 쓰이고 있습니다. 이 중 `integral_constant`는 `참, 거짓`값을 타입으로 활용할 수 있도록 해주는 `템플릿 메타 함수`입니다.
++ `T`
+
+  정수 상수값의 타입을 의미합니다.
+
++ `v`
+
+  `T` 타입의 정수 상수값입니다. `integral_constant::value`에 접근해 값을 참조 할 수 있습니다.
+
+
+
+
 
 # Reference
 
