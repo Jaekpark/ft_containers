@@ -195,11 +195,20 @@ struct integral_constant {
   constexpr operator value_type() { return value; }
 }
 
+
 typedef integral_constant<bool, true> true_type;
 typedef integral_constant<bool, false> false_type;
 ```
 
-**template parameters**
+> C++ 버전(일반적으로 C++ 14 이후)이나 구현에 따라 bool 타입 템플릿 특수화 선언 `bool_constant`가 존재합니다.
+>```c++
+>template <bool B>
+>using bool_constant = integral_constant<bool, B>;
+>typedef bool_constant<true> true_type;
+>typedef bool_constant<false> false_type;
+>```
+
+**template parameter-list**
 
 + `T`
 
@@ -225,6 +234,9 @@ typedef integral_constant<bool, false> false_type;
   ```
 
   `integral_constant`의 `value`를 반환합니다. 반환값은 템플릿 매개변수 `T v`와 같습니다.
+
+# `is_integral`
+
 
 # Reference
 

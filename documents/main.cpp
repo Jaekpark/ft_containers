@@ -1,4 +1,5 @@
 #include <iostream>
+#include <type_traits>
 
 using namespace std;
 
@@ -43,9 +44,6 @@ struct Euclidean<X, 0> {
 };
 
 int main() {
-  something<int> a(10);
-  cout << a.value << endl;
-
   typedef Euclidean<2345234, 2344> euc_t;
   cout << euc_t::lcm << endl;
 
