@@ -1,11 +1,16 @@
+# 개요(Summary)
+
+`ft_containers`에서는 `std::enable_if`와 `std::is_integral` 클래스를 재구현 하도록 요구하고 있습니다. 해당 메소드들은 `C++11` 이후부터 구현되어 있는 클래스들로, `C++98` 표준으로 구현이라는 과제 기본 규칙에 위배되어 의문이 생길 수 있습니다. 하지만 해당 클래스들은 C++98 표준만으로 충분히 구현이 가능하고, `템플릿 메타 프로그래밍(template meta programming)`과 `SFINAE(substitution failure is not an error)`의 개념을 이해할 수 있는 좋은 예시이기 때문에, 해당 개념들과 함께 글을 작성했습니다.
 
 # 목차(Contents)
+- [개요(Summary)](#개요summary)
 - [목차(Contents)](#목차contents)
 - [일반화 프로그래밍(Generic Programming)](#일반화-프로그래밍generic-programming)
 - [템플릿 메타 프로그래밍(Template meta programming - TMP)](#템플릿-메타-프로그래밍template-meta-programming---tmp)
 - [템플릿 메타 함수(Template meta function)](#템플릿-메타-함수template-meta-function)
 - [`integral_constant`](#integral_constant)
 - [`is_integral`](#is_integral)
+- [`enable_if`](#enable_if)
 - [Reference](#reference)
 # 일반화 프로그래밍(Generic Programming)
 
@@ -277,7 +282,7 @@ template <class T>
 struct is_integral : false_type {};
 ```
 
-가장 기본 타입은 `false_type`을 상속받습니다. `false_type`은 `integral_constant<bool, false>`를 `재정의(typedef)`한 `alias`이기 때문에 멤버 변수 `integral_constant<bool, false>::value`는 `false`로 초기화 됩니다.
+가장 기본 타입은 `false_type`을 상속받습니다. `false_type`은 `integral_constant<bool, false>`를 `정의(typedef)`한 `alias`이기 때문에 멤버 변수 `integral_constant<bool, false>::value`는 `false`로 초기화 됩니다.
 
 **implementation**
 ```c++
@@ -324,6 +329,13 @@ is_integral<char>::value;
 
 // integral_constant의 operator 오버로딩을 활용
 is_integral<unsigned int>();
+```
+---
+# `enable_if`
+
+**prototype**
+```c++
+
 ```
 
 # Reference
