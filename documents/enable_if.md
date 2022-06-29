@@ -248,6 +248,83 @@ typedef integral_constant<bool, false> false_type;
 ---
 # `is_integral`
 
+표준 라이브러리에서 [`integral_constant`](#integral_constant)를 활용한 가장 기초적인 `템플릿 메타 함수`입니다. 템플릿 매개변수의 타입에 따라 `integral_constant`의 `true_type` 혹은 `false_type`을 상속 받음으로써 특정 타입이 정수 타입인지를 연산해주는 템플릿 메타 함수입니다.
+
+다음과 같은 형식들이 기본 정수 타입으로 간주됩니다.
+
+| types                  |
+| ---------------------- |
+| bool                   |
+| char                   |
+| char16_t               |
+| char32_t               |
+| wchar_t                |
+| signed char            |
+| short int              |
+| int                    |
+| long int               |
+| long long int          |
+| unsigned char          |
+| unsigned short int     |
+| unsigned int           |
+| unsigned long int      |
+| unsigned long long int |
+
+**prototype**
+```c++
+//default
+template <class T>
+struct is_integral : false_type {};
+```
+
+가장 기본 타입은 `false_type`을 상속받습니다. `false_type`은 `integral_constant<bool, false>`를 `재정의(typedef)`한 `alias`이기 때문에 멤버 변수 `integral_constant<bool, false>::value`는 `false`로 초기화 됩니다.
+
+**implementation**
+```c++
+// specialization
+template <>
+struct is_integral<bool> : true_type {};
+template <>
+struct is_integral<char> : true_type {};
+template <>
+struct is_integral<char16_t> : true_type {};
+template <>
+struct is_integral<char32_t> : true_type {};
+template <>
+struct is_integral<wchar_t> : true_type {};
+template <>
+struct is_integral<short int> : true_type {};
+template <>
+struct is_integral<int>> : true_type {};
+template <>
+struct is_integral<long int> : true_type {};
+template <>
+struct is_integral<long long int> : true_type {};
+template <>
+struct is_integral<unsigned char> : true_type {};
+template <>
+struct is_integral<unsigned short int> : true_type {};
+template <>
+struct is_integral<unsigned int> : true_type {};
+template <>
+struct is_integral<unsigned long int> : true_type {};
+template <>
+struct is_integral<unsigned long long int> : true_type {};
+```
+
+이처럼 특정 타입에 대한 특수화로 `is_integral`을 정수 타입인지 판별하는 템플릿 메타 함수로 사용할 수 있고, 아래와 같이 값을 참조 할 수 있습니다.
+
+```c++
+// typedef를 사용해 의존참조
+typedef is_integral<int> int_t;
+int_t::value;
+
+// 선언과 동시에 직접 참조
+is_integral<char>::value;
+
+// integral_constant의 operator 오버로딩을 활용
+is_integral<unsigned int>();
+```
 
 # Reference
 
