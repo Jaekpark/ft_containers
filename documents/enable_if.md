@@ -1,6 +1,10 @@
 # 개요(Summary)
 
-`ft_containers`에서는 `std::enable_if`와 `std::is_integral` 클래스를 재구현 하도록 요구하고 있습니다. 해당 메소드들은 `C++11` 이후부터 구현되어 있는 클래스들로, `C++98` 표준으로 구현이라는 과제 기본 규칙에 위배되어 의문이 생길 수 있습니다. 하지만 해당 클래스들은 C++98 표준만으로 충분히 구현이 가능하고, `템플릿 메타 프로그래밍(template meta programming)`과 `SFINAE(substitution failure is not an error)`의 개념을 이해할 수 있는 좋은 예시이기 때문에, 해당 개념들과 함께 글을 작성했습니다.
+`ft_containers`에서는 `std::enable_if`와 `std::is_integral` 클래스를 재구현 하도록 요구하고 있습니다.
+
+해당 메소드들은 `C++11` 이후부터 구현되어 있는 클래스들로, `C++98` 표준으로 구현이라는 과제 기본 규칙에 위배되어 의문이 생길 수 있습니다.
+
+하지만 해당 클래스들은 C++98 표준만으로 충분히 구현이 가능하고, `템플릿 메타 프로그래밍(template meta programming)`과 `SFINAE(substitution failure is not an error)`의 개념을 이해할 수 있는 좋은 예시이기 때문에, 해당 개념들과 함께 글을 작성했습니다.
 
 # 목차(Contents)
 - [개요(Summary)](#개요summary)
