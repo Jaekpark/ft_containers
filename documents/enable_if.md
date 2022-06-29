@@ -1,12 +1,10 @@
 
 # 목차(Contents)
-
 - [목차(Contents)](#목차contents)
 - [일반화 프로그래밍(Generic Programming)](#일반화-프로그래밍generic-programming)
 - [템플릿 메타 프로그래밍(Template meta programming - TMP)](#템플릿-메타-프로그래밍template-meta-programming---tmp)
 - [템플릿 메타 함수(Template meta function)](#템플릿-메타-함수template-meta-function)
 - [`integral_constant`](#integral_constant)
-  - [`integral_constant`의 `value`를 반환합니다. 반환값은 템플릿 매개변수 `T v`와 같습니다.](#integral_constant의-value를-반환합니다-반환값은-템플릿-매개변수-t-v와-같습니다)
 - [`is_integral`](#is_integral)
 - [Reference](#reference)
 # 일반화 프로그래밍(Generic Programming)
@@ -242,11 +240,11 @@ typedef integral_constant<bool, false> false_type;
 
 + `operator value_type()` : 함수 호출자 오버로딩
 
+  `value`를 반환합니다. 반환값은 템플릿 매개변수 `T v`와 같습니다.
+  
   ```c++
   constexpr operator value_type();
   ```
-
-  `integral_constant`의 `value`를 반환합니다. 반환값은 템플릿 매개변수 `T v`와 같습니다.
 ---
 # `is_integral`
 
