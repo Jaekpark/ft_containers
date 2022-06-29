@@ -177,6 +177,7 @@ struct boolean {
 
 결론적으로 (2)번 처럼 템플릿 메타 프로그래밍에서 함수는 아니지만 마치 함수처럼 사용 하는 템플릿 클래스들을 `템플릿 메타 함수(template meta function)`라고 합니다.
 
+---
 
 # `integral_constant`
 
@@ -234,7 +235,7 @@ typedef integral_constant<bool, false> false_type;
   ```
 
   `integral_constant`의 `value`를 반환합니다. 반환값은 템플릿 매개변수 `T v`와 같습니다.
-
+---
 # `is_integral`
 
 
