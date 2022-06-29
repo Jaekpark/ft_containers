@@ -149,7 +149,7 @@ public:
     static const int gcd = X;
   };
   ```
-# 템플릿 메타 함수
+# 템플릿 메타 함수(Template meta function)
 
 `템플릿 메타 함수`란 함수 처럼 동작하는 템플릿 클래스를 말합니다.
 
