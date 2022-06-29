@@ -182,8 +182,6 @@ struct boolean {
 
 `TMP`는 C++ 표준 라이브러리에서도 다양하게 쓰이고 있습니다. 이 중 `integral_constant`는 정수 상수값을 타입으로 활용할 수 있도록 해주는 `템플릿 메타 함수`입니다. 일반적으로 `bool` 타입 값을 활용해 `참, 거짓`을 상수값으로 활용 할 때 자주 사용됩니다.
 
-> 
-
 `<type_traits>` 헤더에 정의 및 구현이 선언되어 있고, 내부적으로 `integral_constant<bool, true>` 타입을 `true_type`으로 정의하고, `intergral_constant<bool, false>` 타입을 `false_type`으로 정의해 `alias`들을 제공하고 있습니다.
 
 **prototype**
@@ -201,6 +199,8 @@ typedef integral_constant<bool, true> true_type;
 typedef integral_constant<bool, false> false_type;
 ```
 
+**template parameters**
+
 + `T`
 
   정수 상수값의 타입을 의미합니다.
@@ -209,9 +209,22 @@ typedef integral_constant<bool, false> false_type;
 
   `T` 타입의 정수 상수값입니다. `integral_constant::value`에 접근해 값을 참조 할 수 있습니다.
 
+**member_type**
 
+| member_type | definition                   |
+| ----------- | ---------------------------- |
+| value_type  | 상수의 타입을 말합니다.      |
+| type        | 자가 자신의 타입 정의입니다. |
 
+**member function**
 
++ `operator value_type()` : 함수 호출자 오버로딩
+
+  ```c++
+  constexpr operator value_type();
+  ```
+
+  `integral_constant`의 `value`를 반환합니다. 반환값은 템플릿 매개변수 `T v`와 같습니다.
 
 # Reference
 
