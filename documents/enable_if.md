@@ -339,7 +339,18 @@ is_integral<unsigned int>();
 
 **prototype**
 ```c++
+template <bool, class T = void>
+struct enable_if {};
+```
 
+`enable_if`의 기본 타입은 아무것도 존재하지 않는 `빈(empty)` 클래스 형태로 선언됩니다.
+
+**implementation**
+```c++
+template <class T>
+struct enable_if<true, T> {
+  typedef T type;
+}
 ```
 
 # Reference
