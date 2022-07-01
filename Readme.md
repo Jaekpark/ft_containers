@@ -1,7 +1,5 @@
 # Summary
 
-![subject_score](images/subject_evaluatuon_result.jpeg)
-
 This is a project to re-implement some `C++ STL Containers` to understand them.
 
 Some requirements for this project are as follow:
