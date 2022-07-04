@@ -361,11 +361,11 @@ int main() {
 
 `SFINAE`란 `함수 템플릿`이 포함된 `오버로드 집합이 존재`할때, 적합한 함수를 찾는 과정에서 `치환 실패`가 발생한 경우, `컴파일 에러`를 발생시키는 것이 아니라 `오버로드 함수 집합`에서 `해당 함수를 제외`시킴으로써 불필요한 코드 생성을 막고, `정적 다형성(static polymorphism)`을 구현할 수 있도록 해주는 기법입니다.
 
-`SFINAE`를 더욱 쉽고 확실하게 이해하기 위해서는 아래 내용을 이해할 필요가 있습니다.
+`SFINAE`를 명확하게 이해하기 위해서는 아래 내용을 이해할 필요가 있습니다.
 
 1. 오버로드 함수 선택 우선순위
 2. 템플릿 인자 추론과 치환
-3. SFINAE : 어떤 경우 치환 실패는 오류가 아니고, 어떤 경우에 오류(hard error)인가?
+3. Substitution failure : 어떤 경우 치환 실패는 오류가 아니고, 어떤 경우에 오류(hard error)인가?
 4. SFINAE의 활용
 
 <!-- **컴파일러의 오버로드 함수 선택과 템플릿 인자 추론** -->
@@ -382,10 +382,32 @@ int main() {
 }
 ```
 
-위 예시는 `string` 타입 매개변수를 받는 `print()` 함수가 1개 선언되어 있습니다. 실행 결과는 물론 `string : hello world`
+위 예시는 `string` 타입 매개변수를 받는 `print()` 함수가 1개 선언되어 있습니다. 실행 결과는 물론 `string : hello world`입니다.
 
 ```c++
 // 2번 예시
+void print(const char* x) {
+  std::cout << "const char * :" << x << endl;
+}
+void print(std::string x) {
+  std::cout << "string : " << x << std::endl;
+}
+template <class T>
+void print(const T& x) {
+  std::cout << "template : " << x << std::endl;
+}
+
+int main() {
+  print("hello world");
+}
+```
+**1순위 : 정확하게 일치하는 함수**
+
+그렇다면 위의 코드의 실행결과는 어떨까요? `hello world`는 문자열이기 때문에 `void print(std::string x)`가 실행될까요? 실행 결과는 `const char * : hello world`로 `void print(const char *)` 함수가 호출 됩니다. 
+
+왜냐하면 `print("hello world")` 구문의 `hello world`는 `문자열 리터럴`입니다. `C++`에서 문자열 리터럴은 `const char[n]` 타입으로 선언됩니다. 따라서 `void print(std::string x)`의 경우에는 `const char[n] -> std::string`과 같은 형변환이 이뤄져야 하고, 함수 템플릿 `void print(const T& x)`는 템플릿 `인자 치환`이 이뤄져야 합니다. 반면 `void print(const char* x)`는 정확하게 매개변수의 타입이 `일치`하므로 컴파일러는 이 함수를 선택합니다.
+
+```c++
 void print(std::string x) {
   std::cout << "string : " << x << std::endl;
 }
@@ -399,9 +421,7 @@ int main() {
 }
 ```
 
-그렇다면 위의 코드의 실행결과는 어떨까요? `hello world`는 문자열이기 때문에 첫 번째 오버로딩 함수가 호출된다라고 생각할 수 있지만, 결과는 `template : hello world`로 두 번재 템플릿 함수가 호출 됩니다.
 
-왜냐하면 `print("hello world")` 구문의 `"hello world"`는 `문자열 리터럴`입니다. C++에서 문자열 리터럴은 `const char[n]` 타입으로 선언됩니다. 따라서 `void print(std::string x)`의 경우에는 `const char[n] -> std::string`과 같은 형변환이 이뤄져야 합니다. 반면 함수 템플릿 `void print(const T& x)`는 `T`를 `const char[]`로 치환만 해주면 동작이 가능하기 때문에 해당 함수가 선택됩니다.
 
 ```c++
 // 1번
