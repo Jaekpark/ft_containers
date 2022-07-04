@@ -365,8 +365,8 @@ int main() {
 
 1. 오버로드 함수 선택 우선순위
 2. 템플릿 인자 추론과 치환
-3. Substitution failure : 어떤 경우 치환 실패는 오류가 아니고, 어떤 경우에 오류(hard error)인가?
-4. SFINAE의 활용
+3. Substitution failure : 어떤 경우 오류가 아닌 `치환실패`고, 어떤 경우에 `오류(hard error)`인가?
+4. `SFINAE`의 활용
 
 <!-- **컴파일러의 오버로드 함수 선택과 템플릿 인자 추론** -->
 
@@ -381,9 +381,14 @@ int main() {
   print("hello world");
 }
 ```
+```bash
+> ./a.out
+> string : hello world
+```
 
 위 예시는 `string` 타입 매개변수를 받는 `print()` 함수가 1개 선언되어 있습니다. 실행 결과는 물론 `string : hello world`입니다.
 
+**1순위 : 정확하게 일치하는 함수**
 ```c++
 // 2번 예시
 void print(const char* x) {
@@ -401,11 +406,15 @@ int main() {
   print("hello world");
 }
 ```
-**1순위 : 정확하게 일치하는 함수**
+```bash
+> ./a.out
+> const char * : hello world
+```
+그렇다면 위의 코드의 실행결과는 어떨까요? `hello world`는 문자열이기 때문에 `void print(std::string x)`가 실행될까요?
 
-그렇다면 위의 코드의 실행결과는 어떨까요? `hello world`는 문자열이기 때문에 `void print(std::string x)`가 실행될까요? 실행 결과는 `const char * : hello world`로 `void print(const char *)` 함수가 호출 됩니다. 
+실행 결과는 `const char * : hello world`로 `void print(const char *)` 함수가 호출 됩니다. 
 
-왜냐하면 `print("hello world")` 구문의 `hello world`는 `문자열 리터럴`입니다. `C++`에서 문자열 리터럴은 `const char[n]` 타입으로 선언됩니다. 따라서 `void print(std::string x)`의 경우에는 `const char[n] -> std::string`과 같은 형변환이 이뤄져야 하고, 함수 템플릿 `void print(const T& x)`는 템플릿 `인자 치환`이 이뤄져야 합니다. 반면 `void print(const char* x)`는 정확하게 매개변수의 타입이 `일치`하므로 컴파일러는 이 함수를 선택합니다.
+왜냐하면 `print("hello world")` 구문의 `hello world`는 `문자열 리터럴`입니다. `C++`에서 문자열 리터럴은 `const char[n]` 타입으로 선언됩니다. 따라서 `void print(std::string x)`의 경우에는 `const char[n] -> std::string`과 같은 형변환이 이뤄져야 하고, 함수 템플릿 `void print(const T& x)`는 템플릿 `인자 치환`이 이뤄져야 합니다. 반면 `void print(const char* x)`는 정확하게 매개변수의 타입이 `정확하게 일치`하므로 컴파일러는 이 함수를 선택합니다.
 
 ```c++
 void print(std::string x) {
