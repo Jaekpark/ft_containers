@@ -14,6 +14,7 @@
 - [템플릿 메타 함수(Template meta function)](#템플릿-메타-함수template-meta-function)
 - [`integral_constant`](#integral_constant)
 - [`is_integral`](#is_integral)
+- [`SFINAE(substitution failure is not an error)` : 치환 실패는 오류가 아니다.](#sfinaesubstitution-failure-is-not-an-error--치환-실패는-오류가-아니다)
 - [`enable_if`](#enable_if)
 - [Reference](#reference)
 # 일반화 프로그래밍(Generic Programming)
@@ -48,7 +49,7 @@ public:
 위의 예시처럼 `template` 키워드와 선언과 함께 `<typename T>` 혹은 `<class T>`와 같은 형식으로 `템플릿 매개변수`를 선언하고 `T`를 타입처럼 사용하면, 템플릿 매개변수 `T`에 전달되는 타입에 따라 컴파일 단계에서 컴파일러가 해당 타입으로 치환시킨 새로운 객체를 생성하게 됩니다.
 
 ```c++
-// int형 타입을 갖는 템플릿 함수 add() : <typename T = int>
+// int형 타입을 갖는 함수 템플릿 add() : <typename T = int>
 add<int>(a, b);
 ```
 ```c++
@@ -192,7 +193,7 @@ struct boolean {
 
 (1)번 `bool boolean()`은 `bool` 타입 매개변수 `condition`을 받아 값이 참일 경우 `true`를 반환하고, 거짓일 경우 `false`를 반환 하는 일반 함수입니다. 이 일반 함수는 `런타임`에 `boolean(true)`, `boolean(false)`와 같이 함수 매개변수를 받아 구현에 따라 연산 수행하고 값을 반환합니다. 즉, `값에 대한 연산`을 수행합니다.
 
-반면 (2)번 `struct boolean` 템플릿 클래스로 선언되어, `bool` 타입 템플릿 매개변수 `condition`을 받고, 해당 값을 멤버 변수 `_condition`에 저장합니다. 이 클래스는 `컴파일 타임`에 `typedef boolean<true>`, `typedef boolean<false>`와 같은 타입으로 정의 될 수 있고, 정의된 타입 내부의 `_condition`을 참조해 값을 얻을 수 있습니다. 즉, `타입에 대한 연산`을 수행합니다.
+반면 (2)번 `struct boolean` 클래스 템플릿으로 선언되어, `bool` 타입 템플릿 매개변수 `condition`을 받고, 해당 값을 멤버 변수 `_condition`에 저장합니다. 이 클래스는 `컴파일 타임`에 `typedef boolean<true>`, `typedef boolean<false>`와 같은 타입으로 정의 될 수 있고, 정의된 타입 내부의 `_condition`을 참조해 값을 얻을 수 있습니다. 즉, `타입에 대한 연산`을 수행합니다.
 
 결론적으로 (2)번 처럼 템플릿 메타 프로그래밍에서 함수는 아니지만 마치 함수처럼 사용 하는 템플릿 클래스들을 `템플릿 메타 함수(template meta function)`라고 합니다.
 
@@ -335,6 +336,121 @@ is_integral<char>::value;
 is_integral<unsigned int>();
 ```
 ---
+# `SFINAE(substitution failure is not an error)` : 치환 실패는 오류가 아니다.
+
+```c++
+// overload set
+template <class T>
+T foo(T& x, T y) {
+  //do something...
+}
+template <class To, class From>
+To foo(To& x, From& y) {
+  //do something...
+}
+template <class T>
+typename T::member_type foo(T& x) {
+  //do something
+}
+
+int main() {
+  // do something
+  foo(x, y) // template argument deduction
+}
+```
+
+`SFINAE`란 `함수 템플릿`이 포함된 `오버로드 집합이 존재`할때, 적합한 함수를 찾는 과정에서 `치환 실패`가 발생한 경우, `컴파일 에러`를 발생시키는 것이 아니라 `오버로드 함수 집합`에서 `해당 함수를 제외`시킴으로써 불필요한 코드 생성을 막고, `정적 다형성(static polymorphism)`을 구현할 수 있도록 해주는 기법입니다.
+
+`SFINAE`를 더욱 쉽고 확실하게 이해하기 위해서는 아래 내용을 이해할 필요가 있습니다.
+
+1. 오버로드 함수 선택 우선순위
+2. 템플릿 인자 추론과 치환
+3. SFINAE : 어떤 경우 치환 실패는 오류가 아니고, 어떤 경우에 오류(hard error)인가?
+4. SFINAE의 활용
+
+<!-- **컴파일러의 오버로드 함수 선택과 템플릿 인자 추론** -->
+
+**오버로드 함수 선택 우선순위**
+```c++
+// 1번 예시 
+void print(std::string x) {
+  std::cout << "string : " << x << std::endl;
+}
+
+int main() {
+  print("hello world");
+}
+```
+
+위 예시는 `string` 타입 매개변수를 받는 `print()` 함수가 1개 선언되어 있습니다. 실행 결과는 물론 `string : hello world`
+
+```c++
+// 2번 예시
+void print(std::string x) {
+  std::cout << "string : " << x << std::endl;
+}
+template <class T>
+void print(const T& x) {
+  std::cout << "template : " << x << std::endl;
+}
+
+int main() {
+  print("hello world");
+}
+```
+
+그렇다면 위의 코드의 실행결과는 어떨까요? `hello world`는 문자열이기 때문에 첫 번째 오버로딩 함수가 호출된다라고 생각할 수 있지만, 결과는 `template : hello world`로 두 번재 템플릿 함수가 호출 됩니다.
+
+왜냐하면 `print("hello world")` 구문의 `"hello world"`는 `문자열 리터럴`입니다. C++에서 문자열 리터럴은 `const char[n]` 타입으로 선언됩니다. 따라서 `void print(std::string x)`의 경우에는 `const char[n] -> std::string`과 같은 형변환이 이뤄져야 합니다. 반면 함수 템플릿 `void print(const T& x)`는 `T`를 `const char[]`로 치환만 해주면 동작이 가능하기 때문에 해당 함수가 선택됩니다.
+
+```c++
+// 1번
+template <class T>
+struct my_data {
+  typedef T value_type;
+  value_type value;
+  my_data(const T& val = 0) : value(val) {};
+}
+
+template <class T>
+typename T::value_type sum(T& x, T& y) {
+  cout << "T::value_type sum : " << x.value + y.value << endl;
+  return x.value + y.value;
+}
+// 2번
+template <class T>
+T sum(T& x, T& y) {
+  cout << "T sum : " << x + y << endl;
+  return x + y;
+}
+
+int main() {
+  int a = 10;
+  int b = 20;
+  sum(a, b); // 2번 함수 템플릿 실행, T sum : 30
+  my_data<int> c(10);
+  my_data<int> d(20);
+  sum(c, d); // 1번 함수 템플릿 실행, T::value_type sum : 30
+}
+```
+
+다음 예시입니다. 똑같이 템플릿 매개변수 `T`를 사용하는 `sum` 오버로딩 함수들입니다. 이 때 `sum(int, int)`형식으로 호출하면 `int` 타입에는 멤버 타입 `value_type`이 존재하지 않기 때문에 `1번 함수 템플릿`은 오버로드 집합에서 제외되고, `T sum()`함수가 실행됩니다.
+
+반면 `my_data`는 
+
+
+이처럼 컴파일러는 특정 함수의 오버로딩 리스트가 존재하는 경우 해당 집합에서 가장 적합한 함수를 찾습니다.
+이 때 만약 
+
+> 마찬가지로 1번 예시에서도 `"hello world"`는 `const char[n]` 타입이고, 컴파일러가 대신 `std::string`으로 형변환을 한 뒤, 함수를 실행하게 됩니다.
+
+
+이번에는 함수 템플릿 오버로딩 예시를 살펴보겠습니다. 
+![sfinae](../images/sfinae.png)
+
+
+
+---
 # `enable_if`
 
 **prototype**
@@ -347,10 +463,26 @@ struct enable_if {};
 
 **implementation**
 ```c++
+// specialization
 template <class T>
 struct enable_if<true, T> {
   typedef T type;
 }
+```
+
+템플릿 매개변수로 `true`가 들어오는 경우에 한해서만 타입 `T`를 `type`으로 `aliasing` 하도록 합니다.
+
+```c++
+enable_if<true, T>::type // true인 경우 type 존재
+enable_if<false, T>::type // 에러 : false인 경우 type 없음.
+```
+
+반면 `false`가 들어오는 경우에는 기본 선언형인 비어있는 `enable_if` 템플릿으로 동작하기 때문에 내부에 `alias`가 존재하지 않습니다.
+
+결과적으로 `enable_if`는 `특정 타입에 대한 (참 혹은 거짓을 반환하는)연산결과`와 해당 `타입`을 템플릿 매개변수로 받아 `true`인 경우 타입에 대한 `alias`를 정의하고, `false`인 경우에는 아무것도 정의하지 않음으로써 일종의 조건문 처럼 `alias`의 존재 유무에 따라 컴파일 타임에 `분기`를 가능하게 해줍니다.
+
+```c++
+
 ```
 
 # Reference
