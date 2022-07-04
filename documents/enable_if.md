@@ -388,7 +388,8 @@ int main() {
 
 위 예시는 `string` 타입 매개변수를 받는 `print()` 함수가 1개 선언되어 있습니다. 실행 결과는 물론 `string : hello world`입니다.
 
-**1순위 : 정확하게 일치하는 함수**
+
+**`1순위 : 정확하게 일치하는 함수`**
 ```c++
 // 2번 예시
 void print(const char* x) {
@@ -414,9 +415,12 @@ int main() {
 
 실행 결과는 `const char * : hello world`로 `void print(const char *)` 함수가 호출 됩니다. 
 
-왜냐하면 `print("hello world")` 구문의 `hello world`는 `문자열 리터럴`입니다. `C++`에서 문자열 리터럴은 `const char[n]` 타입으로 선언됩니다. 따라서 `void print(std::string x)`의 경우에는 `const char[n] -> std::string`과 같은 형변환이 이뤄져야 하고, 함수 템플릿 `void print(const T& x)`는 템플릿 `인자 치환`이 이뤄져야 합니다. 반면 `void print(const char* x)`는 정확하게 매개변수의 타입이 `정확하게 일치`하므로 컴파일러는 이 함수를 선택합니다.
+왜냐하면 `print("hello world")` 구문의 `hello world`는 `문자열 리터럴`입니다. `C++`에서 문자열 리터럴은 `const char[n]` 타입으로 선언됩니다. 따라서 `void print(std::string x)`의 경우에는 `const char[n] -> std::string`과 같은 형변환(정확히는 string 객체 생성)이 이뤄져야 하고, 함수 템플릿 `void print(const T& x)`는 템플릿 `인자 치환`이 이뤄져야 합니다. 반면 `void print(const char* x)`는 매개변수의 타입이 `정확하게 일치`하므로 컴파일러는 이 함수를 선택합니다.
 
+
+**2순위 : 함수 템플릿**
 ```c++
+// 3번 예시
 void print(std::string x) {
   std::cout << "string : " << x << std::endl;
 }
@@ -429,7 +433,11 @@ int main() {
   print("hello world");
 }
 ```
-
+```bash
+> ./a.out
+> template : hello world
+```
+이번 예시는 정확하게 일치하는 함수가 없는 경우입니다. 이 때 `void print(std::string x)`는 값 복사와 객체 생성(매개변수를 참조자 선언하지 않았기 때문에)이 발생하고, `void print(const T& x)`는 `인자 치환`만으로 동작 가능하기 때문에 `함수 템플릿`이 실행되어, `template : hello world`가 출력됩니다.
 
 
 ```c++

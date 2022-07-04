@@ -1,43 +1,9 @@
 #include <iostream>
 #include <iterator>
+#include <string>
 #include <type_traits>
 
 using namespace std;
-
-template <typename T>
-T add(T t1, T t2) {
-  return t1 + t2;
-}
-
-template <class T>
-class Calculator {
- public:
-  T add(T t1, T t2) { return t1 + t2; }
-  T sub(T t1, T t2) { return t1 - t2; }
-  T mul(T t1, T t2) { return t1 * t2; }
-  T div(T t1, T t2) { return t1 / t2; }
-};
-
-template <class T, T v>
-struct meta {
-  // typedef T value_type;
-  // typedef meta type;
-  static const T value = v;
-  // operator value_type() const { return value; }
-  // const value_type operator()() const { return value; }
-};
-
-template <class T>
-struct something {
-  T value;
-  something(T v = 0) : value(v) {}
-};
-
-template <long X, long Y>
-struct Euclidean {
-  static const long gcd = Euclidean<Y, X % Y>::gcd;
-  static const long lcm = (X * Y) / gcd;
-};
 
 template <class T>
 class my_array {
@@ -93,25 +59,19 @@ class my_array {
   bool empty() const { return this->size() == 0; }
 };
 
-// void print(char* t) { cout << "char : " << t << endl; }
-void print(std::string t) { cout << "str : " << t << endl; }
+void print(std::string str) { cout << "string : " << str << endl; }
 // void print(const char* t) { cout << "const char : " << t << endl; }
 // void print(std::string t) { cout << "string : " << t << endl; }
-template <class T>
-void print(T t) {
-  cout << "template : " << t << endl;
-}
+// template <class T>
+// void print(const T& x) {
+//   cout << "template : " << t << endl;
+// }
 
-template <class T>
-typename T::value_type print(typename T::value_type t) {
-  return t;
-}
-
-template <class T>
-typename T::value_type sum(T& x, T& y) {
-  cout << "T::value_type sum : " << x + y << endl;
-  return x + y;
-}
+// template <class T>
+// typename T::value_type sum(T& x, T& y) {
+//   cout << "T::value_type sum : " << x + y << endl;
+//   return x + y;
+// }
 
 // template <class T>
 // T sum(T& x, T& y,
@@ -134,16 +94,4 @@ struct my_data {
   my_data(const T& val = 0) : value(val){};
 };
 
-template <long X>
-struct Euclidean<X, 0> {
-  static const long gcd = X;
-};
-
-int main() {
-  int a = 10;
-  int b = 20;
-  cout << sum(a, b) << endl;
-  my_data<int> c(10);
-  my_data<int> d(20);
-  cout << sum(c, d) << endl;
-}
+int main() { print("hello world"); }
